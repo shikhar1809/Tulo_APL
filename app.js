@@ -13,11 +13,50 @@ const addPropertyAction = document.querySelector("#add-property-action");
 const geminiModel = "gemini-2.5-flash";
 const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`;
 
+let map;
+let mapMarkers = [];
+
 function switchView(id) {
   views.forEach((view) => view.classList.toggle("active", view.id === id));
   navItems.forEach((item) => item.classList.toggle("active", item.dataset.view === id));
   const active = document.querySelector(`[data-view="${id}"]`);
   pageTitle.textContent = active ? active.dataset.title || active.textContent : "Dashboard";
+  
+  if (id === "mapView") {
+    if (!map) initMap();
+    setTimeout(() => map.invalidateSize(), 10);
+  }
+}
+
+function initMap() {
+  map = L.map('map').setView([26.8467, 80.9462], 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  L.polygon([
+    [26.8150, 80.8900], [26.8250, 80.9000], [26.8200, 80.9100], [26.8100, 80.9000]
+  ], {color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.3}).addTo(map).bindPopup("Alambagh Area");
+
+  L.polygon([
+    [26.8500, 80.9800], [26.8700, 81.0100], [26.8500, 81.0300], [26.8400, 81.0000]
+  ], {color: '#10b981', fillColor: '#10b981', fillOpacity: 0.3}).addTo(map).bindPopup("Gomti Nagar Area");
+
+  updateMapMarkers();
+}
+
+function updateMapMarkers() {
+  if (!map) return;
+  mapMarkers.forEach(m => map.removeLayer(m));
+  mapMarkers = [];
+  properties.forEach(p => {
+    const lat = 26.8467 + (Math.random() - 0.5) * 0.06;
+    const lng = 80.9462 + (Math.random() - 0.5) * 0.08;
+    const marker = L.marker([lat, lng]).addTo(map)
+      .bindPopup(`<b>${p.name}</b><br>${p.address}<br>Status: ${p.units}`);
+    mapMarkers.push(marker);
+  });
 }
 
 function applyAuthRole(role) {
@@ -80,6 +119,7 @@ function initFirestoreListeners() {
   db.collection("properties").onSnapshot(snap => {
     properties = snap.docs.map(doc => doc.data());
     render();
+    if (typeof updateMapMarkers === "function") updateMapMarkers();
   });
   db.collection("rentRows").onSnapshot(snap => {
     rentRows = snap.docs.map(doc => doc.data());

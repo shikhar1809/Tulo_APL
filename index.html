@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
     <!-- Firebase Hosting reserved URLs (secure, no hardcoded API keys needed) -->
@@ -68,23 +70,23 @@
             </span>
             <span class="nav-label">Properties</span>
           </button>
-          <button class="nav-item" data-view="poster" data-title="Poster Maker">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/><path d="M8 16h8"/></svg>
-            </span>
-            <span class="nav-label">Poster</span>
-          </button>
-          <button class="nav-item" data-view="ai" data-title="AI Studio">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
-            </span>
-            <span class="nav-label">AI Studio</span>
-          </button>
           <button class="nav-item" data-view="rentTenant" data-title="Rent & Tenant View">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
             </span>
             <span class="nav-label">Rent</span>
+          </button>
+          <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+            </span>
+            <span class="nav-label">Map</span>
+          </button>
+          <button class="nav-item" data-view="aiAndPosters" data-title="AI Studio & Poster Maker">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
+            </span>
+            <span class="nav-label">AI & Posters</span>
           </button>
         </nav>
         <nav class="nav" id="tenant-nav" style="display: none;">
@@ -94,23 +96,23 @@
             </span>
             <span class="nav-label">Home</span>
           </button>
-          <button class="nav-item" data-view="tenantRent" data-title="Rent & Receipts">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
-            </span>
-            <span class="nav-label">Rent & Receipts</span>
-          </button>
-          <button class="nav-item" data-view="tenantMaintenance" data-title="Maintenance">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M8 7h1"/><path d="M12 7h1"/><path d="M8 11h1"/><path d="M12 11h1"/><path d="M17 9h1a2 2 0 0 1 2 2v10"/></svg>
-            </span>
-            <span class="nav-label">Maintenance</span>
-          </button>
           <button class="nav-item" data-view="tenantProperty" data-title="My Property & Lease">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/><path d="M8 16h8"/></svg>
             </span>
-            <span class="nav-label">Property & Lease</span>
+            <span class="nav-label">Property</span>
+          </button>
+          <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+            </span>
+            <span class="nav-label">Map</span>
+          </button>
+          <button class="nav-item" data-view="tenantRentAndRepair" data-title="Rent & Maintenance">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
+            </span>
+            <span class="nav-label">Rent & Repair</span>
           </button>
           <button class="nav-item" data-view="tenantAi" data-title="Tenant AI Assistant">
             <span class="nav-icon" aria-hidden="true">
@@ -197,7 +199,11 @@
           <div class="request-list" id="request-list"></div>
         </section>
 
-        <section class="view" id="poster">
+        <section class="view" id="mapView" style="display: none; height: calc(100vh - 80px); padding: 0;">
+          <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
+        </section>
+
+        <section class="view" id="aiAndPosters">
           <div class="poster-layout">
             <div>
               <p class="eyebrow">Template</p>
@@ -226,9 +232,8 @@
               <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
             </div>
           </div>
-        </section>
-
-        <section class="view" id="ai">
+          </div>
+          <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--line);" />
           <div class="section-head">
             <div>
               <p class="eyebrow">Gemini 2.5 Flash</p>
@@ -318,7 +323,7 @@
           </article>
         </section>
 
-        <section class="view" id="tenantRent">
+        <section class="view" id="tenantRentAndRepair">
           <div class="section-head">
             <div>
               <h2>Rent & Receipts</h2>
@@ -337,9 +342,8 @@
             <div class="table-row head"><span>Month</span><span>Amount</span><span>Status</span><span>Date Paid</span><span>Action</span></div>
             <div id="tenant-rent-history"></div>
           </div>
-        </section>
-
-        <section class="view" id="tenantMaintenance">
+          </div>
+          <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--line);" />
           <div class="section-head">
             <div>
               <h2>Maintenance</h2>
