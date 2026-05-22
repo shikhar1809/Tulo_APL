@@ -1,5 +1,5 @@
 # SPEC.md — Technical Specification
-## PropEase Lucknow — Multi-Tenant Property Management Agent
+## TULO Lucknow — Multi-Tenant Property Management Agent
 
 **Version:** 1.0  
 **Stack:** Flutter (Frontend) · Firebase (Backend, Auth, Deployment)  
@@ -151,7 +151,7 @@
 6. Tenant onboarding flow shows attest video before signing lease
 
 **Technical Details:**
-- Storage path: `gs://propeasy/attestVideos/{propertyId}/{videoId}.mp4`
+- Storage path: `gs://tulo/attestVideos/{propertyId}/{videoId}.mp4`
 - Max size: 500MB
 - Supported formats: MP4, MOV
 - Thumbnail generated via Cloud Function (ffmpeg layer)
@@ -354,7 +354,7 @@ App Launch
 
 ### 7.1 Firebase Project Setup
 
-- **Project:** `propeasy-lucknow`
+- **Project:** `tulo-lucknow`
 - **Firestore:** `nam5` region (closest to India = `asia-south1`)
 - **Cloud Functions:** `asia-south1` (Mumbai)
 - **Storage:** Multi-region (Asia)
@@ -370,9 +370,9 @@ App Launch
 
 | Env | Firebase Project | Purpose |
 |-----|-----------------|---------|
-| dev | propeasy-dev | Local development |
-| staging | propeasy-staging | QA testing |
-| prod | propeasy-prod | Live users |
+| dev | tulo-dev | Local development |
+| staging | tulo-staging | QA testing |
+| prod | tulo-prod | Live users |
 
 ---
 

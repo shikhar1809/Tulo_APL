@@ -1,5 +1,5 @@
 # PRD.md — Product Requirements Document
-## PropEase — Agentic Property Management for Lucknow Landlords
+## TULO — Agentic Property Management for Lucknow Landlords
 
 **Version:** 1.0  
 **Owner:** Founding Team  
@@ -10,9 +10,9 @@
 
 ## 1. Executive Summary
 
-Lucknow's real estate market has over 80,000 small landlords managing PGs, flats, and commercial spaces — nearly all doing it manually via WhatsApp, cash receipts, and verbal agreements. PropEase is an agentic SaaS that handles the full landlord-tenant lifecycle: from property attestation to rent collection, maintenance, and tenant onboarding.
+Lucknow's real estate market has over 80,000 small landlords managing PGs, flats, and commercial spaces — nearly all doing it manually via WhatsApp, cash receipts, and verbal agreements. TULO is an agentic SaaS that handles the full landlord-tenant lifecycle: from property attestation to rent collection, maintenance, and tenant onboarding.
 
-Three differentiators set PropEase apart from generic property apps:
+Three differentiators set TULO apart from generic property apps:
 1. **Attest Video** — Owner-recorded, timestamped walkthrough that serves as live proof of property condition
 2. **Verified Nearby Places** — Auto-fetched, not self-declared, amenity data from Google Maps
 3. **Poster Maker** — One-tap, branded property advertisement for WhatsApp and Instagram
@@ -42,7 +42,7 @@ Tenants renting in an unfamiliar city have no reliable way to:
 
 ### 2.3 Market Gap
 
-Existing apps (NoBroker, MagicBricks, Housing) are listing platforms, not management tools. They drop the landlord the moment a tenant is found. PropEase starts where they end.
+Existing apps (NoBroker, MagicBricks, Housing) are listing platforms, not management tools. They drop the landlord the moment a tenant is found. TULO starts where they end.
 
 ---
 
@@ -168,12 +168,12 @@ Existing apps (NoBroker, MagicBricks, Housing) are listing platforms, not manage
 - [ ] Accessible from property/unit screen: "Make Poster" button
 - [ ] 5 visual templates available at launch
 - [ ] Auto-populated fields: property name, locality, rent, BHK type, up to 3 amenities, landlord phone
-- [ ] QR code auto-generated linking to property's PropEase listing
+- [ ] QR code auto-generated linking to property's TULO listing
 - [ ] Landlord can change: main photo, color theme, displayed amenities, rent amount
 - [ ] Preview renders in real-time (< 2s update delay)
 - [ ] Export options: WhatsApp (800×800px), Instagram Post (1080×1080px), Instagram Story (1080×1920px), PDF A4
 - [ ] Exported to device gallery + shareable via system share sheet
-- [ ] No watermark on exported poster (landlord sees PropEase branding only in app)
+- [ ] No watermark on exported poster (landlord sees TULO branding only in app)
 - [ ] Template selection remembered per property for next time
 
 **Priority:** P0 (differentiator)
@@ -312,7 +312,7 @@ Existing apps (NoBroker, MagicBricks, Housing) are listing platforms, not manage
 
 - All API calls require Firebase Auth token (enforced via App Check)
 - KYC documents (Aadhaar): private storage bucket, signed URLs only, 1-hour TTL
-- Razorpay: no card/UPI data stored in PropEase systems
+- Razorpay: no card/UPI data stored in TULO systems
 - Security rules audited before launch: tenants cannot read other tenants' data
 - Phone numbers: not exposed in any public API response
 
@@ -342,7 +342,7 @@ All features free for 90 days post-launch to drive landlord adoption.
 
 ### 7.3 Transaction Fee
 
-- 1.5% of rent collected via PropEase (absorbed in Pro/Elite plans)
+- 1.5% of rent collected via TULO (absorbed in Pro/Elite plans)
 - Razorpay platform fee passed through at cost (~1.9% + GST)
 
 ### 7.4 Poster Marketplace (Phase 3)
@@ -422,7 +422,7 @@ Tenants are pulled in by landlords (invite flow). No direct-to-tenant marketing 
 | 4 | Do we support Aadhaar XML verification (DigiLocker) or just image upload? | Product | Week 4 |
 | 5 | What happens to a landlord's data if they delete their account mid-lease? | Legal + Engineering | Week 4 |
 | 6 | Should caretakers see financial data (rent amounts)? | Product | Week 5 |
-| 7 | Poster: include PropEase branding on free tier only? | Product / Growth | Week 6 |
+| 7 | Poster: include TULO branding on free tier only? | Product / Growth | Week 6 |
 
 ---
 
@@ -443,7 +443,7 @@ Tenants are pulled in by landlords (invite flow). No direct-to-tenant marketing 
 
 ### B. Competitive Landscape
 
-| Product | Type | Strength | Weakness vs. PropEase |
+| Product | Type | Strength | Weakness vs. TULO |
 |---------|------|----------|-----------------------|
 | NoBroker | Listing platform | Large user base | No post-listing management |
 | MagicBricks | Listing platform | Brand recognition | No rent collection or maintenance |

@@ -142,11 +142,11 @@ const aiPrompts = {
   listing: `Write a concise rental listing for Gomti Nagar PG in Lucknow. Details: Room 2 vacant, rent INR 7,000 per month, AC, WiFi, meals, verified nearby hospital/market/metro, attest video available. Use Indian English, trustworthy tone, WhatsApp-ready, under 90 words.`,
   rentReminder: `Draft a polite but firm WhatsApp rent reminder from landlord Ramesh Gupta to tenant Priya Singh. May 2026 rent of INR 7,000 is overdue by 4 days. Mention digital receipt for HRA and ask for payment today. Keep it under 65 words.`,
   maintenanceTriage: `Triage this maintenance request for a Lucknow landlord: "Main gate lock broken at Gomti Nagar PG". Return urgency, suggested SLA, caretaker instruction, and tenant update in short bullets.`,
-  tenantInvite: `Write a short onboarding invite from PropEase for a tenant joining Room 2, Gomti Nagar PG. Mention invite code, viewing attest video, Aadhaar upload, lease review, and e-sign. Friendly, clear, under 80 words.`,
+  tenantInvite: `Write a short onboarding invite from TULO for a tenant joining Room 2, Gomti Nagar PG. Mention invite code, viewing attest video, Aadhaar upload, lease review, and e-sign. Friendly, clear, under 80 words.`,
 };
 
 function getGeminiKey() {
-  return localStorage.getItem("propease_gemini_key") || "";
+  return localStorage.getItem("tulo_gemini_key") || "";
 }
 
 function updateGeminiState() {
@@ -289,7 +289,7 @@ function exportPoster() {
   ctx.fillText("QR", 844, 928);
 
   const link = document.createElement("a");
-  link.download = "propease-poster.png";
+  link.download = "tulo-poster.png";
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
@@ -313,12 +313,12 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.closest("#save-gemini-key")) {
     const input = document.querySelector("#gemini-key-input");
-    localStorage.setItem("propease_gemini_key", input.value.trim());
+    localStorage.setItem("tulo_gemini_key", input.value.trim());
     updateGeminiState();
     modal.classList.remove("active");
   }
   if (event.target.closest("#clear-gemini-key")) {
-    localStorage.removeItem("propease_gemini_key");
+    localStorage.removeItem("tulo_gemini_key");
     updateGeminiState();
     modal.classList.remove("active");
   }

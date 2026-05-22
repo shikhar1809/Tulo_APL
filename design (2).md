@@ -1,5 +1,5 @@
 # DESIGN.md — UI/UX Design System
-## PropEase Lucknow — Multi-Tenant Property Management Agent
+## TULO Lucknow — Multi-Tenant Property Management Agent
 
 **Version:** 1.0  
 **Framework:** Flutter  
