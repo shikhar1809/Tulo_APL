@@ -48,19 +48,32 @@ function initMap() {
   }).addTo(map);
 
   const zones = [
-    { name: "Gomti Nagar", color: "#10b981", coords: [[26.85, 80.98], [26.88, 81.04], [26.83, 81.05], [26.83, 80.98]] },
-    { name: "Alambagh", color: "#3b82f6", coords: [[26.81, 80.88], [26.83, 80.92], [26.78, 80.92], [26.76, 80.87]] },
-    { name: "Hazratganj", color: "#8b5cf6", coords: [[26.83, 80.93], [26.86, 80.93], [26.86, 80.96], [26.83, 80.96]] },
-    { name: "Mahanagar", color: "#f97316", coords: [[26.86, 80.94], [26.90, 80.94], [26.90, 80.99], [26.86, 80.99]] },
-    { name: "Chowk (Old City)", color: "#ef4444", coords: [[26.83, 80.90], [26.87, 80.90], [26.87, 80.93], [26.83, 80.93]] },
-    { name: "Ashiyana", color: "#eab308", coords: [[26.78, 80.92], [26.81, 80.92], [26.81, 80.96], [26.78, 80.96]] },
-    { name: "Aliganj", color: "#14b8a6", coords: [[26.87, 80.92], [26.92, 80.92], [26.92, 80.96], [26.87, 80.96]] }
+    { name: "Mohan Meakin", color: "#e9d5ff", bounds: [[26.87, 80.85], [26.90, 80.89]] },
+    { name: "Aishbagh", color: "#fef08a", bounds: [[26.84, 80.89], [26.90, 80.93]] },
+    { name: "Quaisar Bagh", color: "#bbf7d0", bounds: [[26.87, 80.93], [26.90, 80.97]] },
+    { name: "Vikas Nagar", color: "#fbcfe8", bounds: [[26.87, 80.97], [26.90, 81.01]] },
+    { name: "Mubarakpur", color: "#fed7aa", bounds: [[26.87, 81.01], [26.90, 81.06]] },
+    { name: "Rajajipuram", color: "#bfdbfe", bounds: [[26.81, 80.85], [26.87, 80.89]] },
+    { name: "Charbagh", color: "#fed7aa", bounds: [[26.84, 80.93], [26.87, 80.97]] },
+    { name: "Aminabad", color: "#a7f3d0", bounds: [[26.84, 80.97], [26.87, 81.01]] },
+    { name: "Gomti Nagar", color: "#d9f99d", bounds: [[26.81, 81.01], [26.87, 81.06]] },
+    { name: "Anora Kala", color: "#e9d5ff", bounds: [[26.81, 80.89], [26.84, 80.93]] },
+    { name: "Hazratganj", color: "#fef08a", bounds: [[26.81, 80.93], [26.84, 80.97]] },
+    { name: "Alambagh", color: "#bbf7d0", bounds: [[26.78, 80.85], [26.81, 80.93]] },
+    { name: "Aliganj", color: "#fbcfe8", bounds: [[26.78, 80.93], [26.81, 80.97]] },
+    { name: "Indira Nagar", color: "#e9d5ff", bounds: [[26.78, 80.97], [26.84, 81.01]] },
+    { name: "Sushant Golf City", color: "#fde047", bounds: [[26.78, 81.01], [26.81, 81.06]] },
+    { name: "Bakshi Ka Talab", color: "#fef08a", bounds: [[26.75, 80.85], [26.78, 80.89]] },
+    { name: "Krishna Nagar", color: "#bfdbfe", bounds: [[26.75, 80.89], [26.78, 80.93]] },
+    { name: "Transport Nagar", color: "#fed7aa", bounds: [[26.75, 80.93], [26.78, 80.97]] },
+    { name: "Telibagh", color: "#bbf7d0", bounds: [[26.75, 80.97], [26.78, 81.01]] },
+    { name: "Jankipuram Extension", color: "#a7f3d0", bounds: [[26.75, 81.01], [26.78, 81.06]] }
   ];
 
   zones.forEach(z => {
-    L.polygon(z.coords, { color: z.color, fillColor: z.color, fillOpacity: 0.15, weight: 2 })
+    L.rectangle(z.bounds, { color: z.color, fillColor: z.color, fillOpacity: 0.25, weight: 2 })
       .addTo(map)
-      .bindPopup(`<strong>${z.name}</strong>`);
+      .bindPopup(`<div style="text-align:center;"><strong>${z.name}</strong></div>`);
   });
 
   document.querySelectorAll(".map-filter-btn").forEach(btn => {
