@@ -44,6 +44,8 @@ const requests = [
 const views = document.querySelectorAll(".view");
 const navItems = document.querySelectorAll(".nav-item");
 const pageTitle = document.querySelector("#page-title");
+const geminiModel = "gemini-2.5-flash";
+const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`;
 
 function switchView(id) {
   views.forEach((view) => view.classList.toggle("active", view.id === id));
@@ -99,6 +101,15 @@ function render() {
 const modal = document.querySelector("#modal");
 const modalContent = document.querySelector("#modal-content");
 const sheets = {
+  geminiKey: `
+    <h2>Gemini API key</h2>
+    <p>Your key is stored only in this browser's localStorage for the prototype. Do not commit API keys to git.</p>
+    <label>API key<input id="gemini-key-input" type="password" placeholder="Paste Gemini API key"></label>
+    <div class="button-row">
+      <button class="primary" id="save-gemini-key">Save key</button>
+      <button class="secondary" id="clear-gemini-key">Clear key</button>
+    </div>
+  `,
   addProperty: `
     <h2>Add property</h2>
     <p>Capture the minimum details needed to create the property and fetch verified nearby places.</p>
@@ -127,16 +138,191 @@ const sheets = {
   `,
 };
 
+const aiPrompts = {
+  listing: `Write a concise rental listing for Gomti Nagar PG in Lucknow. Details: Room 2 vacant, rent INR 7,000 per month, AC, WiFi, meals, verified nearby hospital/market/metro, attest video available. Use Indian English, trustworthy tone, WhatsApp-ready, under 90 words.`,
+  rentReminder: `Draft a polite but firm WhatsApp rent reminder from landlord Ramesh Gupta to tenant Priya Singh. May 2026 rent of INR 7,000 is overdue by 4 days. Mention digital receipt for HRA and ask for payment today. Keep it under 65 words.`,
+  maintenanceTriage: `Triage this maintenance request for a Lucknow landlord: "Main gate lock broken at Gomti Nagar PG". Return urgency, suggested SLA, caretaker instruction, and tenant update in short bullets.`,
+  tenantInvite: `Write a short onboarding invite from PropEase for a tenant joining Room 2, Gomti Nagar PG. Mention invite code, viewing attest video, Aadhaar upload, lease review, and e-sign. Friendly, clear, under 80 words.`,
+};
+
+function getGeminiKey() {
+  return localStorage.getItem("propease_gemini_key") || "";
+}
+
+function updateGeminiState() {
+  const state = document.querySelector("#gemini-state");
+  if (state) state.textContent = getGeminiKey() ? "Key saved locally" : "Key not saved";
+}
+
+function setBusy(target, message) {
+  const output = document.querySelector(target);
+  if (output) output.textContent = message;
+}
+
+async function callGemini(prompt) {
+  const apiKey = getGeminiKey();
+  if (!apiKey) {
+    modalContent.innerHTML = sheets.geminiKey;
+    modal.classList.add("active");
+    throw new Error("Add Gemini API key first.");
+  }
+
+  const response = await fetch(geminiEndpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 500,
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini request failed: ${response.status} ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.map((part) => part.text || "").join("").trim() || "No Gemini output returned.";
+}
+
+function parseJsonBlock(text) {
+  const cleaned = text.replace(/```json|```/g, "").trim();
+  const start = cleaned.indexOf("{");
+  const end = cleaned.lastIndexOf("}");
+  if (start === -1 || end === -1) return null;
+  try {
+    return JSON.parse(cleaned.slice(start, end + 1));
+  } catch {
+    return null;
+  }
+}
+
+async function generatePosterWithGemini() {
+  setBusy("#poster-ai-output", "Asking Gemini for poster copy...");
+  const prompt = `Create poster copy for a Lucknow rental poster. Return only JSON with keys headline, locality, rent, amenities, caption. Context: Gomti Nagar PG, Room 2 vacant, INR 7,000/month, AC, WiFi, meals, verified nearby amenities, tenant should trust the attest video. Headline max 20 characters. amenities must be exactly 3 short strings.`;
+  const text = await callGemini(prompt);
+  const data = parseJsonBlock(text);
+
+  if (data) {
+    document.querySelector("#poster-headline-input").value = data.headline || "ROOM AVAILABLE";
+    document.querySelector("#poster-headline").textContent = data.headline || "ROOM AVAILABLE";
+    document.querySelector("#poster-locality").value = data.locality || "Gomti Nagar, Lucknow";
+    document.querySelector("#poster-place").textContent = data.locality || "Gomti Nagar, Lucknow";
+    document.querySelector("#poster-rent").value = data.rent || "INR 7,000/month";
+    document.querySelector("#poster-price").textContent = data.rent || "INR 7,000/month";
+    const amenities = Array.isArray(data.amenities) ? data.amenities.slice(0, 3) : ["AC", "WiFi", "Meals"];
+    document.querySelector("#poster-amenities").innerHTML = amenities.map((item) => `<span>${item}</span>`).join("");
+    setBusy("#poster-ai-output", data.caption || text);
+    return;
+  }
+
+  setBusy("#poster-ai-output", text);
+}
+
+async function runAiAction(action) {
+  if (action === "poster") {
+    await generatePosterWithGemini();
+    return;
+  }
+
+  setBusy("#ai-output", "Asking Gemini...");
+  const text = await callGemini(aiPrompts[action]);
+  setBusy("#ai-output", text);
+}
+
+function exportPoster() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1080;
+  const ctx = canvas.getContext("2d");
+  const headline = document.querySelector("#poster-headline").textContent;
+  const place = document.querySelector("#poster-place").textContent;
+  const price = document.querySelector("#poster-price").textContent;
+  const amenities = [...document.querySelectorAll("#poster-amenities span")].map((item) => item.textContent);
+
+  ctx.fillStyle = "#ebf0fd";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(70, 70, 940, 940);
+  const gradient = ctx.createLinearGradient(100, 100, 980, 360);
+  gradient.addColorStop(0, "#93c5fd");
+  gradient.addColorStop(1, "#fdba74");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(110, 110, 860, 300);
+
+  ctx.fillStyle = "#1a56db";
+  ctx.font = "700 86px Arial";
+  ctx.fillText(headline, 110, 540);
+  ctx.fillStyle = "#111928";
+  ctx.font = "500 42px Arial";
+  ctx.fillText(place, 110, 615);
+  ctx.font = "700 64px Arial";
+  ctx.fillText(price, 110, 720);
+
+  ctx.font = "700 34px Arial";
+  amenities.forEach((item, index) => {
+    const x = 110 + index * 210;
+    ctx.fillStyle = "#ffffff";
+    ctx.strokeStyle = "#d1d5db";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.roundRect(x, 780, 175, 70, 35);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "#111928";
+    ctx.fillText(item, x + 28, 826);
+  });
+
+  ctx.fillStyle = "#111928";
+  ctx.font = "700 38px Arial";
+  ctx.fillText("98XXX XXXXX", 110, 940);
+  ctx.strokeStyle = "#111928";
+  ctx.lineWidth = 5;
+  ctx.strokeRect(810, 860, 110, 110);
+  ctx.font = "700 32px Arial";
+  ctx.fillText("QR", 844, 928);
+
+  const link = document.createElement("a");
+  link.download = "propease-poster.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
 document.addEventListener("click", (event) => {
   const nav = event.target.closest("[data-view]");
   const jump = event.target.closest("[data-view-jump]");
   const open = event.target.closest("[data-open]");
+  const aiAction = event.target.closest("[data-ai]");
   if (nav) switchView(nav.dataset.view);
   if (jump) switchView(jump.dataset.viewJump);
   if (open) {
     modalContent.innerHTML = sheets[open.dataset.open] || "";
     modal.classList.add("active");
   }
+  if (aiAction) {
+    runAiAction(aiAction.dataset.ai).catch((error) => {
+      const target = aiAction.dataset.ai === "poster" ? "#poster-ai-output" : "#ai-output";
+      setBusy(target, error.message);
+    });
+  }
+  if (event.target.closest("#save-gemini-key")) {
+    const input = document.querySelector("#gemini-key-input");
+    localStorage.setItem("propease_gemini_key", input.value.trim());
+    updateGeminiState();
+    modal.classList.remove("active");
+  }
+  if (event.target.closest("#clear-gemini-key")) {
+    localStorage.removeItem("propease_gemini_key");
+    updateGeminiState();
+    modal.classList.remove("active");
+  }
+  if (event.target.closest("#export-poster")) exportPoster();
   if (event.target.closest(".close") || event.target === modal) modal.classList.remove("active");
 });
 
@@ -146,5 +332,9 @@ document.querySelector("#poster-rent").addEventListener("input", (event) => {
 document.querySelector("#poster-locality").addEventListener("input", (event) => {
   document.querySelector("#poster-place").textContent = event.target.value;
 });
+document.querySelector("#poster-headline-input").addEventListener("input", (event) => {
+  document.querySelector("#poster-headline").textContent = event.target.value;
+});
 
 render();
+updateGeminiState();

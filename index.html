@@ -25,8 +25,14 @@
           <button class="nav-item" data-view="rent">Rent</button>
           <button class="nav-item" data-view="maintenance">Maintenance</button>
           <button class="nav-item" data-view="poster">Poster Maker</button>
+          <button class="nav-item" data-view="ai">AI Studio</button>
           <button class="nav-item" data-view="tenant">Tenant View</button>
         </nav>
+        <div class="sidebar-card gemini-card">
+          <span>Gemini API</span>
+          <strong id="gemini-state">Key not saved</strong>
+          <button class="secondary small" data-open="geminiKey">Set key</button>
+        </div>
         <div class="sidebar-card">
           <span>Launch Focus</span>
           <strong>50 Lucknow landlords</strong>
@@ -124,17 +130,56 @@
               </div>
               <label>Rent amount<input id="poster-rent" value="₹7,000/month" /></label>
               <label>Locality<input id="poster-locality" value="Gomti Nagar, Lucknow" /></label>
-              <button class="primary">Export poster</button>
+              <label>Poster headline<input id="poster-headline-input" value="ROOM AVAILABLE" /></label>
+              <div class="button-row">
+                <button class="primary" data-ai="poster">Generate with Gemini</button>
+                <button class="secondary" id="export-poster">Export poster</button>
+              </div>
+              <div class="ai-output" id="poster-ai-output">Gemini can create poster copy, amenities, and share captions for WhatsApp or Instagram.</div>
             </div>
             <div class="poster-preview">
               <div class="poster-photo"></div>
-              <h3>ROOM AVAILABLE</h3>
+              <h3 id="poster-headline">ROOM AVAILABLE</h3>
               <p id="poster-place">Gomti Nagar, Lucknow</p>
               <strong id="poster-price">₹7,000/month</strong>
-              <div class="amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
+              <div class="amenities" id="poster-amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
               <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
             </div>
           </div>
+        </section>
+
+        <section class="view" id="ai">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Gemini 2.5 Flash</p>
+              <h2>AI Studio</h2>
+              <p>Draft landlord workflows quickly: listing copy, reminders, maintenance triage, and tenant invites.</p>
+            </div>
+            <button class="secondary" data-open="geminiKey">Set Gemini key</button>
+          </div>
+          <div class="ai-grid">
+            <article class="ai-card">
+              <h3>Vacancy listing</h3>
+              <p>Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
+              <button class="primary small" data-ai="listing">Generate</button>
+            </article>
+            <article class="ai-card">
+              <h3>Rent reminder</h3>
+              <p>Draft a polite but firm WhatsApp reminder for an overdue tenant.</p>
+              <button class="primary small" data-ai="rentReminder">Generate</button>
+            </article>
+            <article class="ai-card">
+              <h3>Maintenance triage</h3>
+              <p>Classify urgency and suggest next steps for the landlord or caretaker.</p>
+              <button class="primary small" data-ai="maintenanceTriage">Generate</button>
+            </article>
+            <article class="ai-card">
+              <h3>Tenant invite</h3>
+              <p>Write a short onboarding message that explains the invite code and lease steps.</p>
+              <button class="primary small" data-ai="tenantInvite">Generate</button>
+            </article>
+          </div>
+          <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
         </section>
 
         <section class="view" id="tenant">
