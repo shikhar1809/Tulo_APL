@@ -275,20 +275,20 @@ function exportPoster() {
   const price = document.querySelector("#poster-price").textContent;
   const amenities = [...document.querySelectorAll("#poster-amenities span")].map((item) => item.textContent);
 
-  ctx.fillStyle = "#ebf0fd";
+  ctx.fillStyle = "#e1f5ee";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#ffffff";
   ctx.fillRect(70, 70, 940, 940);
   const gradient = ctx.createLinearGradient(100, 100, 980, 360);
-  gradient.addColorStop(0, "#93c5fd");
-  gradient.addColorStop(1, "#fdba74");
+  gradient.addColorStop(0, "#9fe1cb");
+  gradient.addColorStop(1, "#ef9f27");
   ctx.fillStyle = gradient;
   ctx.fillRect(110, 110, 860, 300);
 
-  ctx.fillStyle = "#1a56db";
+  ctx.fillStyle = "#1d9e75";
   ctx.font = "700 86px Arial";
   ctx.fillText(headline, 110, 540);
-  ctx.fillStyle = "#111928";
+  ctx.fillStyle = "#2c2c2a";
   ctx.font = "500 42px Arial";
   ctx.fillText(place, 110, 615);
   ctx.font = "700 64px Arial";
@@ -298,20 +298,20 @@ function exportPoster() {
   amenities.forEach((item, index) => {
     const x = 110 + index * 210;
     ctx.fillStyle = "#ffffff";
-    ctx.strokeStyle = "#d1d5db";
+    ctx.strokeStyle = "#d3d1c7";
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.roundRect(x, 780, 175, 70, 35);
     ctx.fill();
     ctx.stroke();
-    ctx.fillStyle = "#111928";
+    ctx.fillStyle = "#2c2c2a";
     ctx.fillText(item, x + 28, 826);
   });
 
-  ctx.fillStyle = "#111928";
+  ctx.fillStyle = "#2c2c2a";
   ctx.font = "700 38px Arial";
   ctx.fillText("98XXX XXXXX", 110, 940);
-  ctx.strokeStyle = "#111928";
+  ctx.strokeStyle = "#2c2c2a";
   ctx.lineWidth = 5;
   ctx.strokeRect(810, 860, 110, 110);
   ctx.font = "700 32px Arial";
