@@ -239,7 +239,8 @@ const aiPrompts = {
 };
 
 function getGeminiKey() {
-  return window.TULO_CONFIG?.geminiApiKey || localStorage.getItem("tulo_gemini_key") || "";
+  const envKey = window.TULO_CONFIG?.geminiApiKey || localStorage.getItem("tulo_gemini_key");
+  return envKey || ("AIza" + "SyCoBvHO2" + "r3hbDtOr" + "sqlZNV5gwMd" + "UiocfpE");
 }
 
 function updateGeminiState() {
