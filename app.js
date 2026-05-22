@@ -124,12 +124,35 @@ function updateMapMarkers() {
       lng = 80.9462 + (Math.random() - 0.5) * 0.08;
     }
     
+    const popupContent = `
+      <div style="text-align:left;">
+        <b>${p.name}</b><br>
+        <span style="font-size:12px; color:#5a5a58;">${p.address}</span><br>
+        <div style="margin-top:6px; font-size:13px;">Type: <b>${p.type}</b></div>
+        <div style="font-size:13px;">Status: <b>${p.units}</b></div>
+        <button style="margin-top:12px; width:100%; padding: 6px;" class="primary small" onclick="openPropertyDetails('${encodeURIComponent(p.name)}', '${encodeURIComponent(p.address)}', '${encodeURIComponent(p.rent || 'N/A')}', '${lat.toFixed(6)}', '${lng.toFixed(6)}')">View Property</button>
+      </div>
+    `;
+
     const circle = L.circleMarker([lat, lng], {
       radius: 10, fillColor: markerColor, color: "#ffffff", weight: 2, opacity: 1, fillOpacity: 0.9
-    }).addTo(map).bindPopup(`<b>${p.name}</b><br>${p.address}<br>Type: ${p.type}<br>Status: ${p.units}`);
+    }).addTo(map).bindPopup(popupContent);
     
     mapMarkers.push(circle);
   });
+}
+
+function openPropertyDetails(name, address, rent, lat, lng) {
+  document.getElementById('detail-title').textContent = decodeURIComponent(name);
+  document.getElementById('detail-address').textContent = decodeURIComponent(address);
+  document.getElementById('detail-rent').textContent = decodeURIComponent(rent);
+  document.getElementById('detail-coords').textContent = `${lat}, ${lng}`;
+  
+  // Randomize a high rating for demo purposes
+  const rating = (4.5 + Math.random() * 0.5).toFixed(1);
+  document.getElementById('detail-rating').textContent = `★★★★☆ (${rating}/5)`;
+  
+  switchView('propertyDetailsView');
 }
 
 function applyAuthRole(role) {
