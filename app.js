@@ -15,6 +15,28 @@ const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/
 
 let map;
 let mapMarkers = [];
+const mapZones = [
+  { name: "Mohan Meakin", color: "#e9d5ff", bounds: [[26.87, 80.85], [26.90, 80.89]] },
+  { name: "Aishbagh", color: "#fef08a", bounds: [[26.84, 80.89], [26.90, 80.93]] },
+  { name: "Quaisar Bagh", color: "#bbf7d0", bounds: [[26.87, 80.93], [26.90, 80.97]] },
+  { name: "Vikas Nagar", color: "#fbcfe8", bounds: [[26.87, 80.97], [26.90, 81.01]] },
+  { name: "Mubarakpur", color: "#fed7aa", bounds: [[26.87, 81.01], [26.90, 81.06]] },
+  { name: "Rajajipuram", color: "#bfdbfe", bounds: [[26.81, 80.85], [26.87, 80.89]] },
+  { name: "Charbagh", color: "#fed7aa", bounds: [[26.84, 80.93], [26.87, 80.97]] },
+  { name: "Aminabad", color: "#a7f3d0", bounds: [[26.84, 80.97], [26.87, 81.01]] },
+  { name: "Gomti Nagar", color: "#d9f99d", bounds: [[26.81, 81.01], [26.87, 81.06]] },
+  { name: "Anora Kala", color: "#e9d5ff", bounds: [[26.81, 80.89], [26.84, 80.93]] },
+  { name: "Hazratganj", color: "#fef08a", bounds: [[26.81, 80.93], [26.84, 80.97]] },
+  { name: "Alambagh", color: "#bbf7d0", bounds: [[26.78, 80.85], [26.81, 80.93]] },
+  { name: "Aliganj", color: "#fbcfe8", bounds: [[26.78, 80.93], [26.81, 80.97]] },
+  { name: "Indira Nagar", color: "#e9d5ff", bounds: [[26.78, 80.97], [26.84, 81.01]] },
+  { name: "Sushant Golf City", color: "#fde047", bounds: [[26.78, 81.01], [26.81, 81.06]] },
+  { name: "Bakshi Ka Talab", color: "#fef08a", bounds: [[26.75, 80.85], [26.78, 80.89]] },
+  { name: "Krishna Nagar", color: "#bfdbfe", bounds: [[26.75, 80.89], [26.78, 80.93]] },
+  { name: "Transport Nagar", color: "#fed7aa", bounds: [[26.75, 80.93], [26.78, 80.97]] },
+  { name: "Telibagh", color: "#bbf7d0", bounds: [[26.75, 80.97], [26.78, 81.01]] },
+  { name: "Jankipuram Extension", color: "#a7f3d0", bounds: [[26.75, 81.01], [26.78, 81.06]] }
+];
 
 function switchView(id) {
   views.forEach((view) => view.classList.toggle("active", view.id === id));
@@ -47,30 +69,7 @@ function initMap() {
     attribution: '© OpenStreetMap & CartoDB'
   }).addTo(map);
 
-  const zones = [
-    { name: "Mohan Meakin", color: "#e9d5ff", bounds: [[26.87, 80.85], [26.90, 80.89]] },
-    { name: "Aishbagh", color: "#fef08a", bounds: [[26.84, 80.89], [26.90, 80.93]] },
-    { name: "Quaisar Bagh", color: "#bbf7d0", bounds: [[26.87, 80.93], [26.90, 80.97]] },
-    { name: "Vikas Nagar", color: "#fbcfe8", bounds: [[26.87, 80.97], [26.90, 81.01]] },
-    { name: "Mubarakpur", color: "#fed7aa", bounds: [[26.87, 81.01], [26.90, 81.06]] },
-    { name: "Rajajipuram", color: "#bfdbfe", bounds: [[26.81, 80.85], [26.87, 80.89]] },
-    { name: "Charbagh", color: "#fed7aa", bounds: [[26.84, 80.93], [26.87, 80.97]] },
-    { name: "Aminabad", color: "#a7f3d0", bounds: [[26.84, 80.97], [26.87, 81.01]] },
-    { name: "Gomti Nagar", color: "#d9f99d", bounds: [[26.81, 81.01], [26.87, 81.06]] },
-    { name: "Anora Kala", color: "#e9d5ff", bounds: [[26.81, 80.89], [26.84, 80.93]] },
-    { name: "Hazratganj", color: "#fef08a", bounds: [[26.81, 80.93], [26.84, 80.97]] },
-    { name: "Alambagh", color: "#bbf7d0", bounds: [[26.78, 80.85], [26.81, 80.93]] },
-    { name: "Aliganj", color: "#fbcfe8", bounds: [[26.78, 80.93], [26.81, 80.97]] },
-    { name: "Indira Nagar", color: "#e9d5ff", bounds: [[26.78, 80.97], [26.84, 81.01]] },
-    { name: "Sushant Golf City", color: "#fde047", bounds: [[26.78, 81.01], [26.81, 81.06]] },
-    { name: "Bakshi Ka Talab", color: "#fef08a", bounds: [[26.75, 80.85], [26.78, 80.89]] },
-    { name: "Krishna Nagar", color: "#bfdbfe", bounds: [[26.75, 80.89], [26.78, 80.93]] },
-    { name: "Transport Nagar", color: "#fed7aa", bounds: [[26.75, 80.93], [26.78, 80.97]] },
-    { name: "Telibagh", color: "#bbf7d0", bounds: [[26.75, 80.97], [26.78, 81.01]] },
-    { name: "Jankipuram Extension", color: "#a7f3d0", bounds: [[26.75, 81.01], [26.78, 81.06]] }
-  ];
-
-  zones.forEach(z => {
+  mapZones.forEach(z => {
     L.rectangle(z.bounds, { color: z.color, fillColor: z.color, fillOpacity: 0.25, weight: 2 })
       .addTo(map)
       .bindPopup(`<div style="text-align:center;"><strong>${z.name}</strong></div>`);
@@ -110,8 +109,20 @@ function updateMapMarkers() {
     if (mappedType === "PG") markerColor = "#86efac"; 
     if (mappedType === "Commercial") markerColor = "#93c5fd"; 
 
-    const lat = 26.8467 + (Math.random() - 0.5) * 0.06;
-    const lng = 80.9462 + (Math.random() - 0.5) * 0.08;
+    let zone = mapZones.find(z => p.address && p.address.toLowerCase().includes(z.name.toLowerCase()));
+    
+    let lat, lng;
+    if (zone) {
+      const minLat = Math.min(zone.bounds[0][0], zone.bounds[1][0]);
+      const maxLat = Math.max(zone.bounds[0][0], zone.bounds[1][0]);
+      const minLng = Math.min(zone.bounds[0][1], zone.bounds[1][1]);
+      const maxLng = Math.max(zone.bounds[0][1], zone.bounds[1][1]);
+      lat = minLat + (Math.random() * (maxLat - minLat));
+      lng = minLng + (Math.random() * (maxLng - minLng));
+    } else {
+      lat = 26.8467 + (Math.random() - 0.5) * 0.06;
+      lng = 80.9462 + (Math.random() - 0.5) * 0.08;
+    }
     
     const circle = L.circleMarker([lat, lng], {
       radius: 10, fillColor: markerColor, color: "#ffffff", weight: 2, opacity: 1, fillOpacity: 0.9
@@ -179,18 +190,45 @@ async function seedRealDatabase() {
 }
 
 async function injectDemoMapData() {
-  if (localStorage.getItem("tulo_demo_map_seeded")) return;
+  if (localStorage.getItem("tulo_demo_map_seeded_v3")) return;
   const demoProperties = [
     { name: "Sunshine Flats", type: "Flat", address: "Mahanagar, Lucknow", units: "Vacant", rent: "₹15,000 monthly", status: "Available", statusClass: "success" },
     { name: "Blue Sky Commercial", type: "Commercial", address: "Hazratganj, Lucknow", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Paid", statusClass: "success" },
     { name: "Green Leaf PG", type: "PG", address: "Indira Nagar, Lucknow", units: "12/15 occupied", rent: "₹85,000 monthly", status: "Attested", statusClass: "success" },
     { name: "Riverside Apartments", type: "Flat", address: "Gomti Nagar Extension", units: "Vacant", rent: "₹22,000 monthly", status: "Make poster", statusClass: "vacant" },
-    { name: "Urban Workspace", type: "Commercial", address: "Alambagh, Lucknow", units: "Occupied", rent: "₹30,000 monthly", status: "Rent Paid", statusClass: "success" }
+    { name: "Urban Workspace", type: "Commercial", address: "Alambagh, Lucknow", units: "Occupied", rent: "₹30,000 monthly", status: "Rent Paid", statusClass: "success" },
+    { name: "Royal Plaza Shop", type: "Commercial", address: "Chowk, Lucknow", units: "Vacant", rent: "₹18,000 monthly", status: "Available", statusClass: "success" },
+    { name: "Golf View Residency", type: "Flat", address: "Sushant Golf City", units: "Occupied", rent: "₹35,000 monthly", status: "Rent Pending", statusClass: "vacant" },
+    { name: "Student Hub PG", type: "PG", address: "Aliganj, Lucknow", units: "20/20 occupied", rent: "₹1,20,000 monthly", status: "Attested", statusClass: "success" },
+    { name: "Metro Heights", type: "Flat", address: "Krishna Nagar, Lucknow", units: "Occupied", rent: "₹16,000 monthly", status: "Rent Paid", statusClass: "success" },
+    { name: "Transport Hub Godown", type: "Commercial", address: "Transport Nagar", units: "Vacant", rent: "₹50,000 monthly", status: "Available", statusClass: "success" },
+    { name: "Lake View PG", type: "PG", address: "Jankipuram Extension", units: "5/10 occupied", rent: "₹30,000 monthly", status: "Action Required", statusClass: "vacant" },
+    { name: "Heritage House", type: "Flat", address: "Quaisar Bagh", units: "Occupied", rent: "₹25,000 monthly", status: "Attested", statusClass: "success" },
+    { name: "Tech Park Office", type: "Commercial", address: "Vikas Nagar", units: "Occupied", rent: "₹75,000 monthly", status: "Rent Paid", statusClass: "success" },
+    { name: "Central Mall Shop", type: "Commercial", address: "Aminabad", units: "Vacant", rent: "₹40,000 monthly", status: "Make poster", statusClass: "vacant" },
+    { name: "Cozy Corner PG", type: "PG", address: "Telibagh", units: "8/10 occupied", rent: "₹45,000 monthly", status: "Rent Paid", statusClass: "success" }
   ];
+  
+  const moreRentRows = [
+    { unit: "Flat B", tenant: "Suresh Gupta", amount: "₹15,000", status: "Paid", action: "Receipt" },
+    { unit: "Flat C", tenant: "Karan Singh", amount: "₹35,000", status: "Overdue", action: "Mark paid" },
+    { unit: "Shop 101", tenant: "Ravi Traders", amount: "₹45,000", status: "Paid", action: "Receipt" },
+    { unit: "PG Room 5", tenant: "Vikram", amount: "₹6,000", status: "Paid", action: "Receipt" }
+  ];
+  
+  const moreRequests = [
+    { title: "Power backup failure", unit: "Tech Park Office", status: "Open", priority: "Emergency", emergency: true },
+    { title: "Water pump issue", unit: "Student Hub PG", status: "In progress", priority: "High", emergency: false },
+    { title: "Pest control needed", unit: "Metro Heights", status: "Assigned", priority: "Low", emergency: false }
+  ];
+
   const batch = db.batch();
   demoProperties.forEach(p => batch.set(db.collection("properties").doc(), p));
+  moreRentRows.forEach(r => batch.set(db.collection("rentRows").doc(), r));
+  moreRequests.forEach(r => batch.set(db.collection("requests").doc(), r));
+  
   await batch.commit();
-  localStorage.setItem("tulo_demo_map_seeded", "true");
+  localStorage.setItem("tulo_demo_map_seeded_v3", "true");
 }
 
 function initFirestoreListeners() {
