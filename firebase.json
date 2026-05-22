@@ -5,8 +5,12 @@
     "ignore": [
       "firebase.json",
       "**/.*",
+      ".git/**",
+      ".firebase/**",
       "**/node_modules/**",
       "config.local.js",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
       "prd.md",
       "spec.md",
       "design (2).md"
