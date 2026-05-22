@@ -49,7 +49,7 @@
       <aside class="sidebar">
         <div class="brand">
           <img class="brand-logo" src="assets/tulo-logo.svg" alt="TULO" />
-        </div>        <nav class="nav">
+        </div>        <nav class="nav" id="landlord-nav">
           <button class="nav-item active" data-view="dashboard" data-title="Dashboard">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></svg>
@@ -79,6 +79,38 @@
               <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
             </span>
             <span class="nav-label">Rent</span>
+          </button>
+        </nav>
+        <nav class="nav" id="tenant-nav" style="display: none;">
+          <button class="nav-item" data-view="tenantHome" data-title="Home">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></svg>
+            </span>
+            <span class="nav-label">Home</span>
+          </button>
+          <button class="nav-item" data-view="tenantRent" data-title="Rent & Receipts">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
+            </span>
+            <span class="nav-label">Rent & Receipts</span>
+          </button>
+          <button class="nav-item" data-view="tenantMaintenance" data-title="Maintenance">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M8 7h1"/><path d="M12 7h1"/><path d="M8 11h1"/><path d="M12 11h1"/><path d="M17 9h1a2 2 0 0 1 2 2v10"/></svg>
+            </span>
+            <span class="nav-label">Maintenance</span>
+          </button>
+          <button class="nav-item" data-view="tenantProperty" data-title="My Property & Lease">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/><path d="M8 16h8"/></svg>
+            </span>
+            <span class="nav-label">Property & Lease</span>
+          </button>
+          <button class="nav-item" data-view="tenantAi" data-title="Tenant AI Assistant">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
+            </span>
+            <span class="nav-label">AI Assistant</span>
           </button>
         </nav>
         <div class="sidebar-card">
@@ -269,6 +301,141 @@
               </article>
             </div>
           </div>
+        </section>
+
+        <section class="view" id="tenantHome">
+          <div class="attention-band">
+            <div>
+              <span class="pill warning">Action required</span>
+              <h2>May rent is due on 01/05/2026</h2>
+            </div>
+            <button class="primary" data-view-jump="tenantRent">Pay now</button>
+          </div>
+          <div class="stats-grid">
+            <article class="metric">
+              <span>Next payment</span>
+              <strong>₹7,000</strong>
+              <p>Due in 5 days</p>
+            </article>
+            <article class="metric">
+              <span>Active requests</span>
+              <strong>1</strong>
+              <p>Bathroom tap repair (In progress)</p>
+            </article>
+            <article class="metric">
+              <span>Lease status</span>
+              <strong>Active</strong>
+              <p>Ends 31/12/2026</p>
+            </article>
+          </div>
+          <div class="section-head">
+            <h2>Quick Actions</h2>
+          </div>
+          <div class="ai-grid">
+             <article class="ai-card">
+               <h3>Report an Issue</h3>
+               <p>Create a new maintenance request for your room or common areas.</p>
+               <button class="primary small" data-view-jump="tenantMaintenance">New Request</button>
+             </article>
+             <article class="ai-card">
+               <h3>View Lease</h3>
+               <p>Review your digital lease agreement and terms.</p>
+               <button class="secondary small" data-view-jump="tenantProperty">Open Lease PDF</button>
+             </article>
+             <article class="ai-card">
+               <h3>Ask AI Assistant</h3>
+               <p>Have a question about your lease? Ask the AI concierge.</p>
+               <button class="secondary small" data-view-jump="tenantAi">Ask AI</button>
+             </article>
+          </div>
+        </section>
+
+        <section class="view" id="tenantRent">
+          <div class="section-head">
+            <div>
+              <h2>Rent & Receipts</h2>
+              <p>Track your payments and download receipts for HRA.</p>
+            </div>
+          </div>
+          <article class="tenant-panel" style="margin-bottom: 24px;">
+            <span class="pill warning">Due 01/05/2026</span>
+            <h3>May Rent</h3>
+            <strong>₹7,000</strong>
+            <div class="button-row" style="margin-top: 16px;">
+               <button class="primary">Pay now (UPI/Card)</button>
+            </div>
+          </article>
+          <div class="table-card">
+            <div class="table-row head"><span>Month</span><span>Amount</span><span>Status</span><span>Date Paid</span><span>Action</span></div>
+            <div id="tenant-rent-history"></div>
+          </div>
+        </section>
+
+        <section class="view" id="tenantMaintenance">
+          <div class="section-head">
+            <div>
+              <h2>Maintenance</h2>
+              <p>Submit and track repair requests.</p>
+            </div>
+            <button class="primary small" data-open="newRequest">+ New Request</button>
+          </div>
+          <div class="request-list" id="tenant-request-list"></div>
+        </section>
+
+        <section class="view" id="tenantProperty">
+          <div class="section-head">
+            <div>
+              <h2>My Property & Lease</h2>
+              <p>Property details, amenities, and your digital agreement.</p>
+            </div>
+          </div>
+          <div class="property-grid" style="margin-bottom: 24px;">
+             <article class="property-card">
+               <div class="property-photo" style="height: 180px; background: #2c2c2a; display:flex; align-items:center; justify-content:center; color:#fff;">
+                 ▶ Play Attest Video
+               </div>
+               <div class="property-body">
+                 <span class="pill success">Attested on 01/01/2026</span>
+                 <h3>Room 2 · Gomti Nagar PG</h3>
+                 <p class="property-meta">Vibhuti Khand, Gomti Nagar</p>
+                 <div class="button-row" style="margin-top:16px;">
+                   <button class="secondary">View Lease PDF</button>
+                 </div>
+               </div>
+             </article>
+             <article class="property-card" style="padding: 24px;">
+                <h3>Verified Nearby Places</h3>
+                <ul style="margin-top: 16px; line-height: 1.8; color: #5a5a58;">
+                  <li>🏥 <strong>City Hospital</strong> - 1.2 km (Walking: 15 min)</li>
+                  <li>🛒 <strong>Spencer's Retail</strong> - 0.5 km (Walking: 6 min)</li>
+                  <li>🚇 <strong>Gomti Nagar Metro</strong> - 2.0 km (Auto: 5 min)</li>
+                </ul>
+                <p style="margin-top:16px; font-size:12px; color:#1d9e75;">✓ Verified by Google Maps</p>
+             </article>
+          </div>
+        </section>
+
+        <section class="view" id="tenantAi">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Gemini 2.5 Flash</p>
+              <h2>Tenant AI Assistant</h2>
+              <p>Get help understanding your lease or communicating with your landlord.</p>
+            </div>
+          </div>
+          <div class="ai-grid">
+            <article class="ai-card">
+              <h3>Lease Explainer</h3>
+              <p>Translate legal terms from your lease into simple Hindi/English bullets.</p>
+              <button class="primary small" data-ai="leaseExplainer">Explain Notice Period</button>
+            </article>
+            <article class="ai-card">
+              <h3>Draft a Message</h3>
+              <p>Need to ask for a rent extension or report a delayed repair? Let AI draft a polite message.</p>
+              <button class="primary small" data-ai="draftMessage">Draft Extension Request</button>
+            </article>
+          </div>
+          <div class="ai-output large" id="tenant-ai-output">Choose an AI action above.</div>
         </section>
       </main>
     </div>

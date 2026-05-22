@@ -41,6 +41,17 @@ const requests = [
   { title: "AC service needed", unit: "Flat A · Nisha Verma", status: "Assigned", priority: "Low", emergency: false },
 ];
 
+const tenantRentHistory = [
+  ["Apr 2026", "₹7,000", "Paid", "02/04/2026", "Receipt"],
+  ["Mar 2026", "₹7,000", "Paid", "01/03/2026", "Receipt"],
+  ["Feb 2026", "₹7,000", "Paid", "03/02/2026", "Receipt"],
+];
+
+const tenantRequests = [
+  { title: "Bathroom tap dripping", status: "In progress", priority: "Medium", emergency: false, date: "20/04/2026" },
+  { title: "WiFi router restart", status: "Resolved", priority: "Low", emergency: false, date: "15/03/2026" },
+];
+
 const views = document.querySelectorAll(".view");
 const navItems = document.querySelectorAll(".nav-item");
 const pageTitle = document.querySelector("#page-title");
@@ -64,7 +75,13 @@ function applyAuthRole(role) {
   if (sessionContext) sessionContext.textContent = isTenant ? "Hello, Priya" : "Good evening, Ramesh ji";
   if (roleChip) roleChip.textContent = isTenant ? "Tenant" : "Landlord";
   if (addPropertyAction) addPropertyAction.style.display = isTenant ? "none" : "";
-  switchView(isTenant ? "rentTenant" : "dashboard");
+  
+  const landlordNav = document.getElementById("landlord-nav");
+  const tenantNav = document.getElementById("tenant-nav");
+  if (landlordNav) landlordNav.style.display = isTenant ? "none" : "";
+  if (tenantNav) tenantNav.style.display = isTenant ? "" : "none";
+
+  switchView(isTenant ? "tenantHome" : "dashboard");
 }
 
 function signInWithGoogle(role) {
@@ -121,6 +138,28 @@ function render() {
       </div>
     </article>
   `).join("");
+
+  document.querySelector("#tenant-rent-history").innerHTML = tenantRentHistory.map(([month, amount, status, date, action]) => `
+    <div class="table-row">
+      <span>${month}</span><span>${amount}</span>
+      <span><span class="pill success">${status}</span></span>
+      <span>${date}</span>
+      <span><button class="secondary small">${action}</button></span>
+    </div>
+  `).join("");
+
+  document.querySelector("#tenant-request-list").innerHTML = tenantRequests.map((request) => `
+    <article class="request-card ${request.emergency ? "emergency" : ""}">
+      <div>
+        <span class="pill ${request.emergency ? "danger" : request.status === "Resolved" ? "success" : "warning"}">${request.priority}</span>
+        <h3>${request.title}</h3>
+        <p>Reported on ${request.date}</p>
+      </div>
+      <div>
+        <strong>${request.status}</strong>
+      </div>
+    </article>
+  `).join("");
 }
 
 const modal = document.querySelector("#modal");
@@ -168,6 +207,8 @@ const aiPrompts = {
   maintenanceTriage: `Act as TULO's Smart Maintenance Router. Triage this request: "Bathroom tap is dripping constantly since 2 days" for Room 2 at Gomti Nagar PG. Available caretaker: Vikram, plumbing and electrical, average response 2 hours. Return strict short bullets for priority, suggestedAssignee, estimatedResolutionHours, draftTenantReply, caretakerNote, and confidence.`,
   leaseAutofill: `Act as TULO's Lease Autofill Engine. Pre-fill a lease summary for Room 2, Gomti Nagar PG, tenant Priya Singh, landlord Ramesh Gupta, rent INR 7,000, deposit INR 14,000, start 01/06/2026, end 31/12/2026. Return mandatory fields, missing fields, editable fields, and a landlord confirmation checklist.`,
   kycReview: `Act as TULO's AI KYC Review assistant. For a sample Aadhaar upload where tenant profile name is Priya Singh and the document appears readable, return an advisory review with documentType, nameMatch, imageQuality, flags, recommendation, and the disclaimer that this is not legal identity verification.`,
+  leaseExplainer: `Act as TULO's Tenant Concierge. Explain the standard 'Notice Period' clause (typically 30 days notice required before vacating, otherwise deposit is forfeited) to a tenant in simple, friendly, easy-to-understand terms. Do not use legal jargon. Explain in both English and Hindi.`,
+  draftMessage: `Act as TULO's Tenant Concierge. Draft a polite WhatsApp message from tenant Priya to landlord Ramesh ji asking for a 5-day extension to pay the May rent (INR 7,000) because her salary is delayed. Keep it respectful, concise, and in standard Indian English.`,
 };
 
 function getGeminiKey() {
@@ -260,9 +301,12 @@ async function runAiAction(action) {
     return;
   }
 
-  setBusy("#ai-output", "Asking Gemini...");
+  const isTenantAction = ["leaseExplainer", "draftMessage"].includes(action);
+  const targetOutput = isTenantAction ? "#tenant-ai-output" : "#ai-output";
+
+  setBusy(targetOutput, "Asking Gemini...");
   const text = await callGemini(aiPrompts[action]);
-  setBusy("#ai-output", text);
+  setBusy(targetOutput, text);
 }
 
 function exportPoster() {
@@ -338,7 +382,9 @@ document.addEventListener("click", (event) => {
   }
   if (aiAction) {
     runAiAction(aiAction.dataset.ai).catch((error) => {
-      const target = aiAction.dataset.ai === "poster" ? "#poster-ai-output" : "#ai-output";
+      let target = "#ai-output";
+      if (aiAction.dataset.ai === "poster") target = "#poster-ai-output";
+      if (["leaseExplainer", "draftMessage"].includes(aiAction.dataset.ai)) target = "#tenant-ai-output";
       setBusy(target, error.message);
     });
   }
