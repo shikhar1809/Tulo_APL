@@ -366,6 +366,36 @@ function exportPoster() {
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
+async function handleTenantChat() {
+  const input = document.querySelector("#tenant-chat-input");
+  const windowEl = document.querySelector("#tenant-chat-window");
+  if (!input || !windowEl) return;
+  const message = input.value.trim();
+  if (!message) return;
+  
+  input.value = "";
+  
+  const userDiv = document.createElement("div");
+  userDiv.className = "chat-message user";
+  userDiv.textContent = message;
+  windowEl.appendChild(userDiv);
+  windowEl.scrollTop = windowEl.scrollHeight;
+  
+  const aiDiv = document.createElement("div");
+  aiDiv.className = "chat-message ai";
+  aiDiv.textContent = "Typing...";
+  windowEl.appendChild(aiDiv);
+  windowEl.scrollTop = windowEl.scrollHeight;
+  
+  try {
+    const prompt = `Act as TULO AI Concierge for a tenant named Priya. Context: Room 2, Gomti Nagar PG, Rent ₹7,000, Lease ends 31/12/2026. Keep responses under 3 sentences, very polite. Answer this: ${message}`;
+    const reply = await callGemini(prompt);
+    aiDiv.textContent = reply;
+  } catch (err) {
+    aiDiv.textContent = "Sorry, I couldn't reach the server right now. " + err.message;
+  }
+  windowEl.scrollTop = windowEl.scrollHeight;
+}
 
 document.addEventListener("click", (event) => {
   const auth = event.target.closest("[data-auth-role]");
@@ -402,6 +432,13 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("#export-poster")) exportPoster();
   if (event.target.closest("#sign-out")) signOut();
   if (event.target.closest(".close") || event.target === modal) modal.classList.remove("active");
+  if (event.target.closest("#tenant-chat-send")) handleTenantChat();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.target.id === "tenant-chat-input" && event.key === "Enter") {
+    handleTenantChat();
+  }
 });
 
 document.querySelector("#poster-rent").addEventListener("input", (event) => {

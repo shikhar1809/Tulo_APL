@@ -257,97 +257,59 @@
 
         <section class="view" id="rentTenant">
           <div class="section-head">
+        </section>
+
+        <section class="view" id="rentTenant">
+          <div class="section-head">
             <div>
               <h2>Rent & Tenant View</h2>
               <p>Collections, overdue action, and the tenant-side experience together.</p>
             </div>
             <button class="secondary">Send reminders</button>
           </div>
-          <div class="rent-tenant-layout">
-            <div class="table-card">
-              <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
-              <div id="rent-list"></div>
-            </div>
-            <div class="tenant-home">
-              <div>
-                <p class="eyebrow">Tenant app preview</p>
-                <h2>Hello, Priya</h2>
-                <p>Room 2, Gomti Nagar PG</p>
-              </div>
-              <article class="tenant-panel">
-                <span class="pill warning">Due 01/05/2026</span>
-                <h3>May rent</h3>
-                <strong>₹7,000</strong>
-                <button class="primary">Pay now</button>
-              </article>
-              <article class="tenant-panel">
-                <span class="pill success">Lease active</span>
-                <h3>Agreement ends 31/12/2026</h3>
-                <div class="button-row">
-                  <button class="secondary">View lease</button>
-                  <button class="secondary">View attest video</button>
-                </div>
-              </article>
-              <article class="tenant-panel">
-                <span class="pill success">AI checked</span>
-                <h3>Lease autofill & KYC</h3>
-                <p>100% mandatory fields filled · Aadhaar image clear · name match advisory passed</p>
-                <button class="secondary" data-ai="leaseAutofill">Preview lease fields</button>
-              </article>
-              <article class="tenant-panel">
-                <span class="pill warning">In progress</span>
-                <h3>Bathroom tap repair</h3>
-                <button class="secondary">Track request</button>
-              </article>
-            </div>
+          <div class="table-card">
+            <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
+            <div id="rent-list"></div>
           </div>
         </section>
 
         <section class="view" id="tenantHome">
-          <div class="attention-band">
+          <div class="welcome-banner">
+            <h1>Welcome home, Priya!</h1>
+            <p>Here's what's happening at Room 2, Gomti Nagar PG.</p>
+          </div>
+          <div class="tenant-balance-card">
             <div>
-              <span class="pill warning">Action required</span>
-              <h2>May rent is due on 01/05/2026</h2>
+              <p>Outstanding Balance</p>
+              <h2>₹7,000</h2>
+              <span class="pill warning">Due 01/05/2026</span>
             </div>
-            <button class="primary" data-view-jump="tenantRent">Pay now</button>
+            <button class="primary" data-view-jump="tenantRent">Pay Rent Now</button>
           </div>
-          <div class="stats-grid">
-            <article class="metric">
-              <span>Next payment</span>
-              <strong>₹7,000</strong>
-              <p>Due in 5 days</p>
-            </article>
-            <article class="metric">
-              <span>Active requests</span>
-              <strong>1</strong>
-              <p>Bathroom tap repair (In progress)</p>
-            </article>
-            <article class="metric">
-              <span>Lease status</span>
-              <strong>Active</strong>
-              <p>Ends 31/12/2026</p>
-            </article>
+          <div class="section-head" style="margin-top: 28px;">
+            <h2>Quick Links</h2>
           </div>
-          <div class="section-head">
-            <h2>Quick Actions</h2>
+          <div class="tenant-quick-links">
+            <button class="quick-link" data-view-jump="tenantMaintenance">
+              <span class="icon">🔧</span> Report Issue
+            </button>
+            <button class="quick-link" data-view-jump="tenantProperty">
+              <span class="icon">📄</span> View Lease
+            </button>
+            <button class="quick-link" data-view-jump="tenantAi">
+              <span class="icon">✨</span> Ask AI
+            </button>
           </div>
-          <div class="ai-grid">
-             <article class="ai-card">
-               <h3>Report an Issue</h3>
-               <p>Create a new maintenance request for your room or common areas.</p>
-               <button class="primary small" data-view-jump="tenantMaintenance">New Request</button>
-             </article>
-             <article class="ai-card">
-               <h3>View Lease</h3>
-               <p>Review your digital lease agreement and terms.</p>
-               <button class="secondary small" data-view-jump="tenantProperty">Open Lease PDF</button>
-             </article>
-             <article class="ai-card">
-               <h3>Ask AI Assistant</h3>
-               <p>Have a question about your lease? Ask the AI concierge.</p>
-               <button class="secondary small" data-view-jump="tenantAi">Ask AI</button>
-             </article>
+          <div class="section-head" style="margin-top: 28px;">
+            <h2>Recent Updates</h2>
           </div>
+          <article class="request-card">
+            <div>
+              <span class="pill warning">In progress</span>
+              <h3>Bathroom tap repair</h3>
+              <p>Assigned to Vikram</p>
+            </div>
+          </article>
         </section>
 
         <section class="view" id="tenantRent">
@@ -419,23 +381,21 @@
           <div class="section-head">
             <div>
               <p class="eyebrow">Gemini 2.5 Flash</p>
-              <h2>Tenant AI Assistant</h2>
-              <p>Get help understanding your lease or communicating with your landlord.</p>
+              <h2>TULO AI Concierge</h2>
+              <p>Ask anything about your lease, property rules, or request help drafting messages.</p>
             </div>
           </div>
-          <div class="ai-grid">
-            <article class="ai-card">
-              <h3>Lease Explainer</h3>
-              <p>Translate legal terms from your lease into simple Hindi/English bullets.</p>
-              <button class="primary small" data-ai="leaseExplainer">Explain Notice Period</button>
-            </article>
-            <article class="ai-card">
-              <h3>Draft a Message</h3>
-              <p>Need to ask for a rent extension or report a delayed repair? Let AI draft a polite message.</p>
-              <button class="primary small" data-ai="draftMessage">Draft Extension Request</button>
-            </article>
+          <div class="chat-container">
+            <div class="chat-window" id="tenant-chat-window">
+              <div class="chat-message ai">
+                Hi Priya! I'm your TULO AI Concierge. How can I help you today? Try asking "Explain notice period" or "Draft a message for late rent".
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <input type="text" id="tenant-chat-input" placeholder="Type your message here..." />
+              <button class="primary" id="tenant-chat-send">Send</button>
+            </div>
           </div>
-          <div class="ai-output large" id="tenant-ai-output">Choose an AI action above.</div>
         </section>
       </main>
     </div>
