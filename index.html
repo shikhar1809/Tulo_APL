@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PropEase Lucknow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">P</div>
+          <div>
+            <strong>PropEase</strong>
+            <span>Lucknow</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <button class="nav-item active" data-view="dashboard">Dashboard</button>
+          <button class="nav-item" data-view="properties">Properties</button>
+          <button class="nav-item" data-view="rent">Rent</button>
+          <button class="nav-item" data-view="maintenance">Maintenance</button>
+          <button class="nav-item" data-view="poster">Poster Maker</button>
+          <button class="nav-item" data-view="tenant">Tenant View</button>
+        </nav>
+        <div class="sidebar-card">
+          <span>Launch Focus</span>
+          <strong>50 Lucknow landlords</strong>
+          <p>White-glove onboarding with Attest Video first.</p>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Good evening, Ramesh ji</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="top-actions">
+            <button class="icon-button" aria-label="Notifications">🔔<span>3</span></button>
+            <button class="primary small" data-open="addProperty">+ Add Property</button>
+          </div>
+        </header>
+
+        <section class="view active" id="dashboard">
+          <div class="attention-band">
+            <div>
+              <span class="pill danger">Attention today</span>
+              <h2>₹8,500 overdue, 1 emergency, attest video expires in 7 days</h2>
+            </div>
+            <button class="secondary">Resolve now</button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="metric">
+              <span>Collected this month</span>
+              <strong>₹62,000</strong>
+              <p>84% of ₹74,000</p>
+              <div class="bar"><i style="width:84%"></i></div>
+            </article>
+            <article class="metric">
+              <span>Units active</span>
+              <strong>12</strong>
+              <p>10 occupied · 2 vacant</p>
+            </article>
+            <article class="metric">
+              <span>Poster shares</span>
+              <strong>7</strong>
+              <p>WhatsApp and Instagram</p>
+            </article>
+          </div>
+
+          <div class="section-head">
+            <h2>Your Properties</h2>
+            <button class="text-button" data-view-jump="properties">View all</button>
+          </div>
+          <div class="property-grid" id="dashboard-properties"></div>
+        </section>
+
+        <section class="view" id="properties">
+          <div class="section-head">
+            <h2>Properties</h2>
+            <button class="primary small" data-open="addProperty">+ Add Property</button>
+          </div>
+          <div class="property-grid" id="properties-list"></div>
+        </section>
+
+        <section class="view" id="rent">
+          <div class="section-head">
+            <div>
+              <h2>May 2026 Rent</h2>
+              <p>Collected ₹62,000 · Pending ₹12,000</p>
+            </div>
+            <button class="secondary">Send reminders</button>
+          </div>
+          <div class="table-card">
+            <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
+            <div id="rent-list"></div>
+          </div>
+        </section>
+
+        <section class="view" id="maintenance">
+          <div class="section-head">
+            <h2>Maintenance Inbox</h2>
+            <button class="primary small" data-open="newRequest">+ New Request</button>
+          </div>
+          <div class="request-list" id="request-list"></div>
+        </section>
+
+        <section class="view" id="poster">
+          <div class="poster-layout">
+            <div>
+              <p class="eyebrow">Template</p>
+              <h2>Create vacancy poster</h2>
+              <div class="template-row">
+                <button class="template active">Modern Blue</button>
+                <button class="template">Classic</button>
+                <button class="template">Bold</button>
+                <button class="template">Minimal</button>
+              </div>
+              <label>Rent amount<input id="poster-rent" value="₹7,000/month" /></label>
+              <label>Locality<input id="poster-locality" value="Gomti Nagar, Lucknow" /></label>
+              <button class="primary">Export poster</button>
+            </div>
+            <div class="poster-preview">
+              <div class="poster-photo"></div>
+              <h3>ROOM AVAILABLE</h3>
+              <p id="poster-place">Gomti Nagar, Lucknow</p>
+              <strong id="poster-price">₹7,000/month</strong>
+              <div class="amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
+              <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="tenant">
+          <div class="tenant-home">
+            <div>
+              <p class="eyebrow">Tenant app</p>
+              <h2>Hello, Priya</h2>
+              <p>Room 2, Gomti Nagar PG</p>
+            </div>
+            <article class="tenant-panel">
+              <span class="pill warning">Due 01/05/2026</span>
+              <h3>May rent</h3>
+              <strong>₹7,000</strong>
+              <button class="primary">Pay now</button>
+            </article>
+            <article class="tenant-panel">
+              <span class="pill success">Lease active</span>
+              <h3>Agreement ends 31/12/2026</h3>
+              <button class="secondary">View lease</button>
+              <button class="secondary">View attest video</button>
+            </article>
+            <article class="tenant-panel">
+              <span class="pill warning">In progress</span>
+              <h3>Bathroom tap repair</h3>
+              <button class="secondary">Track request</button>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal" id="modal">
+      <div class="sheet">
+        <button class="close" aria-label="Close">×</button>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
