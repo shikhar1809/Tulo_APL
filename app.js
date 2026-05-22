@@ -1,56 +1,8 @@
-const properties = [
-  {
-    name: "Gomti Nagar PG",
-    type: "PG",
-    address: "Vibhuti Khand, Gomti Nagar",
-    units: "7/8 occupied",
-    rent: "₹56,000 monthly",
-    status: "Attested · 52 days left",
-    statusClass: "success",
-  },
-  {
-    name: "Hazratganj Flat",
-    type: "3 BHK Flat",
-    address: "Near Vidhan Sabha Marg",
-    units: "Occupied",
-    rent: "₹18,000 monthly",
-    status: "Rent paid",
-    statusClass: "success",
-  },
-  {
-    name: "Aliganj Shop",
-    type: "Commercial",
-    address: "Sector Q, Aliganj",
-    units: "Vacant",
-    rent: "₹22,000 expected",
-    status: "Make poster",
-    statusClass: "vacant",
-  },
-];
-
-const rentRows = [
-  ["Room 1", "Ajay Kumar", "₹7,000", "Paid", "Receipt"],
-  ["Room 2", "Priya Singh", "₹7,000", "Overdue", "Mark paid"],
-  ["Room 3", "Vacant", "—", "Vacant", "Add tenant"],
-  ["Flat A", "Nisha Verma", "₹18,000", "Paid", "Receipt"],
-];
-
-const requests = [
-  { title: "Bathroom tap dripping", unit: "Room 2 · Priya Singh", status: "In progress", priority: "Medium", emergency: false },
-  { title: "Main gate lock broken", unit: "Gomti Nagar PG", status: "Open", priority: "Emergency", emergency: true },
-  { title: "AC service needed", unit: "Flat A · Nisha Verma", status: "Assigned", priority: "Low", emergency: false },
-];
-
-const tenantRentHistory = [
-  ["Apr 2026", "₹7,000", "Paid", "02/04/2026", "Receipt"],
-  ["Mar 2026", "₹7,000", "Paid", "01/03/2026", "Receipt"],
-  ["Feb 2026", "₹7,000", "Paid", "03/02/2026", "Receipt"],
-];
-
-const tenantRequests = [
-  { title: "Bathroom tap dripping", status: "In progress", priority: "Medium", emergency: false, date: "20/04/2026" },
-  { title: "WiFi router restart", status: "Resolved", priority: "Low", emergency: false, date: "15/03/2026" },
-];
+let properties = [];
+let rentRows = [];
+let requests = [];
+let tenantRentHistory = [];
+let tenantRequests = [];
 
 const views = document.querySelectorAll(".view");
 const navItems = document.querySelectorAll(".nav-item");
@@ -84,8 +36,73 @@ function applyAuthRole(role) {
   switchView(isTenant ? "tenantHome" : "dashboard");
 }
 
+let db;
+
+async function seedRealDatabase() {
+  if (localStorage.getItem("tulo_db_seeded")) return;
+  const seedProperties = [
+    { name: "Gomti Nagar PG", type: "PG", address: "Vibhuti Khand, Gomti Nagar", units: "7/8 occupied", rent: "₹56,000 monthly", status: "Attested · 52 days left", statusClass: "success" },
+    { name: "Hazratganj Flat", type: "3 BHK Flat", address: "Near Vidhan Sabha Marg", units: "Occupied", rent: "₹18,000 monthly", status: "Rent paid", statusClass: "success" },
+    { name: "Aliganj Shop", type: "Commercial", address: "Sector Q, Aliganj", units: "Vacant", rent: "₹22,000 expected", status: "Make poster", statusClass: "vacant" }
+  ];
+  const seedRentRows = [
+    { unit: "Room 1", tenant: "Ajay Kumar", amount: "₹7,000", status: "Paid", action: "Receipt" },
+    { unit: "Room 2", tenant: "Priya Singh", amount: "₹7,000", status: "Overdue", action: "Mark paid" },
+    { unit: "Room 3", tenant: "Vacant", amount: "—", status: "Vacant", action: "Add tenant" },
+    { unit: "Flat A", tenant: "Nisha Verma", amount: "₹18,000", status: "Paid", action: "Receipt" }
+  ];
+  const seedRequests = [
+    { title: "Bathroom tap dripping", unit: "Room 2 · Priya Singh", status: "In progress", priority: "Medium", emergency: false },
+    { title: "Main gate lock broken", unit: "Gomti Nagar PG", status: "Open", priority: "Emergency", emergency: true },
+    { title: "AC service needed", unit: "Flat A · Nisha Verma", status: "Assigned", priority: "Low", emergency: false }
+  ];
+  const seedTenantRentHistory = [
+    { month: "Apr 2026", amount: "₹7,000", status: "Paid", date: "02/04/2026", action: "Receipt" },
+    { month: "Mar 2026", amount: "₹7,000", status: "Paid", date: "01/03/2026", action: "Receipt" },
+    { month: "Feb 2026", amount: "₹7,000", status: "Paid", date: "03/02/2026", action: "Receipt" }
+  ];
+  const seedTenantRequests = [
+    { title: "Bathroom tap dripping", status: "In progress", priority: "Medium", emergency: false, date: "20/04/2026" },
+    { title: "WiFi router restart", status: "Resolved", priority: "Low", emergency: false, date: "15/03/2026" }
+  ];
+  
+  const batch = db.batch();
+  seedProperties.forEach(p => batch.set(db.collection("properties").doc(), p));
+  seedRentRows.forEach(r => batch.set(db.collection("rentRows").doc(), r));
+  seedRequests.forEach(r => batch.set(db.collection("requests").doc(), r));
+  seedTenantRentHistory.forEach(r => batch.set(db.collection("tenantRentHistory").doc(), r));
+  seedTenantRequests.forEach(r => batch.set(db.collection("tenantRequests").doc(), r));
+  await batch.commit();
+  localStorage.setItem("tulo_db_seeded", "true");
+}
+
+function initFirestoreListeners() {
+  db.collection("properties").onSnapshot(snap => {
+    properties = snap.docs.map(doc => doc.data());
+    render();
+  });
+  db.collection("rentRows").onSnapshot(snap => {
+    rentRows = snap.docs.map(doc => doc.data());
+    render();
+  });
+  db.collection("requests").onSnapshot(snap => {
+    requests = snap.docs.map(doc => doc.data());
+    render();
+  });
+  db.collection("tenantRentHistory").onSnapshot(snap => {
+    tenantRentHistory = snap.docs.map(doc => doc.data());
+    render();
+  });
+  db.collection("tenantRequests").onSnapshot(snap => {
+    tenantRequests = snap.docs.map(doc => doc.data());
+    render();
+  });
+}
+
 window.addEventListener('load', () => {
   if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+    db = firebase.firestore();
+    seedRealDatabase().then(() => initFirestoreListeners());
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const savedRole = localStorage.getItem("tulo_auth_role") || "tenant";
@@ -145,11 +162,11 @@ function propertyCard(property) {
 function render() {
   document.querySelector("#dashboard-properties").innerHTML = properties.slice(0, 2).map(propertyCard).join("");
   document.querySelector("#properties-list").innerHTML = properties.map(propertyCard).join("");
-  document.querySelector("#rent-list").innerHTML = rentRows.map(([unit, tenant, amount, status, action]) => `
+  document.querySelector("#rent-list").innerHTML = rentRows.map((row) => `
     <div class="table-row">
-      <span>${unit}</span><span>${tenant}</span><span>${amount}</span>
-      <span><span class="pill ${status === "Paid" ? "success" : status === "Overdue" ? "danger" : "vacant"}">${status}</span></span>
-      <span><button class="secondary small">${action}</button></span>
+      <span>${row.unit}</span><span>${row.tenant}</span><span>${row.amount}</span>
+      <span><span class="pill ${row.status === "Paid" ? "success" : row.status === "Overdue" ? "danger" : "vacant"}">${row.status}</span></span>
+      <span><button class="secondary small">${row.action}</button></span>
     </div>
   `).join("");
   document.querySelector("#request-list").innerHTML = requests.map((request) => `
@@ -166,12 +183,12 @@ function render() {
     </article>
   `).join("");
 
-  document.querySelector("#tenant-rent-history").innerHTML = tenantRentHistory.map(([month, amount, status, date, action]) => `
+  document.querySelector("#tenant-rent-history").innerHTML = tenantRentHistory.map((row) => `
     <div class="table-row">
-      <span>${month}</span><span>${amount}</span>
-      <span><span class="pill success">${status}</span></span>
-      <span>${date}</span>
-      <span><button class="secondary small">${action}</button></span>
+      <span>${row.month}</span><span>${row.amount}</span>
+      <span><span class="pill success">${row.status}</span></span>
+      <span>${row.date}</span>
+      <span><button class="secondary small">${row.action}</button></span>
     </div>
   `).join("");
 
@@ -205,11 +222,11 @@ const sheets = {
     <h2>Add property</h2>
     <p>Capture the minimum details needed to create the property and fetch verified nearby places.</p>
     <div class="form-grid">
-      <label>Property name<input placeholder="Gomti Nagar PG"></label>
-      <label>Type<input placeholder="PG / flat / commercial"></label>
-      <label>Address<input placeholder="Full address, Lucknow"></label>
-      <label>Pincode<input placeholder="226010"></label>
-      <button class="primary">Save property</button>
+      <label>Property name<input id="add-prop-name" placeholder="Gomti Nagar PG"></label>
+      <label>Type<input id="add-prop-type" placeholder="PG / flat / commercial"></label>
+      <label>Address<input id="add-prop-address" placeholder="Full address, Lucknow"></label>
+      <label>Pincode<input id="add-prop-pin" placeholder="226010"></label>
+      <button class="primary" id="btn-save-property">Save property</button>
     </div>
   `,
   attest: `
@@ -221,10 +238,10 @@ const sheets = {
   newRequest: `
     <h2>New maintenance request</h2>
     <div class="form-grid">
-      <label>Category<input placeholder="Plumbing"></label>
-      <label>Priority<input placeholder="Medium"></label>
-      <label>Description<input placeholder="Describe the issue"></label>
-      <button class="primary">Submit request</button>
+      <label>Category<input id="req-cat" placeholder="Plumbing"></label>
+      <label>Priority<input id="req-pri" placeholder="Medium"></label>
+      <label>Description<input id="req-desc" placeholder="Describe the issue"></label>
+      <button class="primary" id="btn-save-request">Submit request</button>
     </div>
   `,
 };
@@ -577,6 +594,39 @@ document.addEventListener("click", (event) => {
     closeVideoModal();
   }
   if (event.target.closest("#tenant-chat-send")) handleTenantChat();
+
+  // Firestore Form Mutations
+  if (event.target.id === "btn-save-property") {
+    const pName = document.getElementById("add-prop-name").value;
+    const pType = document.getElementById("add-prop-type").value;
+    const pAddress = document.getElementById("add-prop-address").value;
+    if(pName && db) {
+      db.collection("properties").add({
+        name: pName, type: pType || "PG", address: pAddress || "Lucknow", units: "0 occupied", rent: "₹0 monthly", status: "Newly Added", statusClass: "success"
+      });
+      document.getElementById("modal").classList.remove("active");
+    }
+  }
+
+  if (event.target.id === "btn-save-request") {
+    const rCat = document.getElementById("req-cat").value;
+    const rPri = document.getElementById("req-pri").value;
+    const rDesc = document.getElementById("req-desc").value;
+    if(rDesc && db) {
+      const today = new Date().toLocaleDateString("en-GB");
+      db.collection("tenantRequests").add({ title: rDesc, status: "Open", priority: rPri || "Medium", emergency: false, date: today });
+      db.collection("requests").add({ title: rDesc, unit: "Room 2 · Priya Singh", status: "Open", priority: rPri || "Medium", emergency: false });
+      document.getElementById("modal").classList.remove("active");
+    }
+  }
+  
+  if (event.target.classList.contains("primary") && event.target.textContent.includes("Pay now")) {
+    if(db) {
+       const today = new Date().toLocaleDateString("en-GB");
+       db.collection("tenantRentHistory").add({ month: "May 2026", amount: "₹7,000", status: "Paid", date: today, action: "Receipt" });
+       alert("Rent Paid! Real receipt recorded in Firestore.");
+    }
+  }
 });
 
 document.addEventListener("keydown", (event) => {
