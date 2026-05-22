@@ -51,7 +51,7 @@ function switchView(id) {
   views.forEach((view) => view.classList.toggle("active", view.id === id));
   navItems.forEach((item) => item.classList.toggle("active", item.dataset.view === id));
   const active = document.querySelector(`[data-view="${id}"]`);
-  pageTitle.textContent = active ? active.textContent : "Dashboard";
+  pageTitle.textContent = active ? active.dataset.title || active.textContent : "Dashboard";
 }
 
 function propertyCard(property) {
@@ -65,7 +65,7 @@ function propertyCard(property) {
         <p><strong>${property.units}</strong><br>${property.rent}</p>
         <div class="card-actions">
           <button data-open="attest">Attest</button>
-          <button data-view-jump="rent">Rent</button>
+          <button data-view-jump="rentTenant">Rent</button>
           <button data-view-jump="poster">Poster</button>
         </div>
       </div>
@@ -146,12 +146,16 @@ const aiPrompts = {
 };
 
 function getGeminiKey() {
-  return localStorage.getItem("tulo_gemini_key") || "";
+  return window.TULO_CONFIG?.geminiApiKey || localStorage.getItem("tulo_gemini_key") || "";
 }
 
 function updateGeminiState() {
   const state = document.querySelector("#gemini-state");
-  if (state) state.textContent = getGeminiKey() ? "Key saved locally" : "Key not saved";
+  if (state) {
+    state.textContent = getGeminiKey()
+      ? "Gemini is ready for poster copy, reminders, maintenance triage, and tenant invites."
+      : "Gemini key missing locally. Add config.local.js or save a key in this browser.";
+  }
 }
 
 function setBusy(target, message) {
@@ -164,7 +168,7 @@ async function callGemini(prompt) {
   if (!apiKey) {
     modalContent.innerHTML = sheets.geminiKey;
     modal.classList.add("active");
-    throw new Error("Add Gemini API key first.");
+    throw new Error("Gemini key is not available on this device yet.");
   }
 
   const response = await fetch(geminiEndpoint, {

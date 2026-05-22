@@ -20,19 +20,12 @@
           </div>
         </div>
         <nav class="nav">
-          <button class="nav-item active" data-view="dashboard">Dashboard</button>
-          <button class="nav-item" data-view="properties">Properties</button>
-          <button class="nav-item" data-view="rent">Rent</button>
-          <button class="nav-item" data-view="maintenance">Maintenance</button>
-          <button class="nav-item" data-view="poster">Poster Maker</button>
-          <button class="nav-item" data-view="ai">AI Studio</button>
-          <button class="nav-item" data-view="tenant">Tenant View</button>
+          <button class="nav-item active" data-view="dashboard" data-title="Dashboard"><span>⌂</span>Dashboard</button>
+          <button class="nav-item" data-view="properties" data-title="Properties & Maintenance"><span>▦</span>Properties & Maintenance</button>
+          <button class="nav-item" data-view="poster" data-title="Poster Maker"><span>◈</span>Poster Maker</button>
+          <button class="nav-item" data-view="ai" data-title="AI Studio"><span>✦</span>AI Studio</button>
+          <button class="nav-item" data-view="rentTenant" data-title="Rent & Tenant View"><span>₹</span>Rent & Tenant View</button>
         </nav>
-        <div class="sidebar-card gemini-card">
-          <span>Gemini API</span>
-          <strong id="gemini-state">Key not saved</strong>
-          <button class="secondary small" data-open="geminiKey">Set key</button>
-        </div>
         <div class="sidebar-card">
           <span>Launch Focus</span>
           <strong>50 Lucknow landlords</strong>
@@ -89,29 +82,18 @@
 
         <section class="view" id="properties">
           <div class="section-head">
-            <h2>Properties</h2>
+            <div>
+              <h2>Properties & Maintenance</h2>
+              <p>Manage units and repair work from one operating view.</p>
+            </div>
             <button class="primary small" data-open="addProperty">+ Add Property</button>
           </div>
           <div class="property-grid" id="properties-list"></div>
-        </section>
-
-        <section class="view" id="rent">
-          <div class="section-head">
+          <div class="section-head split-section">
             <div>
-              <h2>May 2026 Rent</h2>
-              <p>Collected ₹62,000 · Pending ₹12,000</p>
+              <h2>Maintenance Inbox</h2>
+              <p>Open repairs, emergency work, and caretaker assignments.</p>
             </div>
-            <button class="secondary">Send reminders</button>
-          </div>
-          <div class="table-card">
-            <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
-            <div id="rent-list"></div>
-          </div>
-        </section>
-
-        <section class="view" id="maintenance">
-          <div class="section-head">
-            <h2>Maintenance Inbox</h2>
             <button class="primary small" data-open="newRequest">+ New Request</button>
           </div>
           <div class="request-list" id="request-list"></div>
@@ -153,9 +135,8 @@
             <div>
               <p class="eyebrow">Gemini 2.5 Flash</p>
               <h2>AI Studio</h2>
-              <p>Draft landlord workflows quickly: listing copy, reminders, maintenance triage, and tenant invites.</p>
+              <p id="gemini-state">Gemini is ready for poster copy, reminders, maintenance triage, and tenant invites.</p>
             </div>
-            <button class="secondary" data-open="geminiKey">Set Gemini key</button>
           </div>
           <div class="ai-grid">
             <article class="ai-card">
@@ -182,30 +163,45 @@
           <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
         </section>
 
-        <section class="view" id="tenant">
-          <div class="tenant-home">
+        <section class="view" id="rentTenant">
+          <div class="section-head">
             <div>
-              <p class="eyebrow">Tenant app</p>
-              <h2>Hello, Priya</h2>
-              <p>Room 2, Gomti Nagar PG</p>
+              <h2>Rent & Tenant View</h2>
+              <p>Collections, overdue action, and the tenant-side experience together.</p>
             </div>
-            <article class="tenant-panel">
-              <span class="pill warning">Due 01/05/2026</span>
-              <h3>May rent</h3>
-              <strong>₹7,000</strong>
-              <button class="primary">Pay now</button>
-            </article>
-            <article class="tenant-panel">
-              <span class="pill success">Lease active</span>
-              <h3>Agreement ends 31/12/2026</h3>
-              <button class="secondary">View lease</button>
-              <button class="secondary">View attest video</button>
-            </article>
-            <article class="tenant-panel">
-              <span class="pill warning">In progress</span>
-              <h3>Bathroom tap repair</h3>
-              <button class="secondary">Track request</button>
-            </article>
+            <button class="secondary">Send reminders</button>
+          </div>
+          <div class="rent-tenant-layout">
+            <div class="table-card">
+              <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
+              <div id="rent-list"></div>
+            </div>
+            <div class="tenant-home">
+              <div>
+                <p class="eyebrow">Tenant app preview</p>
+                <h2>Hello, Priya</h2>
+                <p>Room 2, Gomti Nagar PG</p>
+              </div>
+              <article class="tenant-panel">
+                <span class="pill warning">Due 01/05/2026</span>
+                <h3>May rent</h3>
+                <strong>₹7,000</strong>
+                <button class="primary">Pay now</button>
+              </article>
+              <article class="tenant-panel">
+                <span class="pill success">Lease active</span>
+                <h3>Agreement ends 31/12/2026</h3>
+                <div class="button-row">
+                  <button class="secondary">View lease</button>
+                  <button class="secondary">View attest video</button>
+                </div>
+              </article>
+              <article class="tenant-panel">
+                <span class="pill warning">In progress</span>
+                <h3>Bathroom tap repair</h3>
+                <button class="secondary">Track request</button>
+              </article>
+            </div>
           </div>
         </section>
       </main>
@@ -218,6 +214,7 @@
       </div>
     </div>
 
+    <script src="config.local.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
