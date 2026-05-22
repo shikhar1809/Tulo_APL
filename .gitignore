@@ -2,3 +2,5 @@
 .env.*
 config.local.js
 *.local.json
+firebase-debug.log
+.firebase/
