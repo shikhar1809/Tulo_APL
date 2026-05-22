@@ -84,9 +84,33 @@ function applyAuthRole(role) {
   switchView(isTenant ? "tenantHome" : "dashboard");
 }
 
+window.addEventListener('load', () => {
+  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const savedRole = localStorage.getItem("tulo_auth_role") || "tenant";
+        if (!document.body.classList.contains("authenticated")) {
+          applyAuthRole(savedRole);
+        }
+      }
+    });
+  }
+});
+
 function signInWithGoogle(role) {
   localStorage.setItem("tulo_auth_role", role);
-  applyAuthRole(role);
+  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      applyAuthRole(role);
+    }).catch((error) => {
+      console.warn("Firebase Auth Error (falling back to mock auth):", error);
+      applyAuthRole(role);
+    });
+  } else {
+    console.warn("Firebase not loaded. Using mock auth.");
+    applyAuthRole(role);
+  }
 }
 
 function signOut() {
@@ -94,6 +118,9 @@ function signOut() {
   document.body.classList.remove("authenticated");
   delete document.body.dataset.role;
   switchView("dashboard");
+  if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
+    firebase.auth().signOut().catch(console.error);
+  }
 }
 
 function propertyCard(property) {
@@ -397,18 +424,126 @@ async function handleTenantChat() {
   windowEl.scrollTop = windowEl.scrollHeight;
 }
 
+// --- Attested Video (WebRTC + IndexedDB) ---
+let mediaRecorder;
+let recordedChunks = [];
+let localStream;
+
+function openVideoDB() {
+  return new Promise((resolve) => {
+    const req = indexedDB.open("TuloVideoDB", 1);
+    req.onupgradeneeded = e => {
+      e.target.result.createObjectStore("videos");
+    };
+    req.onsuccess = e => resolve(e.target.result);
+  });
+}
+
+async function saveVideoBlob(blob) {
+  const db = await openVideoDB();
+  return new Promise(res => {
+    const tx = db.transaction("videos", "readwrite");
+    tx.objectStore("videos").put(blob, "room2-attest");
+    tx.oncomplete = res;
+  });
+}
+
+async function loadVideoBlob() {
+  const db = await openVideoDB();
+  return new Promise(res => {
+    const req = db.transaction("videos").objectStore("videos").get("room2-attest");
+    req.onsuccess = e => res(e.target.result);
+  });
+}
+
+async function startVideoModal(mode) {
+  const modal = document.getElementById("video-modal");
+  const title = document.getElementById("video-modal-title");
+  const player = document.getElementById("video-player");
+  const preview = document.getElementById("video-preview");
+  const controls = document.getElementById("video-controls");
+  
+  modal.classList.add("active");
+  player.style.display = "none";
+  preview.style.display = "none";
+  player.src = "";
+  preview.srcObject = null;
+  controls.innerHTML = "";
+  
+  if (mode === "record") {
+    title.textContent = "Record Attest Video";
+    preview.style.display = "block";
+    try {
+      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      preview.srcObject = localStream;
+      
+      const recordBtn = document.createElement("button");
+      recordBtn.className = "primary";
+      recordBtn.textContent = "Start Recording";
+      recordBtn.onclick = () => {
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(localStream);
+        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+        mediaRecorder.onstop = async () => {
+          const blob = new Blob(recordedChunks, { type: "video/webm" });
+          await saveVideoBlob(blob);
+          alert("Attested Video saved locally (IndexedDB)!");
+          closeVideoModal();
+        };
+        mediaRecorder.start();
+        recordBtn.textContent = "Recording... (Click to Stop)";
+        recordBtn.className = "primary danger";
+        recordBtn.onclick = () => mediaRecorder.stop();
+      };
+      controls.appendChild(recordBtn);
+    } catch (err) {
+      title.textContent = "Camera access denied.";
+    }
+  } else if (mode === "play") {
+    title.textContent = "Attested Property Video";
+    const blob = await loadVideoBlob();
+    if (blob) {
+      player.style.display = "block";
+      player.src = URL.createObjectURL(blob);
+      player.play().catch(()=>{});
+    } else {
+      title.textContent = "No video recorded yet.";
+    }
+  }
+}
+
+function closeVideoModal() {
+  document.getElementById("video-modal").classList.remove("active");
+  if (localStream) {
+    localStream.getTracks().forEach(t => t.stop());
+    localStream = null;
+  }
+  document.getElementById("video-player").pause();
+}
+
 document.addEventListener("click", (event) => {
   const auth = event.target.closest("[data-auth-role]");
   const nav = event.target.closest("[data-view]");
   const jump = event.target.closest("[data-view-jump]");
   const open = event.target.closest("[data-open]");
   const aiAction = event.target.closest("[data-ai]");
+  const videoAction = event.target.closest("[data-video]");
+
   if (auth) signInWithGoogle(auth.dataset.authRole);
   if (nav) switchView(nav.dataset.view);
   if (jump) switchView(jump.dataset.viewJump);
+  
   if (open) {
-    modalContent.innerHTML = sheets[open.dataset.open] || "";
-    modal.classList.add("active");
+    if (open.dataset.open === "attest") {
+      startVideoModal("record");
+    } else {
+      modalContent.innerHTML = sheets[open.dataset.open] || "";
+      document.getElementById("modal").classList.add("active");
+    }
+  }
+
+  if (videoAction && videoAction.dataset.video === "play") {
+    startVideoModal("play");
   }
   if (aiAction) {
     runAiAction(aiAction.dataset.ai).catch((error) => {
@@ -431,7 +566,15 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.closest("#export-poster")) exportPoster();
   if (event.target.closest("#sign-out")) signOut();
-  if (event.target.closest(".close") || event.target === modal) modal.classList.remove("active");
+  if (event.target.closest(".close") && event.target.closest("#modal")) {
+    document.getElementById("modal").classList.remove("active");
+  }
+  if (event.target === document.getElementById("modal")) {
+    document.getElementById("modal").classList.remove("active");
+  }
+  if (event.target.closest("#video-modal-close") || event.target === document.getElementById("video-modal")) {
+    closeVideoModal();
+  }
   if (event.target.closest("#tenant-chat-send")) handleTenantChat();
 });
 

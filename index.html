@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <!-- Firebase Hosting reserved URLs (secure, no hardcoded API keys needed) -->
+    <script defer src="/__/firebase/10.4.0/firebase-app-compat.js"></script>
+    <script defer src="/__/firebase/10.4.0/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
   </head>
   <body>
     <section class="auth-screen" id="auth-screen">
@@ -353,7 +357,7 @@
           </div>
           <div class="property-grid" style="margin-bottom: 24px;">
              <article class="property-card">
-               <div class="property-photo" style="height: 180px; background: #2c2c2a; display:flex; align-items:center; justify-content:center; color:#fff;">
+               <div class="property-photo" style="height: 180px; background: #2c2c2a; display:flex; align-items:center; justify-content:center; color:#fff; cursor: pointer;" data-video="play">
                  ▶ Play Attest Video
                </div>
                <div class="property-body">
@@ -404,6 +408,18 @@
       <div class="sheet">
         <button class="close" aria-label="Close">×</button>
         <div id="modal-content"></div>
+      </div>
+    </div>
+
+    <!-- Video Modal for Recording and Playback -->
+    <div class="modal" id="video-modal">
+      <div class="sheet" style="text-align: center;">
+        <button class="close" aria-label="Close" id="video-modal-close">×</button>
+        <h2 id="video-modal-title" style="margin-bottom: 16px;">Attested Video</h2>
+        <video id="video-player" playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;" controls></video>
+        <video id="video-preview" playsinline autoplay muted style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;"></video>
+        
+        <div id="video-controls" style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;"></div>
       </div>
     </div>
 
