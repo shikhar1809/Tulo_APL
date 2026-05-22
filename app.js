@@ -140,9 +140,9 @@ const sheets = {
 
 const aiPrompts = {
   listing: `Write a concise rental listing for Gomti Nagar PG in Lucknow. Details: Room 2 vacant, rent INR 7,000 per month, AC, WiFi, meals, verified nearby hospital/market/metro, attest video available. Use Indian English, trustworthy tone, WhatsApp-ready, under 90 words.`,
-  rentReminder: `Draft a polite but firm WhatsApp rent reminder from landlord Ramesh Gupta to tenant Priya Singh. May 2026 rent of INR 7,000 is overdue by 4 days. Mention digital receipt for HRA and ask for payment today. Keep it under 65 words.`,
-  maintenanceTriage: `Triage this maintenance request for a Lucknow landlord: "Main gate lock broken at Gomti Nagar PG". Return urgency, suggested SLA, caretaker instruction, and tenant update in short bullets.`,
-  tenantInvite: `Write a short onboarding invite from TULO for a tenant joining Room 2, Gomti Nagar PG. Mention invite code, viewing attest video, Aadhaar upload, lease review, and e-sign. Friendly, clear, under 80 words.`,
+  maintenanceTriage: `Act as TULO's Smart Maintenance Router. Triage this request: "Bathroom tap is dripping constantly since 2 days" for Room 2 at Gomti Nagar PG. Available caretaker: Vikram, plumbing and electrical, average response 2 hours. Return strict short bullets for priority, suggestedAssignee, estimatedResolutionHours, draftTenantReply, caretakerNote, and confidence.`,
+  leaseAutofill: `Act as TULO's Lease Autofill Engine. Pre-fill a lease summary for Room 2, Gomti Nagar PG, tenant Priya Singh, landlord Ramesh Gupta, rent INR 7,000, deposit INR 14,000, start 01/06/2026, end 31/12/2026. Return mandatory fields, missing fields, editable fields, and a landlord confirmation checklist.`,
+  kycReview: `Act as TULO's AI KYC Review assistant. For a sample Aadhaar upload where tenant profile name is Priya Singh and the document appears readable, return an advisory review with documentType, nameMatch, imageQuality, flags, recommendation, and the disclaimer that this is not legal identity verification.`,
 };
 
 function getGeminiKey() {

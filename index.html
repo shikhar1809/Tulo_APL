@@ -116,9 +116,17 @@
           <div class="section-head split-section">
             <div>
               <h2>Maintenance Inbox</h2>
-              <p>Open repairs, emergency work, and caretaker assignments.</p>
+              <p>AI-routed repairs, emergency work, and caretaker assignments.</p>
             </div>
             <button class="primary small" data-open="newRequest">+ New Request</button>
+          </div>
+          <div class="ai-router-panel">
+            <div>
+              <span class="pill success">AI Suggested</span>
+              <h3>High priority · Assign Vikram</h3>
+              <p>Bathroom tap dripping is likely plumbing, not emergency. Draft reply is ready for tenant approval.</p>
+            </div>
+            <button class="secondary" data-ai="maintenanceTriage">Review AI route</button>
           </div>
           <div class="request-list" id="request-list"></div>
         </section>
@@ -164,24 +172,24 @@
           </div>
           <div class="ai-grid">
             <article class="ai-card">
+              <h3>Smart Maintenance Router</h3>
+              <p>Classify priority, draft tenant reply, and suggest the right caretaker in seconds.</p>
+              <button class="primary small" data-ai="maintenanceTriage">Generate route</button>
+            </article>
+            <article class="ai-card">
+              <h3>Lease Autofill</h3>
+              <p>Pre-fill lease terms from property, unit, rent, deposit, landlord, and tenant records.</p>
+              <button class="primary small" data-ai="leaseAutofill">Generate lease fields</button>
+            </article>
+            <article class="ai-card">
+              <h3>KYC Review</h3>
+              <p>Check Aadhaar document type, name match, and image quality as an advisory review.</p>
+              <button class="primary small" data-ai="kycReview">Review sample</button>
+            </article>
+            <article class="ai-card">
               <h3>Vacancy listing</h3>
               <p>Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
               <button class="primary small" data-ai="listing">Generate</button>
-            </article>
-            <article class="ai-card">
-              <h3>Rent reminder</h3>
-              <p>Draft a polite but firm WhatsApp reminder for an overdue tenant.</p>
-              <button class="primary small" data-ai="rentReminder">Generate</button>
-            </article>
-            <article class="ai-card">
-              <h3>Maintenance triage</h3>
-              <p>Classify urgency and suggest next steps for the landlord or caretaker.</p>
-              <button class="primary small" data-ai="maintenanceTriage">Generate</button>
-            </article>
-            <article class="ai-card">
-              <h3>Tenant invite</h3>
-              <p>Write a short onboarding message that explains the invite code and lease steps.</p>
-              <button class="primary small" data-ai="tenantInvite">Generate</button>
             </article>
           </div>
           <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
@@ -219,6 +227,12 @@
                   <button class="secondary">View lease</button>
                   <button class="secondary">View attest video</button>
                 </div>
+              </article>
+              <article class="tenant-panel">
+                <span class="pill success">AI checked</span>
+                <h3>Lease autofill & KYC</h3>
+                <p>100% mandatory fields filled · Aadhaar image clear · name match advisory passed</p>
+                <button class="secondary" data-ai="leaseAutofill">Preview lease fields</button>
               </article>
               <article class="tenant-panel">
                 <span class="pill warning">In progress</span>
