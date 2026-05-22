@@ -44,6 +44,9 @@ const requests = [
 const views = document.querySelectorAll(".view");
 const navItems = document.querySelectorAll(".nav-item");
 const pageTitle = document.querySelector("#page-title");
+const sessionContext = document.querySelector("#session-context");
+const roleChip = document.querySelector("#role-chip");
+const addPropertyAction = document.querySelector("#add-property-action");
 const geminiModel = "gemini-2.5-flash";
 const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`;
 
@@ -52,6 +55,28 @@ function switchView(id) {
   navItems.forEach((item) => item.classList.toggle("active", item.dataset.view === id));
   const active = document.querySelector(`[data-view="${id}"]`);
   pageTitle.textContent = active ? active.dataset.title || active.textContent : "Dashboard";
+}
+
+function applyAuthRole(role) {
+  const isTenant = role === "tenant";
+  document.body.classList.add("authenticated");
+  document.body.dataset.role = role;
+  if (sessionContext) sessionContext.textContent = isTenant ? "Hello, Priya" : "Good evening, Ramesh ji";
+  if (roleChip) roleChip.textContent = isTenant ? "Tenant" : "Landlord";
+  if (addPropertyAction) addPropertyAction.style.display = isTenant ? "none" : "";
+  switchView(isTenant ? "rentTenant" : "dashboard");
+}
+
+function signInWithGoogle(role) {
+  localStorage.setItem("tulo_auth_role", role);
+  applyAuthRole(role);
+}
+
+function signOut() {
+  localStorage.removeItem("tulo_auth_role");
+  document.body.classList.remove("authenticated");
+  delete document.body.dataset.role;
+  switchView("dashboard");
 }
 
 function propertyCard(property) {
@@ -299,10 +324,12 @@ function exportPoster() {
 }
 
 document.addEventListener("click", (event) => {
+  const auth = event.target.closest("[data-auth-role]");
   const nav = event.target.closest("[data-view]");
   const jump = event.target.closest("[data-view-jump]");
   const open = event.target.closest("[data-open]");
   const aiAction = event.target.closest("[data-ai]");
+  if (auth) signInWithGoogle(auth.dataset.authRole);
   if (nav) switchView(nav.dataset.view);
   if (jump) switchView(jump.dataset.viewJump);
   if (open) {
@@ -327,6 +354,7 @@ document.addEventListener("click", (event) => {
     modal.classList.remove("active");
   }
   if (event.target.closest("#export-poster")) exportPoster();
+  if (event.target.closest("#sign-out")) signOut();
   if (event.target.closest(".close") || event.target === modal) modal.classList.remove("active");
 });
 
@@ -342,3 +370,5 @@ document.querySelector("#poster-headline-input").addEventListener("input", (even
 
 render();
 updateGeminiState();
+const savedRole = localStorage.getItem("tulo_auth_role");
+if (savedRole) applyAuthRole(savedRole);
