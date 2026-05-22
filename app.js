@@ -31,19 +31,37 @@ function switchView(id) {
 let currentMapFilter = "All";
 
 function initMap() {
-  map = L.map('map').setView([26.8467, 80.9462], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const lucknowBounds = [
+    [26.65, 80.80], // SouthWest
+    [27.00, 81.10]  // NorthEast
+  ];
+  
+  map = L.map('map', {
+    maxBounds: lucknowBounds,
+    maxBoundsViscosity: 1.0,
+    minZoom: 11
+  }).setView([26.8467, 80.9462], 12);
+  
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     maxZoom: 19,
-    attribution: '© OpenStreetMap'
+    attribution: '© OpenStreetMap & CartoDB'
   }).addTo(map);
 
-  L.polygon([
-    [26.8150, 80.8900], [26.8250, 80.9000], [26.8200, 80.9100], [26.8100, 80.9000]
-  ], {color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.3}).addTo(map).bindPopup("Alambagh Area");
+  const zones = [
+    { name: "Gomti Nagar", color: "#10b981", coords: [[26.85, 80.98], [26.88, 81.04], [26.83, 81.05], [26.83, 80.98]] },
+    { name: "Alambagh", color: "#3b82f6", coords: [[26.81, 80.88], [26.83, 80.92], [26.78, 80.92], [26.76, 80.87]] },
+    { name: "Hazratganj", color: "#8b5cf6", coords: [[26.83, 80.93], [26.86, 80.93], [26.86, 80.96], [26.83, 80.96]] },
+    { name: "Mahanagar", color: "#f97316", coords: [[26.86, 80.94], [26.90, 80.94], [26.90, 80.99], [26.86, 80.99]] },
+    { name: "Chowk (Old City)", color: "#ef4444", coords: [[26.83, 80.90], [26.87, 80.90], [26.87, 80.93], [26.83, 80.93]] },
+    { name: "Ashiyana", color: "#eab308", coords: [[26.78, 80.92], [26.81, 80.92], [26.81, 80.96], [26.78, 80.96]] },
+    { name: "Aliganj", color: "#14b8a6", coords: [[26.87, 80.92], [26.92, 80.92], [26.92, 80.96], [26.87, 80.96]] }
+  ];
 
-  L.polygon([
-    [26.8500, 80.9800], [26.8700, 81.0100], [26.8500, 81.0300], [26.8400, 81.0000]
-  ], {color: '#10b981', fillColor: '#10b981', fillOpacity: 0.3}).addTo(map).bindPopup("Gomti Nagar Area");
+  zones.forEach(z => {
+    L.polygon(z.coords, { color: z.color, fillColor: z.color, fillOpacity: 0.15, weight: 2 })
+      .addTo(map)
+      .bindPopup(`<strong>${z.name}</strong>`);
+  });
 
   document.querySelectorAll(".map-filter-btn").forEach(btn => {
     btn.addEventListener("click", (e) => {
