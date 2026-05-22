@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "tulo",
     "public": ".",
     "ignore": [
       "firebase.json",
