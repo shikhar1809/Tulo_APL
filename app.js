@@ -223,7 +223,13 @@ const sheets = {
     <p>Capture the minimum details needed to create the property and fetch verified nearby places.</p>
     <div class="form-grid">
       <label>Property name<input id="add-prop-name" placeholder="Gomti Nagar PG"></label>
-      <label>Type<input id="add-prop-type" placeholder="PG / flat / commercial"></label>
+      <label>Type
+        <select id="add-prop-type">
+          <option value="PG">PG</option>
+          <option value="Flat">Flat</option>
+          <option value="Commercial">Commercial</option>
+        </select>
+      </label>
       <label>Address<input id="add-prop-address" placeholder="Full address, Lucknow"></label>
       <label>Pincode<input id="add-prop-pin" placeholder="226010"></label>
       <button class="primary" id="btn-save-property">Save property</button>
