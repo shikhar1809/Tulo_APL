@@ -28,6 +28,8 @@ function switchView(id) {
   }
 }
 
+let currentMapFilter = "All";
+
 function initMap() {
   map = L.map('map').setView([26.8467, 80.9462], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -43,6 +45,21 @@ function initMap() {
     [26.8500, 80.9800], [26.8700, 81.0100], [26.8500, 81.0300], [26.8400, 81.0000]
   ], {color: '#10b981', fillColor: '#10b981', fillOpacity: 0.3}).addTo(map).bindPopup("Gomti Nagar Area");
 
+  document.querySelectorAll(".map-filter-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      document.querySelectorAll(".map-filter-btn").forEach(b => {
+        b.style.background = "var(--white)";
+        b.style.color = "var(--ink)";
+        b.style.border = "1px solid var(--line)";
+      });
+      e.target.style.background = "var(--primary)";
+      e.target.style.color = "var(--white)";
+      e.target.style.border = "1px solid var(--primary)";
+      currentMapFilter = e.target.dataset.filter;
+      updateMapMarkers();
+    });
+  });
+
   updateMapMarkers();
 }
 
@@ -51,11 +68,25 @@ function updateMapMarkers() {
   mapMarkers.forEach(m => map.removeLayer(m));
   mapMarkers = [];
   properties.forEach(p => {
+    let pTypeStr = p.type ? p.type.toLowerCase() : "";
+    let mappedType = "Flat";
+    if (pTypeStr.includes("pg")) mappedType = "PG";
+    else if (pTypeStr.includes("commercial")) mappedType = "Commercial";
+
+    if (currentMapFilter !== "All" && mappedType !== currentMapFilter) return;
+
+    let markerColor = "#fde047"; 
+    if (mappedType === "PG") markerColor = "#86efac"; 
+    if (mappedType === "Commercial") markerColor = "#93c5fd"; 
+
     const lat = 26.8467 + (Math.random() - 0.5) * 0.06;
     const lng = 80.9462 + (Math.random() - 0.5) * 0.08;
-    const marker = L.marker([lat, lng]).addTo(map)
-      .bindPopup(`<b>${p.name}</b><br>${p.address}<br>Status: ${p.units}`);
-    mapMarkers.push(marker);
+    
+    const circle = L.circleMarker([lat, lng], {
+      radius: 10, fillColor: markerColor, color: "#ffffff", weight: 2, opacity: 1, fillOpacity: 0.9
+    }).addTo(map).bindPopup(`<b>${p.name}</b><br>${p.address}<br>Type: ${p.type}<br>Status: ${p.units}`);
+    
+    mapMarkers.push(circle);
   });
 }
 
@@ -111,8 +142,24 @@ async function seedRealDatabase() {
   seedRequests.forEach(r => batch.set(db.collection("requests").doc(), r));
   seedTenantRentHistory.forEach(r => batch.set(db.collection("tenantRentHistory").doc(), r));
   seedTenantRequests.forEach(r => batch.set(db.collection("tenantRequests").doc(), r));
+  
   await batch.commit();
   localStorage.setItem("tulo_db_seeded", "true");
+}
+
+async function injectDemoMapData() {
+  if (localStorage.getItem("tulo_demo_map_seeded")) return;
+  const demoProperties = [
+    { name: "Sunshine Flats", type: "Flat", address: "Mahanagar, Lucknow", units: "Vacant", rent: "₹15,000 monthly", status: "Available", statusClass: "success" },
+    { name: "Blue Sky Commercial", type: "Commercial", address: "Hazratganj, Lucknow", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Paid", statusClass: "success" },
+    { name: "Green Leaf PG", type: "PG", address: "Indira Nagar, Lucknow", units: "12/15 occupied", rent: "₹85,000 monthly", status: "Attested", statusClass: "success" },
+    { name: "Riverside Apartments", type: "Flat", address: "Gomti Nagar Extension", units: "Vacant", rent: "₹22,000 monthly", status: "Make poster", statusClass: "vacant" },
+    { name: "Urban Workspace", type: "Commercial", address: "Alambagh, Lucknow", units: "Occupied", rent: "₹30,000 monthly", status: "Rent Paid", statusClass: "success" }
+  ];
+  const batch = db.batch();
+  demoProperties.forEach(p => batch.set(db.collection("properties").doc(), p));
+  await batch.commit();
+  localStorage.setItem("tulo_demo_map_seeded", "true");
 }
 
 function initFirestoreListeners() {
@@ -139,10 +186,12 @@ function initFirestoreListeners() {
   });
 }
 
-window.addEventListener('load', () => {
+window.addEventListener("DOMContentLoaded", () => {
   if (typeof firebase !== "undefined" && firebase.apps.length > 0) {
     db = firebase.firestore();
-    seedRealDatabase().then(() => initFirestoreListeners());
+    seedRealDatabase().then(() => injectDemoMapData()).then(() => {
+      initFirestoreListeners();
+    });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const savedRole = localStorage.getItem("tulo_auth_role") || "tenant";
