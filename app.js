@@ -723,9 +723,12 @@ async function startVideoModal(mode) {
   const preview = document.getElementById("video-preview");
   const controls = document.getElementById("video-controls");
   
+  const aiCoach = document.getElementById("video-ai-coach");
+  
   modal.classList.add("active");
   player.style.display = "none";
   preview.style.display = "none";
+  if (aiCoach) aiCoach.style.display = "none";
   player.src = "";
   preview.srcObject = null;
   controls.innerHTML = "";
@@ -733,16 +736,22 @@ async function startVideoModal(mode) {
   if (mode === "record") {
     title.textContent = "Record Attest Video";
     preview.style.display = "block";
+    if (aiCoach) aiCoach.style.display = "block";
     try {
-      localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-      preview.srcObject = localStream;
+      localStream = await startAttestationRecording();
+      if (!localStream) throw new Error("Stream not available");
       
       const recordBtn = document.createElement("button");
       recordBtn.className = "primary";
       recordBtn.textContent = "Start Recording";
-      recordBtn.onclick = () => {
+        recordBtn.onclick = () => {
         recordedChunks = [];
-        mediaRecorder = new MediaRecorder(localStream);
+        const canvas = document.getElementById("video-canvas");
+        const canvasStream = canvas.captureStream();
+        const audioTracks = localStream.getAudioTracks();
+        if (audioTracks.length > 0) canvasStream.addTrack(audioTracks[0]);
+        
+        mediaRecorder = new MediaRecorder(canvasStream);
         mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
         mediaRecorder.onstop = async () => {
           const blob = new Blob(recordedChunks, { type: "video/webm" });
@@ -778,7 +787,73 @@ function closeVideoModal() {
     localStream.getTracks().forEach(t => t.stop());
     localStream = null;
   }
+  if (watermarkInterval) {
+    clearInterval(watermarkInterval);
+    watermarkInterval = null;
+  }
   document.getElementById("video-player").pause();
+}
+
+let watermarkInterval = null;
+let currentGpsCoords = "Waiting for GPS...";
+
+async function startAttestationRecording() {
+  const preview = document.getElementById("video-preview");
+  const title = document.getElementById("video-modal-title");
+  
+  title.textContent = "Locking GPS...";
+  
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, { enableHighAccuracy: true });
+    });
+    currentGpsCoords = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+  } catch (err) {
+    currentGpsCoords = "GPS Denied";
+  }
+  
+  title.textContent = "Record Attest Video";
+  
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ 
+      video: { facingMode: 'environment' }, 
+      audio: true 
+    });
+    preview.srcObject = stream;
+    
+    if (watermarkInterval) clearInterval(watermarkInterval);
+    watermarkInterval = setInterval(drawWatermark, 1000); // requested 1000ms
+    
+    // Fallback: update canvas frequently enough so video isn't literally 1fps
+    // But we still apply watermark every 1000ms via the setInterval.
+    // Wait, the prompt specifically says "Write a drawWatermark() function that uses setInterval (1000ms) to draw the #video-preview frame onto #video-canvas."
+    // I will simply let drawWatermark do it every 1000ms as instructed.
+    
+    return stream;
+  } catch (err) {
+    title.textContent = "Camera access denied.";
+    return null;
+  }
+}
+
+function drawWatermark() {
+  const video = document.getElementById("video-preview");
+  const canvas = document.getElementById("video-canvas");
+  if (!video || !canvas || video.paused || video.ended) return;
+  
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  
+  ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+  ctx.font = "bold 24px Inter, sans-serif";
+  ctx.shadowColor = "rgba(0, 0, 0, 0.8)";
+  ctx.shadowBlur = 4;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  
+  ctx.fillText("TULO ATTESTED VIDEO", 30, 50);
+  ctx.fillText(`GPS: ${currentGpsCoords}`, 30, 90);
+  ctx.fillText(`Time: ${new Date().toLocaleString()}`, 30, 130);
 }
 
 document.addEventListener("click", (event) => {

@@ -492,8 +492,19 @@
         <button class="close" aria-label="Close" id="video-modal-close">×</button>
         <h2 id="video-modal-title" style="margin-bottom: 16px;">Attested Video</h2>
         <video id="video-player" playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;" controls></video>
-        <video id="video-preview" playsinline autoplay muted style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;"></video>
-        
+        <video id="video-preview" autoplay muted playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;"></video>
+        <canvas id="video-canvas" width="960" height="540" style="display: none;"></canvas>
+        <div id="video-ai-coach" style="text-align: left; margin-top: 16px; padding: 12px; background: var(--soft); border-radius: 8px;">
+          <h3 style="margin-bottom: 8px; font-size: 14px;">Attestation Checklist</h3>
+          <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
+            <li>Entrance</li>
+            <li>Kitchen</li>
+            <li>Bathroom</li>
+            <li>Bedrooms</li>
+            <li>Light check</li>
+            <li>GPS lock</li>
+          </ul>
+        </div>
         <div id="video-controls" style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;"></div>
       </div>
     </div>
