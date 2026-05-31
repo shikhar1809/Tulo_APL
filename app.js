@@ -39,13 +39,67 @@ const mapZones = [
   { name: "Jankipuram Extension", color: "#a7f3d0", bounds: [[26.75, 81.01], [26.78, 81.06]] }
 ];
 
-function switchView(id) {
-  views.forEach((view) => view.classList.toggle("active", view.id === id));
-  navItems.forEach((item) => item.classList.toggle("active", item.dataset.view === id));
-  const active = document.querySelector(`[data-view="${id}"]`);
+const translations = {
+  en: {
+    "auth.title": "Sign in to TULO",
+    "nav.dashboard": "Dashboard",
+    "nav.properties": "Properties",
+    "nav.rent": "Rent",
+    "nav.map": "Map",
+    "nav.ai": "AI & Posters",
+    "nav.home": "Home",
+    "stat.brokerage": "Brokerage Saved",
+    "action.add": "+ Add Property"
+  },
+  hi: {
+    "auth.title": "TULO में साइन इन करें",
+    "nav.dashboard": "डैशबोर्ड",
+    "nav.properties": "संपत्ति",
+    "nav.rent": "किराया",
+    "nav.map": "नक्शा",
+    "nav.ai": "एआई",
+    "nav.home": "होम",
+    "stat.brokerage": "ब्रोकरेज बचत",
+    "action.add": "+ संपत्ति जोड़ें"
+  },
+  ur: {},
+  bn: {},
+  mr: {},
+  ta: {},
+  te: {}
+};
+
+function setLanguage(lang) {
+  const elements = document.querySelectorAll("[data-i18n]");
+  elements.forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    } else if (translations["en"][key]) {
+      el.textContent = translations["en"][key];
+    }
+  });
+}
+
+function switchView(viewId) {
+  views.forEach((view) => {
+    view.classList.remove("active");
+    if (view.id === viewId) {
+      view.classList.add("active");
+    }
+  });
+  
+  navItems.forEach((item) => {
+    item.classList.remove("active");
+    if (item.dataset.view === viewId) {
+      item.classList.add("active");
+    }
+  });
+  
+  const active = document.querySelector(`[data-view="${viewId}"]`);
   pageTitle.textContent = active ? active.dataset.title || active.textContent : "Dashboard";
   
-  if (id === "mapView") {
+  if (viewId === "mapView") {
     if (!map) initMap();
     setTimeout(() => map.invalidateSize(), 10);
   }
