@@ -1123,12 +1123,14 @@ function updateMapMarkers() {
     let lng = Number(p.lng);
     if (!lat || !lng) {
       let zone = mapZones.find(z => p.address && p.address.toLowerCase().includes(z.name.toLowerCase()));
+      let jitterLat = (Math.random() - 0.5) * 0.008;
+      let jitterLng = (Math.random() - 0.5) * 0.008;
       if (zone) {
-        lat = (zone.bounds[0][0] + zone.bounds[1][0]) / 2;
-        lng = (zone.bounds[0][1] + zone.bounds[1][1]) / 2;
+        lat = (zone.bounds[0][0] + zone.bounds[1][0]) / 2 + jitterLat;
+        lng = (zone.bounds[0][1] + zone.bounds[1][1]) / 2 + jitterLng;
       } else {
-        lat = 26.8467;
-        lng = 80.9462;
+        lat = 26.8467 + jitterLat;
+        lng = 80.9462 + jitterLng;
       }
     }
     const terms = getPropertyTerms(p);
