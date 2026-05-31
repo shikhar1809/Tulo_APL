@@ -23,30 +23,30 @@
         <img class="brand-logo" src="assets/tulo-logo.svg" alt="TULO" />
       </div>
       <div class="auth-panel">
-        <p class="eyebrow">Choose your app</p>
+        <p class="eyebrow" data-i18n="auth.eyebrow">Choose your app</p>
         <h1 data-i18n="auth.title">Sign in to TULO</h1>
-        <p class="auth-copy">Use your Google account to continue as a tenant or landlord.</p>
+        <p class="auth-copy" data-i18n="auth.copy">Use your Google account to continue as a tenant or landlord.</p>
         <div class="auth-options">
           <article class="auth-card">
             <div class="auth-icon">
               <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M17 9h1a2 2 0 0 1 2 2v10"/></svg>
             </div>
-            <h2>Landlord</h2>
-            <p>Manage properties, rent, maintenance, posters, and AI workflows.</p>
+            <h2 data-i18n="auth.landlord">Landlord</h2>
+            <p data-i18n="auth.landlord.desc">Manage properties, rent, maintenance, posters, and AI workflows.</p>
             <button class="google-button" data-auth-role="landlord">
               <span class="google-g">G</span>
-              Continue with Google
+              <span data-i18n="auth.google">Continue with Google</span>
             </button>
           </article>
           <article class="auth-card">
             <div class="auth-icon">
               <svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
             </div>
-            <h2>Tenant</h2>
-            <p>Pay rent, view lease details, track maintenance, and access receipts.</p>
+            <h2 data-i18n="auth.tenant">Tenant</h2>
+            <p data-i18n="auth.tenant.desc">Pay rent, view lease details, track maintenance, and access receipts.</p>
             <button class="google-button" data-auth-role="tenant">
               <span class="google-g">G</span>
-              Continue with Google
+              <span data-i18n="auth.google">Continue with Google</span>
             </button>
           </article>
         </div>
@@ -64,11 +64,11 @@
             </span>
             <span class="nav-label" data-i18n="nav.home">Home</span>
           </button>
-          <button class="nav-item" data-view="properties" data-title="My Properties & Maintenance">
+          <button class="nav-item" data-view="properties" data-title="Properties & Maintenance">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M8 7h1"/><path d="M12 7h1"/><path d="M8 11h1"/><path d="M12 11h1"/><path d="M17 9h1a2 2 0 0 1 2 2v10"/></svg>
             </span>
-            <span class="nav-label">My Properties</span>
+            <span class="nav-label" data-i18n="nav.properties">Properties</span>
           </button>
           <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
             <span class="nav-icon" aria-hidden="true">
@@ -84,9 +84,9 @@
           </button>
           <button class="nav-item" data-view="aiAndPosters" data-title="Tools">
             <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
             </span>
-            <span class="nav-label" data-i18n="nav.ai">Tools</span>
+            <span class="nav-label" data-i18n="nav.tools">Tools</span>
           </button>
         </nav>
         <nav class="nav" id="tenant-nav" style="display: none;">
@@ -96,11 +96,11 @@
             </span>
             <span class="nav-label" data-i18n="nav.home">Home</span>
           </button>
-          <button class="nav-item" data-view="tenantProperty" data-title="Explore Properties">
+          <button class="nav-item" data-view="tenantProperty" data-title="My Property & Lease">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/><path d="M8 16h8"/></svg>
             </span>
-            <span class="nav-label">Explore</span>
+            <span class="nav-label" data-i18n="nav.property">Property</span>
           </button>
           <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
             <span class="nav-icon" aria-hidden="true">
@@ -112,176 +112,192 @@
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
             </span>
-            <span class="nav-label">Rent & Repair</span>
+            <span class="nav-label" data-i18n="nav.rentRepair">Rent & Repair</span>
           </button>
-          <button class="nav-item" data-view="tenantAi" data-title="Tenant Concierge">
+          <button class="nav-item" data-view="tenantAi" data-title="Tenant Concierage">
             <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M3 18h18"/><path d="M12 2v4"/><path d="M10 2h4"/><path d="M5 18a7 7 0 0 1 14 0"/></svg>
             </span>
-            <span class="nav-label">Concierge</span>
+            <span class="nav-label" data-i18n="nav.ai">Concierage</span>
           </button>
         </nav>
         <div class="sidebar-card">
-          <span>Launch Focus</span>
-          <strong>50 Lucknow landlords</strong>
-          <p>White-glove onboarding with Attest Video first.</p>
+          <span data-i18n="sidebar.title">Trust system</span>
+          <strong data-i18n="sidebar.subtitle">Verified listings only</strong>
+          <p data-i18n="sidebar.desc">Fresh video, transparent terms, and no brokerage nudges stay visible.</p>
         </div>
       </aside>
 
       <main>
         <header class="topbar">
-          <div>
-            <p class="eyebrow" id="session-context">Good evening, Ramesh ji</p>
+          <div class="topbar-title">
+            <p class="eyebrow" id="session-context">Manage verified listings</p>
             <h1 id="page-title">Dashboard</h1>
           </div>
-          <div class="top-actions">
-            <select id="lang-select" onchange="setLanguage(this.value)" style="min-height: 34px; padding: 0 10px; font-size: 13px; border-radius: 99px; border: 1px solid var(--line); background: var(--white);">
-              <option value="en">English</option>
-              <option value="hi">हिंदी (Hindi)</option>
-              <option value="ur">اردو (Urdu)</option>
-              <option value="bn">বাংলা (Bengali)</option>
-              <option value="mr">मराठी (Marathi)</option>
-              <option value="ta">தமிழ் (Tamil)</option>
-              <option value="te">తెలుగు (Telugu)</option>
-            </select>
-            <span class="role-chip" id="role-chip">Landlord</span>
-            <div class="notif-wrapper desktop-only" style="position: relative;">
-              <button class="icon-button" aria-label="Notifications" id="notif-btn" style="color: var(--white); border: none; background: transparent; padding: 4px; cursor: pointer; position: relative;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span style="position: absolute; top: 0; right: 0; background: #ef4444; color: white; border-radius: 99px; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--surface);">3</span>
-              </button>
-              <div id="notif-panel" style="display: none; position: absolute; right: 0; top: calc(100% + 8px); width: 320px; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; z-index: 1000; padding: 16px; border: 1px solid var(--line);">
-                <h3 style="margin-bottom: 12px; font-size: 16px; color: var(--ink);">Notifications</h3>
-                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--muted);">
-                  <li style="padding: 12px 0; border-bottom: 1px solid var(--line);"><strong>Visit notification:</strong> Room 2 viewing at 5 PM today.</li>
-                  <li style="padding: 12px 0; border-bottom: 1px solid var(--line); color: #ef4444;"><strong>Attention needed:</strong> Rent overdue for Unit 4.</li>
-                  <li style="padding: 12px 0;"><strong>System:</strong> Video Attestation expires in 7 days.</li>
-                </ul>
-              </div>
-            </div>
-            <button class="secondary small" id="sign-out">Sign out</button>
-          </div>
+          <div class="top-actions"><select id="lang-select" class="lang-select"><option value="en">English</option><option value="hi">αñ╣αñ┐αñ¿αÑìαñªαÑÇ</option><option value="ur">╪º╪▒╪»┘ê</option><option value="bn">αª¼αª╛αªéαª▓αª╛</option><option value="mr">αñ«αñ░αñ╛αñáαÑÇ</option><option value="ta">α«ñα««α«┐α«┤α»ì</option><option value="te">α░ñα▒åα░▓α▒üα░ùα▒ü</option></select><span class="role-chip" id="role-chip">Landlord</span><button class="icon-button" aria-label="Notifications" id="bell-notification-btn" data-i18n="notification.title"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span id="owner-request-count">2</span></button><button class="primary small" data-open="addProperty" id="add-property-action" data-i18n="props.add">+ Add Property</button><button class="secondary small" id="sign-out" data-i18n="signout">Sign out</button></div>
         </header>
 
         <section class="view active" id="dashboard">
-          <div class="slideshow" id="landlord-slideshow" style="margin-bottom: 24px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
-            <div class="slide" style="background: linear-gradient(135deg, #1d9e75, #126349); color: white; padding: 40px 32px; display: block;">
-              <h2 style="font-size: 28px; margin-bottom: 8px;">ZERO BROKERAGE</h2>
-              <p style="font-size: 16px; opacity: 0.9;">Keep 100% of your rent with direct matching.</p>
+          <div class="owner-dashboard">
+            <div class="owner-stat-grid">
+              <article class="owner-stat">
+                <span data-i18n="stat.listed">Listed</span>
+                <strong id="owner-listed-count">2</strong>
+                <small data-i18n="stat.listed.detail">Public and attested</small>
+              </article>
+              <article class="owner-stat">
+                <span data-i18n="stat.brokerage">Brokerage saved</span>
+                <strong id="owner-brokerage-saved">INR 61,500</strong>
+                <small data-i18n="stat.brokerage.detail">Zero brokerage proof</small>
+              </article>
+              <article class="owner-stat warning-stat">
+                <span data-i18n="stat.attention">Needs attention</span>
+                <strong id="owner-attention-count">1</strong>
+                <small id="home-primary-action">1 property needs attention</small>
+              </article>
             </div>
-            <div class="slide" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 40px 32px; display: none;">
-              <h2 style="font-size: 28px; margin-bottom: 8px;">LIST PROPERTY THE SMART WAY</h2>
-              <p style="font-size: 16px; opacity: 0.9;">Use our AI studio to create beautiful WhatsApp posters.</p>
+
+            <section class="owner-panel">
+              <div class="owner-panel-head">
+                <div>
+                  <span class="pill warning" data-i18n="attention.pill">Attention</span>
+                  <h2 data-i18n="attention.title">Top things to fix</h2>
+                </div>
+              </div>
+              <div class="owner-list" id="owner-attention-list"></div>
+            </section>
+
+            <section class="owner-panel bell-panel">
+              <div class="owner-panel-head">
+                <div>
+                  <span class="pill success" data-i18n="bell.pill">Bell</span>
+                  <h2 data-i18n="bell.title">Incoming requests</h2>
+                </div>
+                <button class="secondary small" data-view-jump="properties" data-i18n="bell.open">Open properties</button>
+              </div>
+              <div class="owner-list" id="owner-request-list"></div>
+            </section>
+            <section class="owner-panel">
+              <div class="owner-panel-head">
+                <div>
+                  <span class="pill" style="background: var(--primary); color: white;" data-i18n="agent.pill">AI</span>
+                  <h2 data-i18n="agent.title">TULO Agent Activity</h2>
+                </div>
+              </div>
+              <div class="owner-list" id="agent-activity-list"></div>
+            </section>
+          </div>
+
+          <section class="home-slideshow" aria-label="TULO benefits">
+            <div class="home-slide active">
+              <span>ZERO BROKERAGE</span>
+              <strong>ENJOY ZERO BROKERAGE</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="9" y1="15" x2="15" y2="9"/><circle cx="9.5" cy="9.5" r="1"/><circle cx="14.5" cy="14.5" r="1"/></svg></div>
             </div>
-          </div>
+            <div class="home-slide">
+              <span>SMART RENT</span>
+              <strong>MANAGE YOUR RENT SMARTLY</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+            </div>
+            <div class="home-slide">
+              <span>OWNER TOOLS</span>
+              <strong>ENJOY LIFE SAVING TOOLS</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+            </div>
+            <div class="home-slide-dots" aria-hidden="true">
+              <i class="active"></i><i></i><i></i>
+            </div>
+          </section>
 
+          <article class="home-rank-card">
+            <div>
+              <span class="pill success">Regional rank</span>
+              <h2 id="owner-rank-value">#1</h2>
+              <p id="owner-rank-detail">Vibhuti Khand in Gomti Nagar</p>
+            </div>
+            <button class="secondary small" data-view-jump="mapView">View ranking</button>
+          </article>
+          <button class="primary home-add-property" data-open="addProperty" data-i18n="props.add">+ Add Property</button>
 
-          <div class="stats-grid">
-            <article class="metric">
-              <span>Collected this month</span>
-              <strong>₹62,000</strong>
-              <p>84% of ₹74,000</p>
-              <div class="bar"><i style="width:84%"></i></div>
-            </article>
-            <article class="metric">
-              <span>Units active</span>
-              <strong>12</strong>
-              <p>10 occupied · 2 vacant</p>
-            </article>
-            <article class="metric">
-              <span>Poster shares</span>
-              <strong>7</strong>
-              <p>WhatsApp and Instagram</p>
-            </article>
+          <div class="section-head">
+            <h2 data-i18n="home.your.properties">Your Properties</h2>
+            <button class="text-button" data-view-jump="properties" data-i18n="home.view.all">View all</button>
           </div>
-
-          <div style="margin-top: 24px;">
-            <button class="primary" data-open="addProperty" style="width: 100%; min-height: 54px; font-size: 16px;">+ Add New Property</button>
-          </div>
+          <div class="property-grid" id="dashboard-properties"></div>
         </section>
 
         <section class="view" id="properties">
-          <div style="display: flex; gap: 8px; margin-bottom: 24px; background: var(--white); padding: 4px; border-radius: 99px; border: 1px solid var(--line);">
-            <button id="tab-btn-properties" onclick="document.getElementById('sub-properties').style.display='block'; document.getElementById('sub-maintenance').style.display='none'; this.style.background='var(--primary)'; this.style.color='var(--white)'; document.getElementById('tab-btn-maintenance').style.background='transparent'; document.getElementById('tab-btn-maintenance').style.color='var(--ink)';" style="flex: 1; cursor: pointer; background: var(--primary); color: var(--white); border: none; border-radius: 99px; padding: 10px; font-weight: 700; transition: all 0.2s;">Properties</button>
-            <button id="tab-btn-maintenance" onclick="document.getElementById('sub-properties').style.display='none'; document.getElementById('sub-maintenance').style.display='block'; this.style.background='var(--primary)'; this.style.color='var(--white)'; document.getElementById('tab-btn-properties').style.background='transparent'; document.getElementById('tab-btn-properties').style.color='var(--ink)';" style="flex: 1; cursor: pointer; background: transparent; color: var(--ink); border: none; border-radius: 99px; padding: 10px; font-weight: 700; transition: all 0.2s;">Maintenance</button>
-          </div>
-
-          <div id="sub-properties">
-            <div class="section-head">
-              <div>
-                <h2>Properties</h2>
-                <p>Manage units and repair work from one operating view.</p>
-              </div>
-              <button class="primary small" data-open="addProperty">+ Add Property</button>
+          <div class="section-head">
+            <div>
+              <h2 data-i18n="page.properties">Properties</h2>
+              <p data-i18n="props.desc">Manage units and repair work from one operating view.</p>
             </div>
+          </div>
+          <div class="props-tabs">
+            <button class="props-tab active" data-props-tab="properties" data-i18n="props.tab.properties">Properties</button>
+            <button class="props-tab" data-props-tab="maintenance" data-i18n="props.tab.maintenance">Maintenance</button>
+          </div>
+          <div id="properties-view" class="props-panel active">
             <div class="property-grid" id="properties-list"></div>
           </div>
-
-          <div id="sub-maintenance" style="display: none;">
-            <div class="section-head split-section">
-              <div>
-                <h2>Maintenance Inbox</h2>
-                <p>AI-routed repairs, emergency work, and caretaker assignments.</p>
-              </div>
-              <button class="primary small" data-open="newRequest">+ New Request</button>
+          <div id="maint-view" class="props-panel">
+            <div class="section-head" style="margin-bottom:12px;">
+              <h3 style="margin:0;" data-i18n="props.maint.title">Maintenance Requests</h3>
+              <button class="primary small" data-open="newRequest" data-i18n="props.maint.new">+ New Request</button>
             </div>
-            <div class="ai-router-panel">
-              <div>
-                <span class="pill success">AI Suggested</span>
-                <h3>High priority · Assign Vikram</h3>
-                <p>Bathroom tap dripping is likely plumbing, not emergency. Draft reply is ready for tenant approval.</p>
-              </div>
-              <button class="secondary" data-ai="maintenanceTriage">Review AI route</button>
-            </div>
-            <div class="request-list" id="request-list"></div>
+            <div class="maint-list" id="maint-list"></div>
           </div>
         </section>
 
         <section class="view" id="mapView" style="position: relative; height: calc(100vh - 80px); padding: 0;">
           <div id="map-filters" style="position: absolute; top: 16px; left: 50%; transform: translateX(-50%); z-index: 1000; background: var(--white); padding: 6px; border-radius: 99px; display: flex; gap: 8px; box-shadow: 0 4px 12px rgba(17,25,40,0.15);">
-            <button class="map-filter-btn" data-filter="All" style="border:1px solid var(--primary); background:var(--primary); color:var(--white); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">All</button>
-            <button class="map-filter-btn" data-filter="PG" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">PG (Green)</button>
-            <button class="map-filter-btn" data-filter="Flat" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">Flat (Yellow)</button>
-            <button class="map-filter-btn" data-filter="Commercial" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">Commercial (Blue)</button>
+            <button class="map-filter-btn" data-i18n="map.filter.all" data-filter="All" style="border:1px solid var(--primary); background:var(--primary); color:var(--white); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">All</button>
+            <button class="map-filter-btn" data-i18n="map.filter.pg" data-filter="PG" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">PG (Green)</button>
+            <button class="map-filter-btn" data-i18n="map.filter.flat" data-filter="Flat" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">Flat (Yellow)</button>
+            <button class="map-filter-btn" data-i18n="map.filter.commercial" data-filter="Commercial" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">Commercial (Blue)</button>
           </div>
           <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
-          <details class="rent-predictor-widget" style="position: absolute; bottom: 32px; right: 24px; z-index: 1000; background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.2); border-radius: 12px; padding: 16px; width: 280px; border: 1px solid var(--line);">
-            <summary style="cursor: pointer; font-weight: 800; color: var(--ink); list-style: none; display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                AI Rent Predictor
-              </div>
-            </summary>
-            <div style="margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px;">
-              <label style="display:block; font-size: 12px; margin-bottom: 6px; font-weight: 700;">Locality</label>
-              <input type="text" value="Gomti Nagar, Lucknow" style="width: 100%; margin-bottom: 12px; padding: 8px; border-radius: 6px; border: 1px solid var(--line);" />
-              <label style="display:block; font-size: 12px; margin-bottom: 6px; font-weight: 700;">Property Type</label>
-              <select style="width: 100%; margin-bottom: 16px; padding: 8px; border-radius: 6px; border: 1px solid var(--line);">
-                <option>1 BHK Flat</option>
-                <option>2 BHK Flat</option>
-                <option>PG Room</option>
-                <option>Commercial</option>
-              </select>
-              <button class="primary small" style="width: 100%;">Predict Rent</button>
+          <div class="map-overlay-panel" id="map-overlay-panel">
+            <button id="map-overlay-toggle" class="map-overlay-toggle" aria-label="Toggle Panel">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="map-overlay-tabs">
+              <button class="map-overlay-tab active" data-panel="predictor" data-i18n="map.overlay.predictor">Rent Predictor</button>
+              <button class="map-overlay-tab" data-panel="ranking" data-i18n="map.overlay.ranking">Top Rankings</button>
             </div>
-          </details>
+            <div class="map-overlay-content active" id="predictor-panel">
+              <label data-i18n="map.predictor.locality">Locality<input id="rent-predictor-locality" data-i18n="map.predictor.locality.ph" placeholder="" /></label>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <label data-i18n="map.predictor.type">Type<select id="rent-predictor-type"><option>PG</option><option>Flat</option><option>Commercial</option></select></label>
+                <label data-i18n="map.predictor.bhk">BHK<select id="rent-predictor-bhk"><option>1 BHK</option><option>2 BHK</option><option>3 BHK</option></select></label>
+              </div>
+              <button class="primary small" id="predict-rent-btn" data-i18n="map.predictor.btn">Predict Rent</button>
+              <div id="rent-prediction-result" data-i18n="map.predictor.placeholder">Enter details to get predicted rent range.</div>
+            </div>
+            <div class="map-overlay-content" id="ranking-panel">
+              <div id="top-rankings-list"></div>
+            </div>
+          </div>
         </section>
 
         <section class="view" id="propertyDetailsView">
           <div class="section-head">
             <div>
-              <h2>Property Details</h2>
-              <p>Everything you need to know about this listing.</p>
+              <h2 data-i18n="det.heading">Property Details</h2>
+              <p data-i18n="page.propertyDetail.desc">Everything you need to know about this listing.</p>
             </div>
-            <button class="secondary small" onclick="switchView('mapView')">← Back to Map</button>
+            <button class="secondary small" data-view-jump="mapView" data-i18n="det.back">Back to Map</button>
           </div>
           <div class="property-grid" style="margin-bottom: 24px;">
              <article class="property-card">
                <div class="property-photo" style="background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;">
-                 <video controls playsinline style="width: 100%; display: block;" id="detail-video">
-                   <source src="attest_video.mp4" type="video/mp4">
-                   Your browser does not support the video tag.
-                 </video>
+                 <div class="attested-video-shell">
+                   <video controls playsinline style="width: 100%; display: block;" id="detail-video">
+                     <source src="attest_video.mp4" type="video/mp4">
+                     Your browser does not support the video tag.
+                   </video>
+                   <div class="video-watermark">TULO ATTESTED VIDEO ┬╖ GPS + DATE LOCKED</div>
+                 </div>
                </div>
                <div class="property-body">
                  <span class="pill success" id="detail-status">Attested</span>
@@ -306,12 +322,35 @@
                  </div>
                </div>
              </article>
-             <article class="property-card" style="padding: 24px;">
-                <h3>Verified Nearby Places</h3>
-                <ul style="margin-top: 16px; line-height: 1.8; color: #5a5a58;">
-                  <li>🏥 <strong>City Hospital</strong> - 1.2 km (Walking: 15 min)</li>
-                  <li>🛒 <strong>Spencer's Retail</strong> - 0.5 km (Walking: 6 min)</li>
-                  <li>🚇 <strong>Metro Station</strong> - 2.0 km (Auto: 5 min)</li>
+              <article class="property-card transparency-card">
+                 <span class="pill success">Fully transparent</span>
+                 <h3>Deal sheet before contact</h3>
+                 <div class="deal-grid">
+                  <span>Brokerage</span><strong>INR 0</strong>
+                  <span>Token before visit</span><strong>Not allowed</strong>
+                  <span>Deposit</span><strong id="detail-deposit">2 months</strong>
+                  <span>Maintenance</span><strong id="detail-maintenance">Included</strong>
+                  <span>Notice period</span><strong>30 days</strong>
+                  <span>Verified video</span><strong>Required</strong>
+                 </div>
+                 <p class="safety-note">TULO warns tenants to avoid off-app token payments and helps owners document check-in condition for deposit clarity.</p>
+              </article>
+              <article class="property-card ai-trust-card">
+                 <span class="pill success">AI attested intelligence</span>
+                 <h3 id="detail-ai-trust-title">Trust Strong</h3>
+                 <p id="detail-ai-trust-copy">Fresh attested video, GPS/date lock, fair rent and transparent terms are checked before contact.</p>
+                 <div class="ai-trust-meter">
+                   <span id="detail-ai-trust-score">92</span>
+                   <div><i id="detail-ai-trust-bar" style="width:92%"></i></div>
+                 </div>
+                 <div class="trust-signal-grid" id="detail-ai-signals"></div>
+              </article>
+              <article class="property-card" style="padding: 24px;">
+                 <h3>Verified nearby places</h3>
+                 <ul class="nearby-list" id="detail-nearby-list">
+                  <li>≡ƒÅÑ <strong>City Hospital</strong> - 1.2 km (Walking: 15 min)</li>
+                  <li>≡ƒ¢Æ <strong>Spencer's Retail</strong> - 0.5 km (Walking: 6 min)</li>
+                  <li>≡ƒÜç <strong>Metro Station</strong> - 2.0 km (Auto: 5 min)</li>
                 </ul>
                 <p style="margin-top:16px; font-size:12px; color:#1d9e75;">✓ Verified by Google Maps</p>
              </article>
@@ -319,139 +358,164 @@
         </section>
 
         <section class="view" id="aiAndPosters">
-          <details class="compact-tool">
-            <summary style="cursor: pointer; padding: 16px 0; border-bottom: 1px solid var(--line);">
-              <h2 style="display: inline-block; margin: 0;">Poster Maker</h2>
-              <span style="color: var(--muted); margin-left: 8px;">(Click to expand)</span>
-            </summary>
-            <div class="poster-layout" style="margin-top: 24px;">
-              <div>
-                <p class="eyebrow">Template</p>
-                <h2>Create vacancy poster</h2>
-                <div class="template-row">
-                  <button class="template active">Modern Blue</button>
-                  <button class="template">Classic</button>
-                  <button class="template">Bold</button>
-                  <button class="template">Minimal</button>
-                </div>
-                <label>Rent amount<input id="poster-rent" value="₹7,000/month" /></label>
-                <label>Locality<input id="poster-locality" value="Gomti Nagar, Lucknow" /></label>
-                <label>Poster headline<input id="poster-headline-input" value="ROOM AVAILABLE" /></label>
-                <div class="button-row">
-                  <button class="primary" data-ai="poster">Generate with Gemini</button>
-                  <button class="secondary" id="export-poster">Export poster</button>
-                </div>
-                <div class="ai-output" id="poster-ai-output">Gemini can create poster copy, amenities, and share captions for WhatsApp or Instagram.</div>
-              </div>
-              <div class="poster-preview">
-                <div class="poster-photo"></div>
-                <h3 id="poster-headline">ROOM AVAILABLE</h3>
-                <p id="poster-place">Gomti Nagar, Lucknow</p>
-                <strong id="poster-price">₹7,000/month</strong>
-                <div class="amenities" id="poster-amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
-                <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
-              </div>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="tools.eyebrow">Owner Tools</p>
+              <h2 data-i18n="tools.title">Tools</h2>
+              <p id="gemini-state">Run small owner workflows from one place: poster, maintenance, lease, KYC, and vacancy listing.</p>
             </div>
-          </details>
-          <details class="compact-tool" style="margin-top: 24px;">
-            <summary style="cursor: pointer; padding: 16px 0; border-bottom: 1px solid var(--line);">
-              <h2 style="display: inline-block; margin: 0;">AI Studio Tools</h2>
-              <span style="color: var(--muted); margin-left: 8px;">(Click to expand)</span>
-            </summary>
-            <div style="margin-top: 24px;">
-              <div class="section-head">
-                <div>
-                  <p class="eyebrow">Gemini 2.5 Flash</p>
-                  <p id="gemini-state">Gemini is ready for poster copy, reminders, maintenance triage, and tenant invites.</p>
-                </div>
-              </div>
-              <div class="ai-grid">
-                <article class="ai-card">
-                  <h3>Smart Maintenance Router</h3>
-                  <p>Classify priority, draft tenant reply, and suggest the right caretaker in seconds.</p>
-                  <button class="primary small" data-ai="maintenanceTriage">Generate route</button>
-                </article>
-                <article class="ai-card">
-                  <h3>Lease Autofill</h3>
-                  <p>Pre-fill lease terms from property, unit, rent, deposit, landlord, and tenant records.</p>
-                  <button class="primary small" data-ai="leaseAutofill">Generate lease fields</button>
-                </article>
-                <article class="ai-card">
-                  <h3>KYC Review</h3>
-                  <p>Check Aadhaar document type, name match, and image quality as an advisory review.</p>
-                  <button class="primary small" data-ai="kycReview" id="kyc-review-btn">Review sample</button>
-                </article>
-                <article class="ai-card">
-                  <h3>Vacancy listing</h3>
-                  <p>Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
-                  <button class="primary small" data-ai="listing">Generate</button>
-                </article>
-              </div>
-              <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
+          </div>
+          <div id="tools-grid-container">
+            <div class="ai-grid">
+              <article class="ai-card">
+                <h3 data-i18n="tools.poster.title">Poster Maker</h3>
+                <p data-i18n="tools.poster.desc">Create rental posters with templates, AI copy, and export to PNG for WhatsApp or Instagram.</p>
+                <button class="primary small" data-tool="poster" data-i18n="tools.poster.btn">Open Poster Maker</button>
+              </article>
+
+              <article class="ai-card">
+                <h3 data-i18n="tools.lease.title">Lease Autofill</h3>
+                <p data-i18n="tools.lease.desc">Pre-fill lease terms from property, unit, rent, deposit, landlord, and tenant records.</p>
+                <button class="primary small" data-ai="leaseAutofill" data-i18n="tools.lease.btn">Generate lease fields</button>
+              </article>
+              <article class="ai-card">
+                <h3 data-i18n="tools.kyc.title">KYC Review</h3>
+                <p data-i18n="tools.kyc.desc">Upload Aadhaar or PAN card. TULO Vision AI will extract the Name, DOB, and ID number instantly.</p>
+                <input type="file" id="kyc-upload-input" accept="image/*" style="display:none;" />
+                <button class="primary small" onclick="document.getElementById('kyc-upload-input').click();">Upload ID Image</button>
+              </article>
+              <article class="ai-card">
+                <h3 data-i18n="tools.vacancy.title">Vacancy listing</h3>
+                <p data-i18n="tools.vacancy.desc">Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
+                <button class="primary small" data-ai="listing" data-i18n="tools.vacancy.btn">Generate</button>
+              </article>
             </div>
-          </details>
+          </div>
+          <div id="tool-output-container" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 id="active-tool-title" style="font-size: 18px; margin: 0; color: var(--text);">Tool Output</h3>
+              <button class="secondary small" id="btn-back-to-tools">Back to Tools</button>
+            </div>
+            <div class="ai-output large" id="ai-output" data-i18n="tools.placeholder" style="margin-top: 0;">Generating results...</div>
+          </div>
         </section>
 
         <section class="view" id="rentTenant">
           <div class="section-head">
             <div>
-              <h2>Rent & Tenant View</h2>
-              <p>Collections, overdue action, and the tenant-side experience together.</p>
+              <h2 data-i18n="rent.title">Rent & Tenant View</h2>
+              <p data-i18n="rent.desc">Collections, overdue action, and the tenant-side experience together.</p>
             </div>
-            <button class="secondary">Send reminders</button>
+            <button class="secondary" data-i18n="rent.reminders">Send reminders</button>
           </div>
           <div class="table-card">
-            <div class="table-row head"><span>Unit</span><span>Tenant</span><span>Amount</span><span>Status</span><span>Action</span></div>
+            <div class="table-row head"><span data-i18n="rent.unit">Unit</span><span data-i18n="rent.tenant">Tenant</span><span data-i18n="rent.amount">Amount</span><span data-i18n="rent.status">Status</span><span data-i18n="rent.action">Action</span></div>
             <div id="rent-list"></div>
           </div>
         </section>
 
         <section class="view" id="tenantHome">
-          <div class="slideshow" id="tenant-slideshow" style="margin-bottom: 24px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
-            <div class="slide" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; padding: 40px 32px; display: block;">
-              <h2 style="font-size: 28px; margin-bottom: 8px;">ENJOY FREE ATTESTED PROPERTY</h2>
-              <p style="font-size: 16px; opacity: 0.9;">100% verified listings with zero brokerage fees.</p>
+          <div class="owner-dashboard tenant-dashboard">
+            <div class="owner-stat-grid">
+              <article class="owner-stat">
+                <span>Verified homes</span>
+                <strong id="tenant-live-count">2</strong>
+                <small>Attested and live now</small>
+              </article>
+              <article class="owner-stat">
+                <span>Brokerage saved</span>
+                <strong id="tenant-brokerage-saved">INR 39,500</strong>
+                <small>Zero brokerage search</small>
+              </article>
+              <article class="owner-stat warning-stat">
+                <span>Best match</span>
+                <strong id="tenant-best-match">94%</strong>
+                <small>Ranked for your shortlist</small>
+              </article>
             </div>
-            <div class="slide" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 40px 32px; display: none;">
-              <h2 style="font-size: 28px; margin-bottom: 8px;">EASY RENT PREDICTOR</h2>
-              <p style="font-size: 16px; opacity: 0.9;">Use Gemini AI to check fair rent prices in your area.</p>
-            </div>
+
+            <section class="owner-panel">
+              <div class="owner-panel-head">
+                <div>
+                  <span class="pill success">For you</span>
+                  <h2>Top picks</h2>
+                </div>
+                <button class="secondary small" data-view-jump="tenantProperty">View property</button>
+              </div>
+              <div class="owner-list" id="tenant-reco-list"></div>
+            </section>
+
+            <section class="owner-panel bell-panel">
+              <div class="owner-panel-head">
+                <div>
+                  <span class="pill warning">Rent & repair</span>
+                  <h2>Needs action</h2>
+                </div>
+                <button class="secondary small" data-view-jump="tenantRentAndRepair">Open</button>
+              </div>
+              <div class="owner-list" id="tenant-alert-list"></div>
+            </section>
           </div>
+
+          <section class="home-slideshow tenant-slideshow" aria-label="Tenant benefits">
+            <div class="home-slide tenant-video-slide active">
+              <span>VERIFIED WALKTHROUGH</span>
+              <strong>GET ATTESTED VIDEO</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+            </div>
+            <div class="home-slide tenant-price-slide">
+              <span>LUCKNOW RENTALS</span>
+              <strong>FIND RENTAL PROPERTIES AT BEST PRICES IN LUCKNOW</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            </div>
+            <div class="home-slide tenant-rank-slide">
+              <span>TOP PROPERTIES</span>
+              <strong>SELECT BEST RANKED PROPERTY IN YOUR DESIRED AREA</strong>
+              <div class="home-slide-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+            </div>
+            <div class="home-slide-dots" aria-hidden="true">
+              <i class="active"></i><i></i><i></i>
+            </div>
+          </section>
+
+
+          <button class="primary home-add-property" data-view-jump="tenantProperty">View property</button>
           <div class="welcome-banner">
-            <h1>Welcome home, Priya!</h1>
-            <p>Here's what's happening at Room 2, Gomti Nagar PG.</p>
+            <h1 data-i18n="tenant.welcome.title">Continue your verified search</h1>
+            <p data-i18n="tenant.welcome.desc">Your shortlist, visit reminders, and transparent deal sheets stay in one place.</p>
           </div>
           <div class="tenant-balance-card">
             <div>
-              <p>Outstanding Balance</p>
+              <p data-i18n="tenant.brokerage.saved">Brokerage saved if you close via TULO</p>
               <h2>₹7,000</h2>
               <span class="pill warning">Due 01/05/2026</span>
             </div>
-            <button class="primary" data-view-jump="tenantRent">Pay Rent Now</button>
+            <button class="primary" data-view-jump="mapView" data-i18n="tenant.continue.search">Continue Search</button>
           </div>
+
           <div class="section-head" style="margin-top: 28px;">
-            <h2>Quick Links</h2>
+            <h2 data-i18n="tenant.quick.links">Quick Links</h2>
           </div>
           <div class="tenant-quick-links">
-            <button class="quick-link" data-view-jump="tenantMaintenance">
-              <span class="icon">🔧</span> Report Issue
+            <button class="quick-link" data-view-jump="tenantRentAndRepair" data-i18n="tenant.report.issue">
+              <span class="icon">≡ƒöº</span> Report Issue
             </button>
-            <button class="quick-link" data-view-jump="tenantProperty">
-              <span class="icon">📄</span> View Lease
+            <button class="quick-link" data-view-jump="tenantProperty" data-i18n="tenant.view.lease">
+              <span class="icon">≡ƒôä</span> View Lease
             </button>
-            <button class="quick-link" data-view-jump="tenantAi">
-              <span class="icon">✨</span> Ask AI
+            <button class="quick-link" data-view-jump="tenantAi" data-i18n="tenant.ask.ai">
+              <span class="icon">✨</span> Ask Concierage
             </button>
           </div>
 
           <div class="section-head" style="margin-top: 28px;">
-            <h2>Recent Updates</h2>
+            <h2 data-i18n="tenant.recent.updates">Recent Updates</h2>
           </div>
           <article class="request-card">
             <div>
               <span class="pill warning">In progress</span>
-              <h3>Bathroom tap repair</h3>
-              <p>Assigned to Vikram</p>
+              <h3>Indira Nagar 1BHK visit</h3>
+              <p>Owner usually replies in 25 min</p>
             </div>
           </article>
         </section>
@@ -459,8 +523,8 @@
         <section class="view" id="tenantRentAndRepair">
           <div class="section-head">
             <div>
-              <h2>Rent & Receipts</h2>
-              <p>Track your payments and download receipts for HRA.</p>
+              <h2 data-i18n="tenant.rent.title">Rent & Receipts</h2>
+              <p data-i18n="tenant.rent.desc">Track your payments and download receipts for HRA.</p>
             </div>
           </div>
           <article class="tenant-panel" style="margin-bottom: 24px;">
@@ -468,20 +532,20 @@
             <h3>May Rent</h3>
             <strong>₹7,000</strong>
             <div class="button-row" style="margin-top: 16px;">
-               <button class="primary">Pay now (UPI/Card)</button>
+               <button class="primary" id="btn-pay-now" data-i18n="pay.now">Pay now (UPI/Card)</button>
             </div>
           </article>
           <div class="table-card">
-            <div class="table-row head"><span>Month</span><span>Amount</span><span>Status</span><span>Date Paid</span><span>Action</span></div>
+            <div class="table-row head"><span data-i18n="rent.unit">Month</span><span data-i18n="rent.amount">Amount</span><span data-i18n="rent.status">Status</span><span>Date Paid</span><span data-i18n="rent.action">Action</span></div>
             <div id="tenant-rent-history"></div>
           </div>
           <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--line);" />
           <div class="section-head">
             <div>
-              <h2>Maintenance</h2>
-              <p>Submit and track repair requests.</p>
+              <h2 data-i18n="tenant.maintenance">Maintenance</h2>
+              <p data-i18n="tenant.maintenance.desc">Submit and track repair requests.</p>
             </div>
-            <button class="primary small" data-open="newRequest">+ New Request</button>
+            <button class="primary small" data-open="newRequest" data-i18n="props.maint.new">+ New Request</button>
           </div>
           <div class="request-list" id="tenant-request-list"></div>
         </section>
@@ -489,117 +553,65 @@
         <section class="view" id="tenantProperty">
           <div class="section-head">
             <div>
-              <h2>My Property & Lease</h2>
-              <p>Property details, amenities, and your digital agreement.</p>
+              <p class="eyebrow">AI Semantic Search</p>
+              <h2 data-i18n="tenant.property.title">Explore Properties</h2>
+              <p data-i18n="tenant.property.desc">Find the perfect personalized property using AI matching.</p>
             </div>
           </div>
-          <div class="property-grid" style="margin-bottom: 24px;">
-             <article class="property-card">
-               <div class="property-photo" style="background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative;">
-                 <video controls autoplay muted loop playsinline style="width: 100%; display: block;">
-                   <source src="attest_video.mp4" type="video/mp4">
-                   Your browser does not support the video tag.
-                 </video>
-               </div>
-               <div class="property-body">
-                 <span class="pill success">Attested on 01/01/2026</span>
-                 <h3>Room 2 · Gomti Nagar PG</h3>
-                 <p class="property-meta">Vibhuti Khand, Gomti Nagar</p>
-                 <div class="button-row" style="margin-top:16px;">
-                   <button class="secondary">View Lease PDF</button>
-                 </div>
-               </div>
-             </article>
-             <article class="property-card" style="padding: 24px;">
-                <h3>Verified Nearby Places</h3>
-                <ul style="margin-top: 16px; line-height: 1.8; color: #5a5a58;">
-                  <li>🏥 <strong>City Hospital</strong> - 1.2 km (Walking: 15 min)</li>
-                  <li>🛒 <strong>Spencer's Retail</strong> - 0.5 km (Walking: 6 min)</li>
-                  <li>🚇 <strong>Gomti Nagar Metro</strong> - 2.0 km (Auto: 5 min)</li>
-                </ul>
-                <p style="margin-top:16px; font-size:12px; color:#1d9e75;">✓ Verified by Google Maps</p>
-             </article>
+          <div class="explore-search-container" style="background: var(--surface); padding: 24px; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 24px;">
+            <div style="margin-bottom: 16px;">
+              <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text);">Location</label>
+              <select id="explore-location" class="search-input" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 16px; background: var(--bg); color: var(--text); appearance: none;">
+                <option value="">Anywhere in Lucknow</option>
+                <option value="Gomti Nagar">Gomti Nagar</option>
+                <option value="Aliganj">Aliganj</option>
+                <option value="Indira Nagar">Indira Nagar</option>
+                <option value="Hazratganj">Hazratganj</option>
+                <option value="Rajajipuram">Rajajipuram</option>
+                <option value="Charbagh">Charbagh</option>
+                <option value="Alambagh">Alambagh</option>
+                <option value="Vikas Nagar">Vikas Nagar</option>
+                <option value="Sushant Golf City">Sushant Golf City</option>
+                <option value="Jankipuram">Jankipuram Extension</option>
+              </select>
+            </div>
+            <div style="margin-bottom: 16px;">
+              <label style="display:block; margin-bottom:8px; font-weight:600; color:var(--text);">Your Requirements</label>
+              <textarea id="explore-requirements" placeholder="e.g. Bachelors allowed, ground floor, pet friendly, AC, minimum 2 bedrooms..." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 16px; min-height: 100px; background: var(--bg); color: var(--text); resize: vertical;"></textarea>
+            </div>
+            <button class="primary" id="btn-find-perfect-fit" style="width: 100%; justify-content: center; padding: 14px; font-size: 16px;">
+              <span class="icon">✨</span> Find Personalized Property
+            </button>
           </div>
-          
-          <div class="section-head" style="margin-top: 40px;">
-            <div>
-              <h2>AI Property Matcher</h2>
-              <p>Find homes that perfectly match your lifestyle and rules.</p>
+          <div id="explore-results-container" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <h3 style="font-size: 18px; margin: 0; color: var(--text);">Top AI Matches</h3>
+              <button class="secondary small" id="btn-search-again">Search Again</button>
             </div>
-          </div>
-          <div class="tenant-panel" id="match-wizard" style="margin-bottom: 24px; border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--white); box-shadow: 0 4px 12px rgba(44,44,42,.03);">
-            
-            <!-- Step 1 -->
-            <div id="wizard-step-1">
-              <h3 style="margin-bottom: 16px; font-size: 18px; color: var(--primary);">Step 1: Logistics</h3>
-              <div class="form-grid">
-                <label>Locality<input id="wiz-locality" placeholder="e.g. Gomti Nagar" value="Gomti Nagar"></label>
-                <label>Budget Limit (₹)<input id="wiz-budget" placeholder="15000" type="number" value="15000"></label>
-                <button class="primary" onclick="nextWizardStep(2)" style="grid-column: 1 / -1; margin-top: 8px;">Next Step →</button>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div id="wizard-step-2" style="display: none;">
-              <h3 style="margin-bottom: 16px; font-size: 18px; color: var(--primary);">Step 2: Your Profile</h3>
-              <div class="form-grid">
-                <label>Who are you?
-                  <select id="wiz-who">
-                    <option value="Single IT Bachelor">Single IT Bachelor</option>
-                    <option value="Family">Family</option>
-                    <option value="Student">Student</option>
-                  </select>
-                </label>
-                <label>Diet
-                  <select id="wiz-diet">
-                    <option value="Any Diet">Any Diet (Veg/Non-veg)</option>
-                    <option value="Pure Vegetarian">Pure Vegetarian</option>
-                  </select>
-                </label>
-                <label style="grid-column: 1 / -1;">Do you have pets?
-                  <select id="wiz-pets">
-                    <option value="No pets">No pets</option>
-                    <option value="Yes, I have a dog">Yes, I have a dog</option>
-                  </select>
-                </label>
-                <div style="grid-column: 1 / -1; display: flex; gap: 12px; margin-top: 8px;">
-                  <button class="secondary" onclick="nextWizardStep(1)" style="flex: 1;">← Back</button>
-                  <button class="primary" onclick="nextWizardStep(3)" style="flex: 2;">Review Prompt →</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div id="wizard-step-3" style="display: none;">
-              <h3 style="margin-bottom: 12px; font-size: 18px; color: var(--primary);">Step 3: AI Prompt Review</h3>
-              <p style="font-size: 13px; color: var(--muted); margin-bottom: 16px;">We generated this prompt based on your inputs. The AI will compare this against landlord rules.</p>
-              <textarea id="explore-requirements" style="width: 100%; height: 100px; margin-bottom: 16px; padding: 12px; border: 1px solid var(--primary); border-radius: 8px; font-family: inherit; font-size: 14px; background: var(--soft);"></textarea>
-              <div style="display: flex; gap: 12px;">
-                  <button class="secondary" onclick="nextWizardStep(2)" style="flex: 1;">← Back</button>
-                  <button class="primary" id="btn-semantic-match" style="flex: 2;">Find My Match ✨</button>
-              </div>
+            <div id="explore-results-status" style="margin-bottom: 16px; text-align: center; color: var(--muted); font-size: 14px;"></div>
+            <div class="property-grid" id="explore-results-grid">
+              <!-- AI Results will be rendered here -->
             </div>
           </div>
-          <div class="airbnb-grid" id="explore-results-grid"></div>
         </section>
 
         <section class="view" id="tenantAi">
           <div class="section-head">
             <div>
               <p class="eyebrow">Gemini 2.5 Flash</p>
-              <h2>TULO AI Concierge</h2>
-              <p>Ask anything about your lease, property rules, or request help drafting messages.</p>
+              <h2 data-i18n="tenant.ai.title">TULO AI Concierage</h2>
+              <p data-i18n="tenant.ai.desc">Ask anything about your lease, property rules, or request help drafting messages.</p>
             </div>
           </div>
           <div class="chat-container">
             <div class="chat-window" id="tenant-chat-window">
               <div class="chat-message ai">
-                Hi Priya! I'm your TULO AI Concierge. How can I help you today? Try asking "Explain notice period" or "Draft a message for late rent".
+                Hi! I can help compare listings, explain deposit terms, or draft a message to an owner.
               </div>
             </div>
             <div class="chat-input-area">
-              <input type="text" id="tenant-chat-input" placeholder="Type your message here..." />
-              <button class="primary" id="tenant-chat-send">Send</button>
+              <input type="text" id="tenant-chat-input" data-i18n="chat.placeholder" placeholder="Type your message here..." />
+              <button class="primary" id="tenant-chat-send" data-i18n="chat.send">Send</button>
             </div>
           </div>
         </section>
@@ -616,27 +628,33 @@
     <!-- Video Modal for Recording and Playback -->
     <div class="modal" id="video-modal">
       <div class="sheet" style="text-align: center;">
-        <button class="close" aria-label="Close" id="video-modal-close">×</button>
-        <h2 id="video-modal-title" style="margin-bottom: 16px;">Attested Video</h2>
-        <video id="video-player" playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;" controls></video>
-        <video id="video-preview" autoplay muted playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;"></video>
-        <canvas id="video-canvas" width="960" height="540" style="display: none;"></canvas>
-        <div id="video-ai-coach" style="text-align: left; margin-top: 16px; padding: 12px; background: var(--soft); border-radius: 8px;">
-          <h3 style="margin-bottom: 8px; font-size: 14px;">Attestation Checklist</h3>
-          <ul style="margin: 0; padding-left: 20px; font-size: 13px;">
-            <li>Entrance</li>
-            <li>Kitchen</li>
-            <li>Bathroom</li>
-            <li>Bedrooms</li>
-            <li>Light check</li>
-            <li>GPS lock</li>
-          </ul>
+        <button class="close" aria-label="Close" id="video-modal-close">├ù</button>
+        <h2 id="video-modal-title" style="margin-bottom: 16px;" data-i18n="video.record">Attested Video</h2>
+        <div class="attested-video-shell modal-video-shell" id="video-player-shell" style="display: none;">
+          <video id="video-player" playsinline style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: block;" controls></video>
+          <div class="video-watermark">TULO ATTESTED VIDEO ┬╖ GPS + DATE LOCKED</div>
         </div>
+        <video id="video-preview" playsinline autoplay muted style="width: 100%; border-radius: 8px; background: #000; max-height: 400px; display: none;"></video>
+        <canvas id="video-canvas" class="attest-canvas" width="960" height="540" style="display: none;"></canvas>
+        <div id="video-status" class="video-status" aria-live="polite"></div>
+        <div class="ai-coach-panel" id="video-ai-coach">
+          <span class="pill success">AI walkthrough coach</span>
+          <div class="coach-grid">
+            <span>Entrance</span>
+            <span>Kitchen</span>
+            <span>Bathroom</span>
+            <span>Bedrooms</span>
+            <span>Light check</span>
+            <span>GPS lock</span>
+          </div>
+          <p>AI checks if the walkthrough is useful enough for tenants before this property can rank strongly.</p>
+        </div>
+        
         <div id="video-controls" style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;"></div>
       </div>
     </div>
 
     <script src="config.local.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=ai-trust-1"></script>
   </body>
 </html>
