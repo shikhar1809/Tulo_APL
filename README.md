@@ -40,13 +40,19 @@ We underwent a massive UI, architecture, and backend overhaul for the final vers
 * **Map Engine Rewrite**: Improved map clustering and marker coordinate jitter to perfectly render hundreds of properties across Lucknow without overlap.
 * **Enhanced AI Workflows**: Replaced basic string matching with true multimodal Gemini API integration.
 
-*(Insert Before/After Screenshots below)*
+*(See the Tulo Transformation below)*
 
-### Before
-> `![Before UI Placeholder](./docs/screenshots/before.png)`
+### Before vs After: The Tulo Transformation
+![The Old Way vs The New Way](./docs/screenshots/before_after.png)
 
-### After
-> `![After UI Placeholder](./docs/screenshots/after.png)`
+### The New Tulo Dashboard
+![Tulo Dashboard](./docs/screenshots/dashboard.png)
+
+### Tulo AI Voice Concierge
+![Tulo AI Concierge](./docs/screenshots/concierge.png)
+
+### Live Map View
+![Tulo Map View](./docs/screenshots/map.png)
 
 ## Tech Stack & Tools Used
 * **Frontend**: HTML5, Vanilla CSS3 (Custom Design System, no external bulky frameworks), Vanilla JavaScript.
