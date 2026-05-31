@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --primary: #34d399;
   --primary-light: rgba(52, 211, 153, 0.15);
   --primary-dark: #065f46;
@@ -213,21 +213,6 @@ textarea { min-height: 120px; padding: 12px; resize: vertical; }
   .table-row span:nth-child(3), .table-row span:nth-child(4), .table-row span:nth-child(5) { justify-self: start; }
   .poster-preview h3 { font-size: 28px; }
 }
- 
- @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   {  
-     . n a v   {  
-         p o s i t i o n :   f i x e d ;  
-         t o p :   a u t o ;  
-         b o t t o m :   0 ;  
-         l e f t :   0 ;  
-         r i g h t :   0 ;  
-         w i d t h :   1 0 0 % ;  
-         b o r d e r - b o t t o m :   n o n e ;  
-         b o r d e r - t o p :   1 p x   s o l i d   v a r ( - - l i n e ) ;  
-         p a d d i n g :   1 2 p x ;  
-     }  
- }  
- 
-@media (max-width: 768px) { .desktop-only { display: none !important; } }
 
-@media (max-width: 768px) { .rent-predictor-widget { bottom: 90px !important; right: 12px !important; max-width: calc(100vw - 24px) !important; } }
+@media (max-width: 860px) { .nav { position: fixed !important; top: auto !important; z-index: 9999 !important; } }
+@media (max-width: 768px) { .desktop-only { display: none !important; } .rent-predictor-widget { bottom: 90px !important; right: 12px !important; max-width: calc(100vw - 24px) !important; } }
