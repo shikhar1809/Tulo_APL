@@ -11,16 +11,22 @@ While navigating the streets, we saw countless **"TO-LET"** posters that hardly 
 * **Jigyasa Tiwari** (Research And Testing) - [GitHub Profile](https://github.com/jigyasa1809)
 
 ## Problem Statement & Pain Points Addressed
-**The Pain Points:**
-1. **Fake & Outdated Listings**: Tenants waste time visiting properties that look nothing like their pictures.
+
+**Tenant Pain Points:**
+1. **Fake & Outdated Listings**: Tenants waste hours visiting properties that look nothing like their pictures.
 2. **High Brokerage Fees**: Middlemen extract huge cuts without adding proportional value.
 3. **Information Asymmetry**: Tenants have no idea if the rent they are paying is fair market value.
 4. **Poor Discovery**: Traditional keyword searches fail when users have highly specific lifestyle needs (e.g., "quiet place for a night shift worker with a pet").
 
-**How Tulo Tackles Them:**
-* **Mandatory Attest Videos**: Landlords *must* upload a continuous video walkthrough. The AI verifies the video for freshness and authenticity, entirely eliminating fake or doctored photos.
-* **Direct Matchmaking**: Semantic search connects tenants and landlords based on deep lifestyle compatibility, bypassing the need for brokers.
-* **AI Rent Recommendation**: Evaluates market trends and property features to suggest fair, unbiased pricing.
+**Landlord Pain Points:**
+1. **Low-Quality Leads**: Answering the same questions repeatedly for visitors who ultimately aren't a good fit.
+2. **Manual Data Entry Friction**: Typing out complex property details and rules is tedious.
+3. **Loss of Control over Listings**: Brokers often list properties without permission, creating duplicate, messy data.
+
+**How Tulo Fixes Them:**
+* **Mandatory Attest Videos**: Landlords *must* upload a continuous video walkthrough. The AI verifies the video for freshness and authenticity, entirely eliminating fake or doctored photos for tenants.
+* **Direct Matchmaking**: Semantic search connects tenants and landlords based on deep lifestyle compatibility, bypassing the need for brokers and ensuring landlords only get highly-qualified leads.
+* **AI Auto-Filling & Smart Rent**: AI extracts property details directly from the uploaded attest video (saving landlords time) and evaluates market trends to suggest fair, unbiased pricing to both parties.
 
 ## Hero Features
 * **AI Concierge**: A highly responsive, conversational assistant that helps tenants find exactly what they are looking for through natural language.
@@ -32,6 +38,13 @@ While navigating the streets, we saw countless **"TO-LET"** posters that hardly 
 * **Easy Step-Wise Property Listing**: A completely frictionless onboarding flow for landlords.
 * **Dedicated Landlord Tools**: Dashboard with tenant requests, rent tracking, and attention metrics.
 * **Responsive UI**: A highly polished, Airbnb-style user interface that flawlessly adapts to any screen size.
+
+## Focus on Accessibility
+Tulo is designed to be usable by everyone, regardless of technical literacy or language barriers:
+* **AI Voice Agent (Concierge)**: We upgraded the AI Concierge to a fully conversational Voice Agent. Users can simply tap the microphone icon (🎤), speak naturally, and the AI will listen, type out their request, and speak the recommendation back to them aloud. This completely bypasses the need for typing.
+* **Dual-Language Interface (English/Hindi)**: Built directly into the navigation bar, users can instantly switch the entire app's language, making Tulo accessible to the local Lucknow population.
+* **High-Contrast Design**: We implemented sleek dark modes and clearly delineated contrast areas to ensure legibility for visually impaired users.
+* **Frictionless Navigation**: No complex filters. Users simply type or speak what they want, and semantic search handles the rest.
 
 ## Improvements From The Qualifiers Version
 We underwent a massive UI, architecture, and backend overhaul for the final version:
@@ -88,4 +101,4 @@ Since the app relies on Firebase Cloud Functions for its AI backend, you must ha
 
 ## Future Scope
 * **3D Visual Walkthrough**: We plan to stitch attest videos into navigable 3D property walkthroughs for tenants.
-* **Voice-Enabled Concierge**: Upgrading the AI Concierge to a fully conversational Voice Agent for hands-free property discovery.
+* **Automated Lease Generation**: Using Gemini to fully draft and execute smart contracts between landlords and tenants.
