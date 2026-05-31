@@ -489,10 +489,9 @@ const sheets = {
 };
 
 const aiPrompts = {
-  listing: `Write a concise rental listing for Gomti Nagar PG in Lucknow. Details: Room 2 vacant, rent INR 7,000 per month, AC, WiFi, meals, verified nearby hospital/market/metro, attest video available. Use Indian English, trustworthy tone, WhatsApp-ready, under 90 words.`,
-  maintenanceTriage: `Act as TULO's Smart Maintenance Router. Triage this request: "Bathroom tap is dripping constantly since 2 days" for Room 2 at Gomti Nagar PG. Available caretaker: Vikram, plumbing and electrical, average response 2 hours. Return strict short bullets for priority, suggestedAssignee, estimatedResolutionHours, draftTenantReply, caretakerNote, and confidence.`,
-  leaseAutofill: `Act as TULO's Lease Autofill Engine. Pre-fill a lease summary for Room 2, Gomti Nagar PG, tenant Priya Singh, landlord Ramesh Gupta, rent INR 7,000, deposit INR 14,000, start 01/06/2026, end 31/12/2026. Return mandatory fields, missing fields, editable fields, and a landlord confirmation checklist.`,
-  kycReview: `Act as TULO's AI KYC Review assistant. For a sample Aadhaar upload where tenant profile name is Priya Singh and the document appears readable, return an advisory review with documentType, nameMatch, imageQuality, flags, recommendation, and the disclaimer that this is not legal identity verification.`,
+  poster: "Write a crisp 5-line WhatsApp rental listing...",
+  leaseAutofill: "Extract lease details...",
+  kycReview: "Act as TULO's AI KYC Review assistant. For a sample Aadhaar upload where tenant profile name is Priya Singh and the document appears readable, return an advisory review with documentType, nameMatch, imageQuality, flags, recommendation, and the disclaimer that this is not legal identity verification.",
   leaseExplainer: `Act as TULO's Tenant Concierge. Explain the standard 'Notice Period' clause (typically 30 days notice required before vacating, otherwise deposit is forfeited) to a tenant in simple, friendly, easy-to-understand terms. Do not use legal jargon. Explain in both English and Hindi.`,
   draftMessage: `Act as TULO's Tenant Concierge. Draft a polite WhatsApp message from tenant Priya to landlord Ramesh ji asking for a 5-day extension to pay the May rent (INR 7,000) because her salary is delayed. Keep it respectful, concise, and in standard Indian English.`,
 };
@@ -516,7 +515,7 @@ function setBusy(target, message) {
   if (output) output.textContent = message;
 }
 
-async function callGemini(prompt) {
+async function callGemini(prompt, imageBase64Data = null) {
   const apiKey = getGeminiKey();
   if (!apiKey) {
     modalContent.innerHTML = sheets.geminiKey;
@@ -524,18 +523,23 @@ async function callGemini(prompt) {
     throw new Error("Gemini key is not available on this device yet.");
   }
 
-  const response = await fetch(geminiEndpoint, {
+  const parts = [{ text: prompt }];
+  if (imageBase64Data) {
+    parts.push({
+      inlineData: {
+        mimeType: "image/jpeg",
+        data: imageBase64Data
+      }
+    });
+  }
+
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-goog-api-key": apiKey,
     },
     body: JSON.stringify({
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 500,
-      },
+      contents: [{ parts: parts }]
     }),
   });
 
@@ -583,10 +587,6 @@ async function generatePosterWithGemini() {
 }
 
 async function runAiAction(action) {
-  if (action === "poster") {
-    await generatePosterWithGemini();
-    return;
-  }
 
   const isTenantAction = ["leaseExplainer", "draftMessage"].includes(action);
   const targetOutput = isTenantAction ? "#tenant-ai-output" : "#ai-output";
@@ -911,6 +911,7 @@ document.addEventListener("click", (event) => {
     closeVideoModal();
   }
   if (event.target.closest("#tenant-chat-send")) handleTenantChat();
+  if (event.target.closest("#btn-semantic-match")) handleSemanticMatch();
 
   // Firestore Form Mutations
   if (event.target.id === "btn-save-property") {
@@ -966,3 +967,40 @@ render();
 updateGeminiState();
 const savedRole = localStorage.getItem("tulo_auth_role");
 if (savedRole) applyAuthRole(savedRole);
+
+const availableLucknowProperties = [
+  { id: "101", title: "Room 2 · Gomti Nagar PG", rent: 7000, features: "IT bachelor preferred, AC, WiFi, meals", locality: "Vibhuti Khand, Gomti Nagar" },
+  { id: "102", title: "1BHK Independent", rent: 14000, features: "Pet friendly, no restrictions", locality: "Indira Nagar" },
+  { id: "103", title: "2BHK Family Flat", rent: 18000, features: "Strictly for families", locality: "Aliganj" }
+];
+
+async function handleSemanticMatch() {
+  const reqs = document.getElementById("explore-requirements").value.trim();
+  if (!reqs) return alert("Please describe your requirements.");
+  
+  const prompt = `Given the tenant requirements: ${reqs} and these available properties ${JSON.stringify(availableLucknowProperties)}, return a strictly formatted JSON array containing { propertyId, matchPercentage, matchReason }.`;
+  
+  const grid = document.getElementById("explore-results-grid");
+  grid.innerHTML = "<p>Finding your perfect match...</p>";
+  
+  try {
+    const text = await callGemini(prompt);
+    const results = parseJsonBlock(text);
+    if (!Array.isArray(results)) throw new Error("Invalid response");
+    
+    grid.innerHTML = results.map(res => {
+      const prop = availableLucknowProperties.find(p => p.id === res.propertyId);
+      if (!prop) return "";
+      return `
+        <article class="property-card" style="padding: 16px;">
+          <span class="pill ${res.matchPercentage >= 80 ? 'success' : 'warning'}">${res.matchPercentage}% Match</span>
+          <h3 style="margin: 8px 0;">${prop.title}</h3>
+          <p style="font-size: 13px; color: var(--muted); margin-bottom: 8px;">${prop.locality} · ₹${prop.rent}/mo</p>
+          <p style="font-size: 13px;"><strong>AI Reason:</strong> ${res.matchReason}</p>
+        </article>
+      `;
+    }).join("");
+  } catch (err) {
+    grid.innerHTML = `<p style="color: var(--error)">Failed to match: ${err.message}</p>`;
+  }
+}
