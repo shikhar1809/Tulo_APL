@@ -523,13 +523,62 @@
           
           <div class="section-head" style="margin-top: 40px;">
             <div>
-              <h2>Explore Properties</h2>
-              <p>Describe what you need, and our AI will find the perfect match.</p>
+              <h2>AI Property Matcher</h2>
+              <p>Find homes that perfectly match your lifestyle and rules.</p>
             </div>
           </div>
-          <div class="tenant-panel" style="margin-bottom: 24px;">
-            <textarea id="explore-requirements" placeholder="e.g. IT bachelor with a dog, under 15k" style="width: 100%; height: 80px; margin-bottom: 12px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; font-family: inherit; font-size: 14px;"></textarea>
-            <button class="primary" id="btn-semantic-match">Find My Match</button>
+          <div class="tenant-panel" id="match-wizard" style="margin-bottom: 24px; border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: var(--white); box-shadow: 0 4px 12px rgba(44,44,42,.03);">
+            
+            <!-- Step 1 -->
+            <div id="wizard-step-1">
+              <h3 style="margin-bottom: 16px; font-size: 18px; color: var(--primary);">Step 1: Logistics</h3>
+              <div class="form-grid">
+                <label>Locality<input id="wiz-locality" placeholder="e.g. Gomti Nagar" value="Gomti Nagar"></label>
+                <label>Budget Limit (₹)<input id="wiz-budget" placeholder="15000" type="number" value="15000"></label>
+                <button class="primary" onclick="nextWizardStep(2)" style="grid-column: 1 / -1; margin-top: 8px;">Next Step →</button>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div id="wizard-step-2" style="display: none;">
+              <h3 style="margin-bottom: 16px; font-size: 18px; color: var(--primary);">Step 2: Your Profile</h3>
+              <div class="form-grid">
+                <label>Who are you?
+                  <select id="wiz-who">
+                    <option value="Single IT Bachelor">Single IT Bachelor</option>
+                    <option value="Family">Family</option>
+                    <option value="Student">Student</option>
+                  </select>
+                </label>
+                <label>Diet
+                  <select id="wiz-diet">
+                    <option value="Any Diet">Any Diet (Veg/Non-veg)</option>
+                    <option value="Pure Vegetarian">Pure Vegetarian</option>
+                  </select>
+                </label>
+                <label style="grid-column: 1 / -1;">Do you have pets?
+                  <select id="wiz-pets">
+                    <option value="No pets">No pets</option>
+                    <option value="Yes, I have a dog">Yes, I have a dog</option>
+                  </select>
+                </label>
+                <div style="grid-column: 1 / -1; display: flex; gap: 12px; margin-top: 8px;">
+                  <button class="secondary" onclick="nextWizardStep(1)" style="flex: 1;">← Back</button>
+                  <button class="primary" onclick="nextWizardStep(3)" style="flex: 2;">Review Prompt →</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div id="wizard-step-3" style="display: none;">
+              <h3 style="margin-bottom: 12px; font-size: 18px; color: var(--primary);">Step 3: AI Prompt Review</h3>
+              <p style="font-size: 13px; color: var(--muted); margin-bottom: 16px;">We generated this prompt based on your inputs. The AI will compare this against landlord rules.</p>
+              <textarea id="explore-requirements" style="width: 100%; height: 100px; margin-bottom: 16px; padding: 12px; border: 1px solid var(--primary); border-radius: 8px; font-family: inherit; font-size: 14px; background: var(--soft);"></textarea>
+              <div style="display: flex; gap: 12px;">
+                  <button class="secondary" onclick="nextWizardStep(2)" style="flex: 1;">← Back</button>
+                  <button class="primary" id="btn-semantic-match" style="flex: 2;">Find My Match ✨</button>
+              </div>
+            </div>
           </div>
           <div class="airbnb-grid" id="explore-results-grid"></div>
         </section>

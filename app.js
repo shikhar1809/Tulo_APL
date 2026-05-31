@@ -468,7 +468,8 @@ const sheets = {
       </label>
       <label>Address<input id="add-prop-address" placeholder="Full address, Lucknow"></label>
       <label>Pincode<input id="add-prop-pin" placeholder="226010"></label>
-      <button class="primary" id="btn-save-property">Save property</button>
+      <label>Tenant Rules<input id="add-prop-rules" placeholder="e.g. Vegetarian only, No pets"></label>
+      <button class="primary" id="btn-save-property" style="margin-top: 8px;">Save property</button>
     </div>
   `,
   attest: `
@@ -969,16 +970,17 @@ const savedRole = localStorage.getItem("tulo_auth_role");
 if (savedRole) applyAuthRole(savedRole);
 
 const availableLucknowProperties = [
-  { id: "101", title: "Room 2 · Gomti Nagar PG", rent: 7000, features: "IT bachelor preferred, AC, WiFi, meals", locality: "Vibhuti Khand, Gomti Nagar" },
-  { id: "102", title: "1BHK Independent", rent: 14000, features: "Pet friendly, no restrictions", locality: "Indira Nagar" },
-  { id: "103", title: "2BHK Family Flat", rent: 18000, features: "Strictly for families", locality: "Aliganj" }
+  { id: "101", title: "Room 2 · Gomti Nagar PG", rent: 7000, features: "IT bachelor preferred, AC, WiFi, meals", locality: "Vibhuti Khand, Gomti Nagar", landlordRules: "Strictly vegetarians, male IT professionals only, no pets." },
+  { id: "102", title: "1BHK Independent", rent: 14000, features: "Independent entry, close to metro", locality: "Indira Nagar", landlordRules: "Pet friendly, non-vegetarians allowed, open to students or bachelors." },
+  { id: "103", title: "2BHK Family Flat", rent: 18000, features: "Spacious, modular kitchen, park facing", locality: "Aliganj", landlordRules: "Strictly for families, pure vegetarian, no pets allowed." },
+  { id: "104", title: "Studio Apartment", rent: 11000, features: "Fully furnished, high speed internet", locality: "Mahanagar", landlordRules: "Any diet allowed, single occupants preferred, cats allowed (no dogs)." }
 ];
 
 async function handleSemanticMatch() {
   const reqs = document.getElementById("explore-requirements").value.trim();
   if (!reqs) return alert("Please describe your requirements.");
   
-  const prompt = `Given the tenant requirements: ${reqs} and these available properties ${JSON.stringify(availableLucknowProperties)}, return a strictly formatted JSON array containing { propertyId, matchPercentage, matchReason }.`;
+  const prompt = `Given the tenant profile/requirements: "${reqs}" and these available properties ${JSON.stringify(availableLucknowProperties)}, return a strictly formatted JSON array containing { propertyId, matchPercentage, matchReason }. CRITICAL: You must strictly enforce the "landlordRules" property. If a tenant profile violates a strict landlord rule (e.g. they have a pet but the rule says 'no pets', or they are non-veg but the rule says 'pure vegetarian'), you must heavily penalize the matchPercentage (below 30%) and explain why in matchReason. If they match well, score them highly.`;
   
   const grid = document.getElementById("explore-results-grid");
   grid.innerHTML = "<p>Finding your perfect match...</p>";
@@ -1050,3 +1052,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+window.nextWizardStep = function(step) {
+  document.getElementById("wizard-step-1").style.display = (step === 1) ? "block" : "none";
+  document.getElementById("wizard-step-2").style.display = (step === 2) ? "block" : "none";
+  document.getElementById("wizard-step-3").style.display = (step === 3) ? "block" : "none";
+
+  if (step === 3) {
+    const loc = document.getElementById("wiz-locality").value;
+    const budget = document.getElementById("wiz-budget").value;
+    const who = document.getElementById("wiz-who").value;
+    const diet = document.getElementById("wiz-diet").value;
+    const pets = document.getElementById("wiz-pets").value;
+
+    const autoPrompt = `I am looking for a property in ${loc} under ₹${budget}. Profile: ${who}. Diet: ${diet}. Pets: ${pets}. Please find the best matches taking landlord rules into account.`;
+    document.getElementById("explore-requirements").value = autoPrompt;
+  }
+};
