@@ -3220,7 +3220,59 @@ function exportPoster() {
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
-async function handleTenantChat() {
+let recognition = null;
+let isListening = false;
+
+function handleTenantMicClick() {
+  const micBtn = document.querySelector("#tenant-chat-mic");
+  if (!micBtn) return;
+  
+  if (isListening && recognition) {
+    recognition.stop();
+    return;
+  }
+  
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+  
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    alert("Speech recognition is not supported in this browser.");
+    return;
+  }
+  
+  recognition = new SpeechRecognition();
+  recognition.lang = 'en-IN';
+  recognition.interimResults = false;
+  
+  recognition.onstart = () => {
+    isListening = true;
+    micBtn.classList.add("listening");
+  };
+  
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    const input = document.querySelector("#tenant-chat-input");
+    if (input) input.value = transcript;
+    handleTenantChat(true);
+  };
+  
+  recognition.onerror = (event) => {
+    console.error("Speech recognition error", event.error);
+    isListening = false;
+    micBtn.classList.remove("listening");
+  };
+  
+  recognition.onend = () => {
+    isListening = false;
+    micBtn.classList.remove("listening");
+  };
+  
+  recognition.start();
+}
+
+async function handleTenantChat(isVoiceMode = false) {
   const input = document.querySelector("#tenant-chat-input");
   const windowEl = document.querySelector("#tenant-chat-window");
   if (!input || !windowEl) return;
@@ -3242,10 +3294,21 @@ async function handleTenantChat() {
   windowEl.scrollTop = windowEl.scrollHeight;
   
   try {
-    const prompt = `Act as TULO AI Concierge for a renter comparing verified zero-brokerage listings in Lucknow. Context: shortlisted listing is Indira Nagar Metro 1BHK.
-You have access to Google Search Local data. If the user asks for recommendations (rental furniture, plumbers, restaurants, etc.), you MUST act as if you just searched Google Maps and provide 2-3 REAL, specific business names in or near Indira Nagar, Lucknow (e.g., Furlenco, Rentomojo, or specific local restaurants) with simulated ratings or distances. Place the recommendations directly in the chat format. Keep responses under 4 sentences, very polite. Answer this: ${message}` + getLanguageInstructionShort();
+    const availablePropertiesContext = JSON.stringify(getLiveListings().map(p => ({ name: p.name, rent: p.rent, type: getMappedPropertyType(p), address: p.address, highlights: p.highlights })));
+    const prompt = `Act as TULO AI Voice Concierge. The user is speaking to you. 
+Context: You have access to the following live properties: ${availablePropertiesContext}. 
+If the user asks for a recommendation, analyze their needs against these properties and recommend the BEST one. 
+Keep your response conversational, concise (under 3 sentences), and spoken-word friendly (no markdown formatting). 
+Answer this: ${message}`;
     const reply = await callGemini(prompt);
     aiDiv.textContent = reply;
+    
+    if (isVoiceMode && window.speechSynthesis) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(reply);
+      utterance.rate = 1.05;
+      window.speechSynthesis.speak(utterance);
+    }
   } catch (err) {
     aiDiv.textContent = "Sorry, I couldn't reach the server right now. " + err.message;
   }
@@ -3822,7 +3885,8 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("#video-modal-close") || event.target === document.getElementById("video-modal")) {
     closeVideoModal();
   }
-  if (event.target.closest("#tenant-chat-send")) handleTenantChat();
+  if (event.target.closest("#tenant-chat-send")) handleTenantChat(false);
+  if (event.target.closest("#tenant-chat-mic")) handleTenantMicClick();
 
   // Firestore Form Mutations
   if (event.target.id === "btn-save-property") {
