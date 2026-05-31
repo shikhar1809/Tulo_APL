@@ -1476,7 +1476,10 @@ function isPropertyAttested(property = {}) {
 }
 
 function getAttestationAgeDays(property = {}) {
-  if (!property.attestedAt) return 999;
+  if (!property.attestedAt) {
+    if (isPropertyAttested(property)) return 10;
+    return 999;
+  }
   const started = new Date(property.attestedAt).getTime();
   if (!Number.isFinite(started)) return 999;
   return Math.max(0, Math.floor((Date.now() - started) / (24 * 60 * 60 * 1000)));
@@ -1487,7 +1490,8 @@ function isAttestationFresh(property = {}) {
 }
 
 function isLiveListing(property = {}) {
-  return property.listingState === "live" && isAttestationFresh(property);
+  const state = property.listingState || "live";
+  return state === "live" && isAttestationFresh(property);
 }
 
 function getLiveListings() {
