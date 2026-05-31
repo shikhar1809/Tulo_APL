@@ -229,3 +229,5 @@ textarea { min-height: 120px; padding: 12px; resize: vertical; }
  }  
  
 @media (max-width: 768px) { .desktop-only { display: none !important; } }
+
+@media (max-width: 768px) { .rent-predictor-widget { bottom: 90px !important; right: 12px !important; max-width: calc(100vw - 24px) !important; } }

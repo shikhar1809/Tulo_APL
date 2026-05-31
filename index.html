@@ -82,11 +82,11 @@
             </span>
             <span class="nav-label" data-i18n="nav.rent">Rent</span>
           </button>
-          <button class="nav-item" data-view="aiAndPosters" data-title="AI Studio & Poster Maker">
+          <button class="nav-item" data-view="aiAndPosters" data-title="Tools">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 3l1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3z"/><path d="M19 15l.7 2.1L22 18l-2.3.9L19 21l-.7-2.1L16 18l2.3-.9L19 15z"/></svg>
             </span>
-            <span class="nav-label" data-i18n="nav.ai">AI & Posters</span>
+            <span class="nav-label" data-i18n="nav.ai">Tools</span>
           </button>
         </nav>
         <nav class="nav" id="tenant-nav" style="display: none;">
@@ -242,6 +242,26 @@
             <button class="map-filter-btn" data-filter="Commercial" style="border:1px solid var(--line); background:var(--white); color:var(--ink); border-radius:99px; padding:6px 14px; font-size: 13px; font-weight:700; cursor:pointer;">Commercial (Blue)</button>
           </div>
           <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
+          <details class="rent-predictor-widget" style="position: absolute; bottom: 32px; right: 24px; z-index: 1000; background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,0.2); border-radius: 12px; padding: 16px; width: 280px; border: 1px solid var(--line);">
+            <summary style="cursor: pointer; font-weight: 800; color: var(--ink); list-style: none; display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                AI Rent Predictor
+              </div>
+            </summary>
+            <div style="margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px;">
+              <label style="display:block; font-size: 12px; margin-bottom: 6px; font-weight: 700;">Locality</label>
+              <input type="text" value="Gomti Nagar, Lucknow" style="width: 100%; margin-bottom: 12px; padding: 8px; border-radius: 6px; border: 1px solid var(--line);" />
+              <label style="display:block; font-size: 12px; margin-bottom: 6px; font-weight: 700;">Property Type</label>
+              <select style="width: 100%; margin-bottom: 16px; padding: 8px; border-radius: 6px; border: 1px solid var(--line);">
+                <option>1 BHK Flat</option>
+                <option>2 BHK Flat</option>
+                <option>PG Room</option>
+                <option>Commercial</option>
+              </select>
+              <button class="primary small" style="width: 100%;">Predict Rent</button>
+            </div>
+          </details>
         </section>
 
         <section class="view" id="propertyDetailsView">
