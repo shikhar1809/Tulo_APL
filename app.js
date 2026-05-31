@@ -3,6 +3,7 @@ let rentRows = [];
 let requests = [];
 let tenantRentHistory = [];
 let tenantRequests = [];
+let listingDraft = { name: "", type: "PG", address: "", rent: "", deposit: "", maintenance: "Included", furnishing: "", restrictions: "", availability: "", sourceText: "" };
 
 const views = document.querySelectorAll(".view");
 const navItems = document.querySelectorAll(".nav-item");
