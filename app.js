@@ -992,11 +992,23 @@ async function handleSemanticMatch() {
       const prop = availableLucknowProperties.find(p => p.id === res.propertyId);
       if (!prop) return "";
       return `
-        <article class="property-card" style="padding: 16px;">
-          <span class="pill ${res.matchPercentage >= 80 ? 'success' : 'warning'}">${res.matchPercentage}% Match</span>
-          <h3 style="margin: 8px 0;">${prop.title}</h3>
-          <p style="font-size: 13px; color: var(--muted); margin-bottom: 8px;">${prop.locality} · ₹${prop.rent}/mo</p>
-          <p style="font-size: 13px;"><strong>AI Reason:</strong> ${res.matchReason}</p>
+        <article class="airbnb-card">
+          <div class="airbnb-image-container">
+            <div class="airbnb-badge">${res.matchPercentage}% Match</div>
+            <button class="airbnb-heart" aria-label="Save">
+              <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16 28c7-4.733 14-10 14-17a6.98 6.98 0 0 0-7-6.98 6.98 6.98 0 0 0-7 3.98 6.98 6.98 0 0 0-7-3.98A6.98 6.98 0 0 0 2 11c0 7 7 12.267 14 17z"></path></svg>
+            </button>
+          </div>
+          <div class="airbnb-info">
+            <div class="airbnb-title">${prop.title}</div>
+            <div class="airbnb-meta">
+              <span>₹${prop.rent} / month</span>
+              <span>★ 4.9</span>
+            </div>
+            <div style="font-size: 13px; color: #717171; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              ${res.matchReason}
+            </div>
+          </div>
         </article>
       `;
     }).join("");
