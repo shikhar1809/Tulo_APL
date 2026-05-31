@@ -883,7 +883,7 @@ textarea { min-height: 80px; padding: 10px; resize: vertical; }
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  background: rgba(255,255,255,0.97);
+  background: rgba(255,255,255,0.40);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(211,209,199,0.3);
   border-radius: 12px;
@@ -1085,14 +1085,19 @@ textarea { min-height: 80px; padding: 10px; resize: vertical; }
   #properties .property-photo { height: 80px; }
   #properties .property-card.expanded { grid-column: 1 / -1; grid-template-columns: 1fr; }
   #properties .property-card.expanded .property-photo { min-height: 120px; }
-  .map-overlay-panel { bottom: 100px; width: calc(100% - 16px); }
+  .map-overlay-panel { bottom: 140px; width: calc(100% - 16px); }
 }
 
 /* Dark production skin */
 .auth-panel, .auth-card, .metric, .property-card, .table-card, .tenant-panel, .sheet, .poster-preview,
 .owner-stat, .owner-panel, .trust-card, .ai-card, .tenant-ranking-panel, .chat-container,
-.collapsible-panel, .tenant-filter-bar, .map-overlay-panel {
+.collapsible-panel, .tenant-filter-bar {
   background: rgba(16, 23, 34, .92);
+  border-color: var(--line);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, .26);
+}
+.map-overlay-panel {
+  background: rgba(16, 23, 34, .40);
   border-color: var(--line);
   box-shadow: 0 18px 42px rgba(0, 0, 0, .26);
 }

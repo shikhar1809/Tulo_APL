@@ -633,7 +633,10 @@ const sessionContext = document.querySelector("#session-context");
 const roleChip = document.querySelector("#role-chip");
 const addPropertyAction = document.querySelector("#add-property-action");
 const geminiModel = "gemini-2.5-flash";
-const geminiEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`;
+// Secure Gemini API Proxy
+const geminiEndpoint = window.location.hostname === "localhost" 
+  ? "http://127.0.0.1:5001/tulo101/us-central1/geminiProxy"
+  : "https://us-central1-tulo101.cloudfunctions.net/geminiProxy";
 
 let map;
 let mapMarkers = [];
@@ -1116,8 +1119,18 @@ function updateMapMarkers() {
     if (mappedType === "PG") typeIndicator = "pg";
     if (mappedType === "Commercial") typeIndicator = "commercial";
 
-    const lat = Number(p.lat) || 26.8467;
-    const lng = Number(p.lng) || 80.9462;
+    let lat = Number(p.lat);
+    let lng = Number(p.lng);
+    if (!lat || !lng) {
+      let zone = mapZones.find(z => p.address && p.address.toLowerCase().includes(z.name.toLowerCase()));
+      if (zone) {
+        lat = (zone.bounds[0][0] + zone.bounds[1][0]) / 2;
+        lng = (zone.bounds[0][1] + zone.bounds[1][1]) / 2;
+      } else {
+        lat = 26.8467;
+        lng = 80.9462;
+      }
+    }
     const terms = getPropertyTerms(p);
     
     const rentShort = (p.rent || "₹0").replace(/ monthly| monthly| \/month/gi, "");
@@ -1841,7 +1854,7 @@ function render() {
   }
   const ownerRequestList = document.querySelector("#owner-request-list");
   if (ownerRequestList) {
-    ownerRequestList.innerHTML = (requests.length ? requests : [{ title: t("owner.empty"), unit: t("owner.empty.detail"), status: t("owner.empty.status"), priority: "Low" }]).map((request) => `
+    ownerRequestList.innerHTML = (requests.length ? requests.slice(0, 3) : [{ title: t("owner.empty"), unit: t("owner.empty.detail"), status: t("owner.empty.status"), priority: "Low" }]).map((request) => `
       <article class="owner-row ${request.emergency ? "red" : ""}">
         <div>
           <strong>${escapeHtml(request.title)}</strong>
@@ -1873,7 +1886,7 @@ function render() {
   }
   const ownerAttentionList = document.querySelector("#owner-attention-list");
   if (ownerAttentionList) {
-    ownerAttentionList.innerHTML = ownerAttentionItems.map((item) => `
+    ownerAttentionList.innerHTML = ownerAttentionItems.slice(0, 3).map((item) => `
       <article class="owner-row ${escapeHtml(item.tone)}">
         <div>
           <strong>${escapeHtml(item.title)}</strong>
@@ -3030,8 +3043,7 @@ async function callGemini(prompt, imageBase64Data = null, mimeType = "image/jpeg
   const response = await fetch(geminiEndpoint, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": apiKey,
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       contents: [{ role: "user", parts: parts }],
