@@ -119,7 +119,7 @@ function initMap() {
     minZoom: 11
   }).setView([26.8467, 80.9462], 12);
   
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap & CartoDB'
   }).addTo(map);
@@ -189,11 +189,18 @@ function updateMapMarkers() {
       </div>
     `;
 
-    const circle = L.circleMarker([lat, lng], {
-      radius: 10, fillColor: markerColor, color: "#ffffff", weight: 2, opacity: 1, fillOpacity: 0.9
-    }).addTo(map).bindPopup(popupContent);
+    let displayRent = p.rent ? p.rent : (mappedType === "PG" ? "₹7,500" : (mappedType === "Flat" ? "₹14,000" : "₹45,000"));
+    if (!displayRent.toString().startsWith("₹")) displayRent = "₹" + displayRent;
     
-    mapMarkers.push(circle);
+    const iconHtml = `
+      <div style="background: white; border-radius: 99px; padding: 6px 12px; font-weight: 800; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; color: #111827; white-space: nowrap; transition: transform 0.2s; cursor: pointer;">
+        ${displayRent}
+      </div>
+    `;
+    const priceIcon = L.divIcon({ html: iconHtml, className: '', iconSize: null });
+
+    const marker = L.marker([lat, lng], { icon: priceIcon }).addTo(map).bindPopup(popupContent);
+    mapMarkers.push(marker);
   });
 }
 
