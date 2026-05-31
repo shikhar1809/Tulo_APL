@@ -1253,9 +1253,9 @@ async function seedRealDatabase() {
 
   if (localStorage.getItem("tulo_db_seeded_v2")) return;
   const seedProperties = [
-    { name: "Vibhuti Khand Premium", type: "2 BHK Flat", address: "Vibhuti Khand, Gomti Nagar", units: "Occupied", rent: "₹26,000 monthly", status: "Attested · 52 days left", statusClass: "success" },
-    { name: "Hazratganj Heritage", type: "3 BHK Flat", address: "Near Vidhan Sabha Marg", units: "Occupied", rent: "₹38,000 monthly", status: "Rent paid", statusClass: "success" },
-    { name: "Aliganj Independent", type: "1 BHK Builder Floor", address: "Sector Q, Aliganj", units: "Vacant", rent: "₹9,500 expected", status: "Make poster", statusClass: "vacant" }
+        { name: "Vibhuti Khand Premium", type: "2 BHK Flat", address: "Vibhuti Khand, Gomti Nagar", units: "Occupied", rent: "₹26,000 monthly", status: "Attested · 52 days left", statusClass: "success", image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" },
+    { name: "Hazratganj Heritage", type: "3 BHK Flat", address: "Near Vidhan Sabha Marg", units: "Occupied", rent: "₹38,000 monthly", status: "Rent paid", statusClass: "success", image: "https://images.unsplash.com/photo-1502672260266-1c1de2d96674?w=600&h=400&fit=crop" },
+    { name: "Aliganj Independent", type: "1 BHK Builder Floor", address: "Sector Q, Aliganj", units: "Vacant", rent: "₹9,500 expected", status: "Make poster", statusClass: "vacant", image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&h=400&fit=crop" }
   ];
   const seedRentRows = [
     { unit: "Room 1", tenant: "Ajay Kumar", amount: "₹7,000", status: "Paid", action: "Receipt" },
@@ -1292,21 +1292,21 @@ async function seedRealDatabase() {
 async function ensureProductionCatalogOnly() {
   if (localStorage.getItem("tulo_archived_map_seeded_v4")) return;
   const archivedProperties = [
-    { name: "Archived Flat", type: "Flat", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning" },
-    { name: "Archived Commercial", type: "Commercial", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning" },
-    { name: "Indira Nagar Metro", type: "2 BHK Flat", address: "Indira Nagar, Lucknow", units: "Vacant", rent: "₹16,500 monthly", status: "Attested", statusClass: "success" },
-    { name: "Riverside Apartments", type: "3 BHK Flat", address: "Gomti Nagar Extension", units: "Vacant", rent: "₹32,000 monthly", status: "Make poster", statusClass: "vacant" },
-    { name: "Urban Workspace", type: "Commercial", address: "Alambagh, Lucknow", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Paid", statusClass: "success" },
-    { name: "Royal Plaza Shop", type: "Commercial", address: "Hazratganj, Lucknow", units: "Vacant", rent: "₹85,000 monthly", status: "Available", statusClass: "success" },
-    { name: "Golf View Residency", type: "3 BHK Villa", address: "Sushant Golf City", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Pending", statusClass: "vacant" },
-    { name: "Archived PG", type: "PG", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning" },
-    { name: "Metro Heights", type: "2 BHK Flat", address: "Krishna Nagar, Lucknow", units: "Occupied", rent: "₹14,500 monthly", status: "Rent Paid", statusClass: "success" },
-    { name: "Transport Hub Godown", type: "Commercial", address: "Transport Nagar", units: "Vacant", rent: "₹65,000 monthly", status: "Available", statusClass: "success" },
-    { name: "Lake View PG", type: "PG", address: "Jankipuram Extension", units: "5/10 occupied", rent: "₹6,500 per bed", status: "Action Required", statusClass: "vacant" },
-    { name: "Heritage House", type: "1 BHK Flat", address: "Hazratganj", units: "Occupied", rent: "₹21,000 monthly", status: "Attested", statusClass: "success" },
-    { name: "Tech Park Office", type: "Commercial", address: "Vikas Nagar", units: "Occupied", rent: "₹95,000 monthly", status: "Rent Paid", statusClass: "success" },
-    { name: "Central Mall Shop", type: "Commercial", address: "Aminabad", units: "Vacant", rent: "₹55,000 monthly", status: "Make poster", statusClass: "vacant" },
-    { name: "Cozy Corner PG", type: "PG", address: "Telibagh", units: "8/10 occupied", rent: "₹5,000 per bed", status: "Rent Paid", statusClass: "success" }
+        { name: "Archived Flat", type: "Flat", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning", image: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop" },
+    { name: "Archived Commercial", type: "Commercial", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop" },
+    { name: "Indira Nagar Metro", type: "2 BHK Flat", address: "Indira Nagar, Lucknow", units: "Vacant", rent: "₹16,500 monthly", status: "Attested", statusClass: "success", image: "https://images.unsplash.com/photo-1502672023488-70e25813eb80?w=600&h=400&fit=crop" },
+    { name: "Riverside Apartments", type: "3 BHK Flat", address: "Gomti Nagar Extension", units: "Vacant", rent: "₹32,000 monthly", status: "Make poster", statusClass: "vacant", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=400&fit=crop" },
+    { name: "Urban Workspace", type: "Commercial", address: "Alambagh, Lucknow", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Paid", statusClass: "success", image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=600&h=400&fit=crop" },
+    { name: "Royal Plaza Shop", type: "Commercial", address: "Hazratganj, Lucknow", units: "Vacant", rent: "₹85,000 monthly", status: "Available", statusClass: "success", image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop" },
+    { name: "Golf View Residency", type: "3 BHK Villa", address: "Sushant Golf City", units: "Occupied", rent: "₹45,000 monthly", status: "Rent Pending", statusClass: "vacant", image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop" },
+    { name: "Archived PG", type: "PG", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning", image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=400&fit=crop" },
+    { name: "Metro Heights", type: "2 BHK Flat", address: "Krishna Nagar, Lucknow", units: "Occupied", rent: "₹14,500 monthly", status: "Rent Paid", statusClass: "success", image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=400&fit=crop" },
+    { name: "Transport Hub Godown", type: "Commercial", address: "Transport Nagar", units: "Vacant", rent: "₹65,000 monthly", status: "Available", statusClass: "success", image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&h=400&fit=crop" },
+    { name: "Lake View PG", type: "PG", address: "Jankipuram Extension", units: "5/10 occupied", rent: "₹6,500 per bed", status: "Action Required", statusClass: "vacant", image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&h=400&fit=crop" },
+    { name: "Heritage House", type: "1 BHK Flat", address: "Hazratganj", units: "Occupied", rent: "₹21,000 monthly", status: "Attested", statusClass: "success", image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&h=400&fit=crop" },
+    { name: "Tech Park Office", type: "Commercial", address: "Vikas Nagar", units: "Occupied", rent: "₹95,000 monthly", status: "Rent Paid", statusClass: "success", image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=600&h=400&fit=crop" },
+    { name: "Central Mall Shop", type: "Commercial", address: "Aminabad", units: "Vacant", rent: "₹55,000 monthly", status: "Make poster", statusClass: "vacant", image: "https://images.unsplash.com/photo-1580828369019-2228b6d859a7?w=600&h=400&fit=crop" },
+    { name: "Cozy Corner PG", type: "PG", address: "Telibagh", units: "8/10 occupied", rent: "₹5,000 per bed", status: "Rent Paid", statusClass: "success", image: "https://images.unsplash.com/photo-1502672260266-1c1de2d96674?w=600&h=400&fit=crop" }
   ];
   
   const moreRentRows = [

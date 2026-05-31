@@ -148,7 +148,7 @@ main { padding: 24px 28px 116px; overflow: auto; }
 .retention-strip h3 { margin: 8px 0 6px; font-size: 18px; }
 .retention-strip p { color: #633806; margin-bottom: 0; line-height: 1.45; }
 .stats-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 26px; }
-.metric, .property-card, .table-card, .tenant-panel, .sheet, .poster-preview { background: var(--white); border: 1px solid rgba(211,209,199,.85); border-radius: 8px; box-shadow: 0 10px 24px rgba(44,44,42,.06); }
+.metric, .table-card, .tenant-panel, .sheet, .poster-preview { background: var(--white); border: 1px solid rgba(211,209,199,.85); border-radius: 8px; box-shadow: 0 10px 24px rgba(44,44,42,.06); }
 .metric { padding: 18px; }
 .metric span { color: var(--muted); font-size: 14px; }
 .metric strong { display: block; font-size: 28px; margin: 8px 0 2px; }
@@ -160,15 +160,29 @@ main { padding: 24px 28px 116px; overflow: auto; }
 .section-head h2 { margin-bottom: 2px; }
 .section-head p { color: var(--muted); margin-bottom: 0; }
 .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-.property-card { overflow: hidden; }
+.property-card { 
+  background: transparent; 
+  border: none !important; 
+  box-shadow: none !important; 
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 .property-card.is-draft { border-color: #f6d38f; background: #fffdf7; }
 .property-card.health-green { border-top: 5px solid var(--success); }
 .property-card.health-yellow { border-top: 5px solid var(--warning); }
 .property-card.health-red { border-top: 5px solid var(--error); background: #fff7f7; }
-.property-photo { height: 150px; background: linear-gradient(135deg, #e1f5ee, #f6d38f); position: relative; }
-.property-photo::after { content: ""; position: absolute; inset: 18px; border: 1px solid rgba(255,255,255,.75); border-radius: 8px; }
+.property-photo { 
+  height: 240px; 
+  background: linear-gradient(135deg, #e1f5ee, #f6d38f); 
+  position: relative; 
+  border-radius: 16px; 
+  overflow: hidden; 
+}
+/* removed property-photo border */
 .photo-badge { position: absolute; left: 12px; top: 12px; z-index: 1; background: rgba(255,255,255,.92); color: var(--primary-dark); border: 1px solid rgba(255,255,255,.85); border-radius: 99px; padding: 6px 10px; font-size: 11px; font-weight: 900; text-transform: uppercase; }
-.property-body { padding: 16px; }
+.property-body { padding: 0 4px; }
 .property-meta { color: var(--muted); font-size: 14px; }
 .health-line { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 7px 8px; align-items: center; margin-bottom: 10px; }
 .health-line span { width: 10px; height: 10px; border-radius: 99px; background: var(--success); grid-row: 1 / span 2; }
