@@ -3029,12 +3029,6 @@ function setBusy(target, message) {
 }
 
 async function callGemini(prompt, imageBase64Data = null, mimeType = "image/jpeg", responseMimeType = "text/plain") {
-  const apiKey = getGeminiKey();
-  if (!apiKey) {
-    modalContent.innerHTML = getSheet("geminiKey");
-    modal.classList.add("active");
-    throw new Error("Gemini key is not available on this device yet.");
-  }
 
   const parts = [];
   if (imageBase64Data) {
