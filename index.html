@@ -146,7 +146,6 @@
             </select>
             <span class="role-chip" id="role-chip">Landlord</span>
             <button class="icon-button" aria-label="Notifications">Bell<span>3</span></button>
-            <button class="primary small" data-open="addProperty" id="add-property-action" data-i18n="action.add">+ Add Property</button>
             <button class="secondary small" id="sign-out">Sign out</button>
           </div>
         </header>
@@ -179,11 +178,9 @@
             </article>
           </div>
 
-          <div class="section-head">
-            <h2>Your Properties</h2>
-            <button class="text-button" data-view-jump="properties">View all</button>
+          <div style="margin-top: 24px;">
+            <button class="primary" data-open="addProperty" style="width: 100%; min-height: 54px; font-size: 16px;">+ Add New Property</button>
           </div>
-          <div class="property-grid" id="dashboard-properties"></div>
         </section>
 
         <section class="view" id="properties">
