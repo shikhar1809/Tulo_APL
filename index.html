@@ -145,12 +145,36 @@
               <option value="te">తెలుగు (Telugu)</option>
             </select>
             <span class="role-chip" id="role-chip">Landlord</span>
-            <button class="icon-button" aria-label="Notifications">Bell<span>3</span></button>
+            <div class="notif-wrapper desktop-only" style="position: relative;">
+              <button class="icon-button" aria-label="Notifications" id="notif-btn" style="color: var(--white); border: none; background: transparent; padding: 4px; cursor: pointer; position: relative;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span style="position: absolute; top: 0; right: 0; background: #ef4444; color: white; border-radius: 99px; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--surface);">3</span>
+              </button>
+              <div id="notif-panel" style="display: none; position: absolute; right: 0; top: calc(100% + 8px); width: 320px; background: var(--white); box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 12px; z-index: 1000; padding: 16px; border: 1px solid var(--line);">
+                <h3 style="margin-bottom: 12px; font-size: 16px; color: var(--ink);">Notifications</h3>
+                <ul style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--muted);">
+                  <li style="padding: 12px 0; border-bottom: 1px solid var(--line);"><strong>Visit notification:</strong> Room 2 viewing at 5 PM today.</li>
+                  <li style="padding: 12px 0; border-bottom: 1px solid var(--line); color: #ef4444;"><strong>Attention needed:</strong> Rent overdue for Unit 4.</li>
+                  <li style="padding: 12px 0;"><strong>System:</strong> Video Attestation expires in 7 days.</li>
+                </ul>
+              </div>
+            </div>
             <button class="secondary small" id="sign-out">Sign out</button>
           </div>
         </header>
 
         <section class="view active" id="dashboard">
+          <div class="slideshow" id="landlord-slideshow" style="margin-bottom: 24px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+            <div class="slide" style="background: linear-gradient(135deg, #1d9e75, #126349); color: white; padding: 40px 32px; display: block;">
+              <h2 style="font-size: 28px; margin-bottom: 8px;">ZERO BROKERAGE</h2>
+              <p style="font-size: 16px; opacity: 0.9;">Keep 100% of your rent with direct matching.</p>
+            </div>
+            <div class="slide" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 40px 32px; display: none;">
+              <h2 style="font-size: 28px; margin-bottom: 8px;">LIST PROPERTY THE SMART WAY</h2>
+              <p style="font-size: 16px; opacity: 0.9;">Use our AI studio to create beautiful WhatsApp posters.</p>
+            </div>
+          </div>
+
           <div class="attention-band">
             <div>
               <span class="pill danger">Attention today</span>
@@ -360,6 +384,16 @@
         </section>
 
         <section class="view" id="tenantHome">
+          <div class="slideshow" id="tenant-slideshow" style="margin-bottom: 24px; position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.1);">
+            <div class="slide" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; padding: 40px 32px; display: block;">
+              <h2 style="font-size: 28px; margin-bottom: 8px;">ENJOY FREE ATTESTED PROPERTY</h2>
+              <p style="font-size: 16px; opacity: 0.9;">100% verified listings with zero brokerage fees.</p>
+            </div>
+            <div class="slide" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 40px 32px; display: none;">
+              <h2 style="font-size: 28px; margin-bottom: 8px;">EASY RENT PREDICTOR</h2>
+              <p style="font-size: 16px; opacity: 0.9;">Use Gemini AI to check fair rent prices in your area.</p>
+            </div>
+          </div>
           <div class="welcome-banner">
             <h1>Welcome home, Priya!</h1>
             <p>Here's what's happening at Room 2, Gomti Nagar PG.</p>

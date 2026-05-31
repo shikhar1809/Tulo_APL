@@ -1016,3 +1016,37 @@ async function handleSemanticMatch() {
     grid.innerHTML = `<p style="color: var(--error)">Failed to match: ${err.message}</p>`;
   }
 }
+
+// UI Enhancements (Notifications & Slideshows)
+document.addEventListener('DOMContentLoaded', () => {
+  // Slideshow logic
+  function startSlideshow(slideshowId) {
+    const container = document.getElementById(slideshowId);
+    if (!container) return;
+    const slides = container.querySelectorAll('.slide');
+    if (slides.length < 2) return;
+    let currentIndex = 0;
+    setInterval(() => {
+      slides[currentIndex].style.display = 'none';
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].style.display = 'block';
+    }, 4000);
+  }
+  startSlideshow('landlord-slideshow');
+  startSlideshow('tenant-slideshow');
+
+  // Notification panel toggle
+  const notifBtn = document.getElementById('notif-btn');
+  const notifPanel = document.getElementById('notif-panel');
+  if (notifBtn && notifPanel) {
+    notifBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      notifPanel.style.display = notifPanel.style.display === 'none' ? 'block' : 'none';
+    });
+    document.addEventListener('click', (e) => {
+      if (!notifPanel.contains(e.target) && e.target !== notifBtn) {
+        notifPanel.style.display = 'none';
+      }
+    });
+  }
+});
