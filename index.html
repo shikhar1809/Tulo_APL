@@ -195,38 +195,46 @@
             </article>
           </div>
 
-          <div class="section-head split-section" style="margin-top: 32px;">
-            <div>
-              <h2>Maintenance Inbox</h2>
-              <p>AI-routed repairs, emergency work, and caretaker assignments.</p>
-            </div>
-            <button class="primary small" data-open="newRequest">+ New Request</button>
-          </div>
-          <div class="ai-router-panel">
-            <div>
-              <span class="pill success">AI Suggested</span>
-              <h3>High priority · Assign Vikram</h3>
-              <p>Bathroom tap dripping is likely plumbing, not emergency. Draft reply is ready for tenant approval.</p>
-            </div>
-            <button class="secondary" data-ai="maintenanceTriage">Review AI route</button>
-          </div>
-          <div class="request-list" id="request-list"></div>
-
           <div style="margin-top: 24px;">
             <button class="primary" data-open="addProperty" style="width: 100%; min-height: 54px; font-size: 16px;">+ Add New Property</button>
           </div>
         </section>
 
         <section class="view" id="properties">
-          <div class="section-head">
-            <div>
-              <h2>Properties</h2>
-              <p>Manage units and repair work from one operating view.</p>
-            </div>
-            <button class="primary small" data-open="addProperty">+ Add Property</button>
+          <div style="display: flex; gap: 8px; margin-bottom: 24px; background: var(--white); padding: 4px; border-radius: 99px; border: 1px solid var(--line);">
+            <button id="tab-btn-properties" onclick="document.getElementById('sub-properties').style.display='block'; document.getElementById('sub-maintenance').style.display='none'; this.style.background='var(--primary)'; this.style.color='var(--white)'; document.getElementById('tab-btn-maintenance').style.background='transparent'; document.getElementById('tab-btn-maintenance').style.color='var(--ink)';" style="flex: 1; cursor: pointer; background: var(--primary); color: var(--white); border: none; border-radius: 99px; padding: 10px; font-weight: 700; transition: all 0.2s;">Properties</button>
+            <button id="tab-btn-maintenance" onclick="document.getElementById('sub-properties').style.display='none'; document.getElementById('sub-maintenance').style.display='block'; this.style.background='var(--primary)'; this.style.color='var(--white)'; document.getElementById('tab-btn-properties').style.background='transparent'; document.getElementById('tab-btn-properties').style.color='var(--ink)';" style="flex: 1; cursor: pointer; background: transparent; color: var(--ink); border: none; border-radius: 99px; padding: 10px; font-weight: 700; transition: all 0.2s;">Maintenance</button>
           </div>
-          <div class="property-grid" id="properties-list"></div>
 
+          <div id="sub-properties">
+            <div class="section-head">
+              <div>
+                <h2>Properties</h2>
+                <p>Manage units and repair work from one operating view.</p>
+              </div>
+              <button class="primary small" data-open="addProperty">+ Add Property</button>
+            </div>
+            <div class="property-grid" id="properties-list"></div>
+          </div>
+
+          <div id="sub-maintenance" style="display: none;">
+            <div class="section-head split-section">
+              <div>
+                <h2>Maintenance Inbox</h2>
+                <p>AI-routed repairs, emergency work, and caretaker assignments.</p>
+              </div>
+              <button class="primary small" data-open="newRequest">+ New Request</button>
+            </div>
+            <div class="ai-router-panel">
+              <div>
+                <span class="pill success">AI Suggested</span>
+                <h3>High priority · Assign Vikram</h3>
+                <p>Bathroom tap dripping is likely plumbing, not emergency. Draft reply is ready for tenant approval.</p>
+              </div>
+              <button class="secondary" data-ai="maintenanceTriage">Review AI route</button>
+            </div>
+            <div class="request-list" id="request-list"></div>
+          </div>
         </section>
 
         <section class="view" id="mapView" style="position: relative; height: calc(100vh - 80px); padding: 0;">
