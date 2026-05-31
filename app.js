@@ -1253,17 +1253,17 @@ async function seedRealDatabase() {
   await productionBatch.commit();
   localStorage.setItem("tulo_production_seeded_v1", "true");
 
-  if (localStorage.getItem("tulo_db_seeded_v2")) return;
+  if (localStorage.getItem("tulo_db_seeded_v5")) return;
   const seedProperties = [
         { name: "Vibhuti Khand Premium", type: "2 BHK Flat", address: "Vibhuti Khand, Gomti Nagar", units: "Occupied", rent: "₹26,000 monthly", status: "Attested · 52 days left", statusClass: "success", image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" },
     { name: "Hazratganj Heritage", type: "3 BHK Flat", address: "Near Vidhan Sabha Marg", units: "Occupied", rent: "₹38,000 monthly", status: "Rent paid", statusClass: "success", image: "https://images.unsplash.com/photo-1502672260266-1c1de2d96674?w=600&h=400&fit=crop" },
     { name: "Aliganj Independent", type: "1 BHK Builder Floor", address: "Sector Q, Aliganj", units: "Vacant", rent: "₹9,500 expected", status: "Make poster", statusClass: "vacant", image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&h=400&fit=crop" }
   ];
   const seedRentRows = [
-    { unit: "Room 1", tenant: "Ajay Kumar", amount: "₹7,000", status: "Paid", action: "Receipt" },
-    { unit: "Archived listing", tenant: "Applicant", amount: "INR 0", status: "Archived", action: "Ignore" },
-    { unit: "Room 3", tenant: "Vacant", amount: "—", status: "Vacant", action: "Add tenant" },
-    { unit: "Flat A", tenant: "Nisha Verma", amount: "₹18,000", status: "Paid", action: "Receipt" }
+    { unit: "Vibhuti Khand Premium", tenant: "Sanjay Mishra", amount: "₹26,000", status: "Paid", action: "Receipt" },
+    { unit: "Hazratganj Heritage", tenant: "Riya Sharma", amount: "₹38,000", status: "Paid", action: "Receipt" },
+    { unit: "Aliganj Independent", tenant: "Vacant", amount: "—", status: "Vacant", action: "Add tenant" },
+    { unit: "Indira Nagar Metro", tenant: "Karan Verma", amount: "₹16,500", status: "Overdue", action: "Mark paid" }
   ];
   const seedRequests = [
     { title: "Archived task", unit: "Archived listing", status: "Closed", priority: "Low", emergency: false },
@@ -1271,9 +1271,9 @@ async function seedRealDatabase() {
     { title: "AC service needed", unit: "Flat A · Nisha Verma", status: "Assigned", priority: "Low", emergency: false }
   ];
   const seedTenantRentHistory = [
-    { month: "Apr 2026", amount: "₹7,000", status: "Paid", date: "02/04/2026", action: "Receipt" },
-    { month: "Mar 2026", amount: "₹7,000", status: "Paid", date: "01/03/2026", action: "Receipt" },
-    { month: "Feb 2026", amount: "₹7,000", status: "Paid", date: "03/02/2026", action: "Receipt" }
+    { month: "May 2026", amount: "₹14,500", status: "Paid", date: "02/05/2026", action: "Receipt" },
+    { month: "Apr 2026", amount: "₹14,500", status: "Paid", date: "01/04/2026", action: "Receipt" },
+    { month: "Mar 2026", amount: "₹14,500", status: "Paid", date: "03/03/2026", action: "Receipt" }
   ];
   const seedTenantRequests = [
     { title: "Bathroom tap dripping", status: "In progress", priority: "Medium", emergency: false, date: "20/04/2026" },
@@ -1288,11 +1288,11 @@ async function seedRealDatabase() {
   seedTenantRequests.forEach(r => batch.set(db.collection("tenantRequests").doc(), r));
   
   await batch.commit();
-  localStorage.setItem("tulo_db_seeded_v2", "true");
+  localStorage.setItem("tulo_db_seeded_v5", "true");
 }
 
 async function ensureProductionCatalogOnly() {
-  if (localStorage.getItem("tulo_archived_map_seeded_v4")) return;
+  if (localStorage.getItem("tulo_archived_map_seeded_v5")) return;
   const archivedProperties = [
         { name: "Archived Flat", type: "Flat", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning", image: "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&h=400&fit=crop" },
     { name: "Archived Commercial", type: "Commercial", address: "Lucknow", units: "Archived", rent: "INR 0", status: "Archived", statusClass: "warning", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop" },
@@ -1312,10 +1312,11 @@ async function ensureProductionCatalogOnly() {
   ];
   
   const moreRentRows = [
-    { unit: "Flat B", tenant: "Suresh Gupta", amount: "₹15,000", status: "Paid", action: "Receipt" },
-    { unit: "Flat C", tenant: "Karan Singh", amount: "₹35,000", status: "Overdue", action: "Mark paid" },
-    { unit: "Shop 101", tenant: "Ravi Traders", amount: "₹45,000", status: "Paid", action: "Receipt" },
-    { unit: "PG Room 5", tenant: "Vikram", amount: "₹6,000", status: "Paid", action: "Receipt" }
+    { unit: "Riverside Apartments", tenant: "Vacant", amount: "—", status: "Vacant", action: "Add tenant" },
+    { unit: "Urban Workspace", tenant: "Priya Tech Solutions", amount: "₹45,000", status: "Paid", action: "Receipt" },
+    { unit: "Royal Plaza Shop", tenant: "Vacant", amount: "—", status: "Vacant", action: "Add tenant" },
+    { unit: "Golf View Residency", tenant: "Amit Singh", amount: "₹45,000", status: "Overdue", action: "Mark paid" },
+    { unit: "Metro Heights", tenant: "Divya Kapoor", amount: "₹14,500", status: "Paid", action: "Receipt" }
   ];
   
   const moreRequests = [
@@ -1331,7 +1332,7 @@ async function ensureProductionCatalogOnly() {
   moreRequests.forEach(r => batch.set(db.collection("requests").doc(), r));
   
   await batch.commit();
-  localStorage.setItem("tulo_archived_map_seeded_v4", "true");
+  localStorage.setItem("tulo_archived_map_seeded_v5", "true");
 }
 
 function seedLocalCatalog() {
@@ -1668,7 +1669,7 @@ function propertyCard(property) {
         <div class="ideal-tenant-box" style="margin-top:16px; background:#f5f6f8; padding:12px; border-radius:8px;">
           <label style="display:block; font-weight:600; margin-bottom:6px; font-size:14px;">Ideal Tenant Profile (For AI Matching)</label>
           <textarea data-tenant-profile-id="${escapeHtml(property.id)}" style="width:100%; padding:8px; border:1px solid var(--line); border-radius:4px; font-size:14px; min-height:60px;" placeholder="Describe your ideal tenant (e.g. Family only, no pets, working professionals)">${escapeHtml(property.idealTenantProfile || "")}</textarea>
-          <button class="secondary small save-tenant-profile-btn" data-property-id="${escapeHtml(property.id)}" style="margin-top:8px;">Save Profile</button>
+          <button class="save-tenant-profile-btn" data-property-id="${escapeHtml(property.id)}" style="margin-top:8px; background: #000; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;">Save Profile</button>
         </div>
         ${live ? `<div class="attest-freshness">Attested videos expire every ${ATTESTATION_VALID_DAYS} days. Current video age: ${age} days.</div>` : `<div class="publish-lock">${expired ? "Attested video expired. Record a fresh video to publish again." : "Attested video is mandatory before this property appears in search, posters, or map listings."}</div>`}
         <div class="card-actions">
