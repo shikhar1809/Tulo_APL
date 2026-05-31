@@ -58,29 +58,29 @@
         <div class="brand">
           <img class="brand-logo" src="assets/tulo-logo.svg" alt="TULO" />
         </div>        <nav class="nav" id="landlord-nav">
-          <button class="nav-item active" data-view="dashboard" data-title="Dashboard">
+          <button class="nav-item active" data-view="dashboard" data-title="Home">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10.5V20h14v-9.5"/><path d="M9 20v-6h6v6"/></svg>
             </span>
-            <span class="nav-label" data-i18n="nav.dashboard">Dashboard</span>
+            <span class="nav-label" data-i18n="nav.home">Home</span>
           </button>
-          <button class="nav-item" data-view="properties" data-title="Properties & Maintenance">
+          <button class="nav-item" data-view="properties" data-title="My Properties & Maintenance">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v16"/><path d="M9 21v-5h3v5"/><path d="M8 7h1"/><path d="M12 7h1"/><path d="M8 11h1"/><path d="M12 11h1"/><path d="M17 9h1a2 2 0 0 1 2 2v10"/></svg>
             </span>
-            <span class="nav-label" data-i18n="nav.properties">Properties</span>
-          </button>
-          <button class="nav-item" data-view="rentTenant" data-title="Rent & Tenant View">
-            <span class="nav-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
-            </span>
-            <span class="nav-label" data-i18n="nav.rent">Rent</span>
+            <span class="nav-label">My Properties</span>
           </button>
           <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
             </span>
             <span class="nav-label" data-i18n="nav.map">Map</span>
+          </button>
+          <button class="nav-item" data-view="rentTenant" data-title="Rent & Tenant View">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7 6h10"/><path d="M7 10h10"/><path d="M9 6c4 0 4 6 0 6H7l6 6"/><path d="M17 18h3"/><path d="M18.5 16.5v3"/></svg>
+            </span>
+            <span class="nav-label" data-i18n="nav.rent">Rent</span>
           </button>
           <button class="nav-item" data-view="aiAndPosters" data-title="AI Studio & Poster Maker">
             <span class="nav-icon" aria-hidden="true">
@@ -96,11 +96,11 @@
             </span>
             <span class="nav-label" data-i18n="nav.home">Home</span>
           </button>
-          <button class="nav-item" data-view="tenantProperty" data-title="My Property & Lease">
+          <button class="nav-item" data-view="tenantProperty" data-title="Explore Properties">
             <span class="nav-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8"/><path d="M8 12h5"/><path d="M8 16h8"/></svg>
             </span>
-            <span class="nav-label">Property</span>
+            <span class="nav-label">Explore</span>
           </button>
           <button class="nav-item" data-view="mapView" data-title="Lucknow Map">
             <span class="nav-icon" aria-hidden="true">
@@ -275,65 +275,77 @@
         </section>
 
         <section class="view" id="aiAndPosters">
-          <div class="poster-layout">
-            <div>
-              <p class="eyebrow">Template</p>
-              <h2>Create vacancy poster</h2>
-              <div class="template-row">
-                <button class="template active">Modern Blue</button>
-                <button class="template">Classic</button>
-                <button class="template">Bold</button>
-                <button class="template">Minimal</button>
+          <details class="compact-tool">
+            <summary style="cursor: pointer; padding: 16px 0; border-bottom: 1px solid var(--line);">
+              <h2 style="display: inline-block; margin: 0;">Poster Maker</h2>
+              <span style="color: var(--muted); margin-left: 8px;">(Click to expand)</span>
+            </summary>
+            <div class="poster-layout" style="margin-top: 24px;">
+              <div>
+                <p class="eyebrow">Template</p>
+                <h2>Create vacancy poster</h2>
+                <div class="template-row">
+                  <button class="template active">Modern Blue</button>
+                  <button class="template">Classic</button>
+                  <button class="template">Bold</button>
+                  <button class="template">Minimal</button>
+                </div>
+                <label>Rent amount<input id="poster-rent" value="₹7,000/month" /></label>
+                <label>Locality<input id="poster-locality" value="Gomti Nagar, Lucknow" /></label>
+                <label>Poster headline<input id="poster-headline-input" value="ROOM AVAILABLE" /></label>
+                <div class="button-row">
+                  <button class="primary" data-ai="poster">Generate with Gemini</button>
+                  <button class="secondary" id="export-poster">Export poster</button>
+                </div>
+                <div class="ai-output" id="poster-ai-output">Gemini can create poster copy, amenities, and share captions for WhatsApp or Instagram.</div>
               </div>
-              <label>Rent amount<input id="poster-rent" value="₹7,000/month" /></label>
-              <label>Locality<input id="poster-locality" value="Gomti Nagar, Lucknow" /></label>
-              <label>Poster headline<input id="poster-headline-input" value="ROOM AVAILABLE" /></label>
-              <div class="button-row">
-                <button class="primary" data-ai="poster">Generate with Gemini</button>
-                <button class="secondary" id="export-poster">Export poster</button>
+              <div class="poster-preview">
+                <div class="poster-photo"></div>
+                <h3 id="poster-headline">ROOM AVAILABLE</h3>
+                <p id="poster-place">Gomti Nagar, Lucknow</p>
+                <strong id="poster-price">₹7,000/month</strong>
+                <div class="amenities" id="poster-amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
+                <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
               </div>
-              <div class="ai-output" id="poster-ai-output">Gemini can create poster copy, amenities, and share captions for WhatsApp or Instagram.</div>
             </div>
-            <div class="poster-preview">
-              <div class="poster-photo"></div>
-              <h3 id="poster-headline">ROOM AVAILABLE</h3>
-              <p id="poster-place">Gomti Nagar, Lucknow</p>
-              <strong id="poster-price">₹7,000/month</strong>
-              <div class="amenities" id="poster-amenities"><span>AC</span><span>WiFi</span><span>Meals</span></div>
-              <div class="poster-footer"><span>98XXX XXXXX</span><div class="qr">QR</div></div>
+          </details>
+          <details class="compact-tool" style="margin-top: 24px;">
+            <summary style="cursor: pointer; padding: 16px 0; border-bottom: 1px solid var(--line);">
+              <h2 style="display: inline-block; margin: 0;">AI Studio Tools</h2>
+              <span style="color: var(--muted); margin-left: 8px;">(Click to expand)</span>
+            </summary>
+            <div style="margin-top: 24px;">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Gemini 2.5 Flash</p>
+                  <p id="gemini-state">Gemini is ready for poster copy, reminders, maintenance triage, and tenant invites.</p>
+                </div>
+              </div>
+              <div class="ai-grid">
+                <article class="ai-card">
+                  <h3>Smart Maintenance Router</h3>
+                  <p>Classify priority, draft tenant reply, and suggest the right caretaker in seconds.</p>
+                  <button class="primary small" data-ai="maintenanceTriage">Generate route</button>
+                </article>
+                <article class="ai-card">
+                  <h3>Lease Autofill</h3>
+                  <p>Pre-fill lease terms from property, unit, rent, deposit, landlord, and tenant records.</p>
+                  <button class="primary small" data-ai="leaseAutofill">Generate lease fields</button>
+                </article>
+                <article class="ai-card">
+                  <h3>KYC Review</h3>
+                  <p>Check Aadhaar document type, name match, and image quality as an advisory review.</p>
+                  <button class="primary small" data-ai="kycReview" id="kyc-review-btn">Review sample</button>
+                </article>
+                <article class="ai-card">
+                  <h3>Vacancy listing</h3>
+                  <p>Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
+                  <button class="primary small" data-ai="listing">Generate</button>
+                </article>
+              </div>
+              <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
             </div>
-          </div>
-          <hr style="margin: 40px 0; border: none; border-top: 1px solid var(--line);" />
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Gemini 2.5 Flash</p>
-              <h2>AI Studio</h2>
-              <p id="gemini-state">Gemini is ready for poster copy, reminders, maintenance triage, and tenant invites.</p>
-            </div>
-          </div>
-          <div class="ai-grid">
-            <article class="ai-card">
-              <h3>Smart Maintenance Router</h3>
-              <p>Classify priority, draft tenant reply, and suggest the right caretaker in seconds.</p>
-              <button class="primary small" data-ai="maintenanceTriage">Generate route</button>
-            </article>
-            <article class="ai-card">
-              <h3>Lease Autofill</h3>
-              <p>Pre-fill lease terms from property, unit, rent, deposit, landlord, and tenant records.</p>
-              <button class="primary small" data-ai="leaseAutofill">Generate lease fields</button>
-            </article>
-            <article class="ai-card">
-              <h3>KYC Review</h3>
-              <p>Check Aadhaar document type, name match, and image quality as an advisory review.</p>
-              <button class="primary small" data-ai="kycReview" id="kyc-review-btn">Review sample</button>
-            </article>
-            <article class="ai-card">
-              <h3>Vacancy listing</h3>
-              <p>Create a Lucknow-local listing using verified amenities and attest-video trust cues.</p>
-              <button class="primary small" data-ai="listing">Generate</button>
-            </article>
-          </div>
-          <div class="ai-output large" id="ai-output">Choose an AI action to generate copy here.</div>
+          </details>
         </section>
 
         <section class="view" id="rentTenant">
